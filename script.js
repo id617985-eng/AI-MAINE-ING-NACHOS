@@ -138,3 +138,4 @@ function flyToCart(img) {
 }
 
 updateCartDisplay();
+
