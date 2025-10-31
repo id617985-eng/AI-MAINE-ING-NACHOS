@@ -13,7 +13,7 @@ function checkout() {
         return;
     }
 
-    // Build the order summary
+    // Build the order summary with item subtotals
     let orderSummary = `Hello! I'm placing an order for pick-up.
 *CUSTOMER NAME: ${customerName}
 *PICK-UP TIME: ${pickupTime}
@@ -24,7 +24,7 @@ function checkout() {
     cart.forEach(item => {
         const itemTotal = item.price * item.quantity;
         total += itemTotal;
-        orderSummary += `\n(${item.quantity}x) ${item.name} - ${currencySymbol}${item.price} each`;
+        orderSummary += `\n(${item.quantity}x) ${item.name} - ${currencySymbol}${item.price} each (Subtotal: ${currencySymbol}${itemTotal.toFixed(0)})`;
     });
 
     orderSummary += `\nTOTAL AMOUNT: ${currencySymbol}${total.toFixed(0)}
