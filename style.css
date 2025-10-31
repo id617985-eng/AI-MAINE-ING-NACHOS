@@ -113,9 +113,7 @@ p {
 
 /* Cart Popup */
 #cart-popup {
-    position: fixed;
-    top: 60px;
-    right: 20px;
+    position: absolute; /* instead of fixed */
     width: 320px;
     background: #fff;
     border-radius: 12px;
@@ -123,7 +121,9 @@ p {
     padding: 20px;
     display: none;
     z-index: 1000;
+    transform: translateY(-100%); /* show above button */
 }
+
 
 .cart-header {
     display: flex;
@@ -237,3 +237,4 @@ p {
         right: 5%;
     }
 }
+
