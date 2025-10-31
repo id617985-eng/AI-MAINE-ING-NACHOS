@@ -2,20 +2,26 @@ let cart = [];
 const currencySymbol = '₱';
 const messengerChatLink = 'https://www.messenger.com/e2ee/t/8941907542595225';
 
-function addToCart(name, price, btn) {
+function addToCart(btn) {
+    const menuItem = btn.closest('.menu-item');
+    const name = menuItem.dataset.name;
+    const price = parseFloat(menuItem.dataset.price); // get correct price
+    const img = menuItem.querySelector('img');
+
     const existingItem = cart.find(item => item.name === name);
+
     if (existingItem) {
         existingItem.quantity += 1;
     } else {
         cart.push({ name, price, quantity: 1 });
     }
+
     updateCartDisplay();
 
     const cartBtn = document.getElementById('cart-trigger');
     cartBtn.classList.add('bouncing');
     setTimeout(() => cartBtn.classList.remove('bouncing'), 500);
 
-    const img = btn.closest('.menu-item').querySelector('img');
     flyToCart(img);
 }
 
@@ -23,9 +29,9 @@ function updateCartDisplay() {
     const cartItemsList = document.getElementById('cart-items');
     const cartTotalElement = document.getElementById('cart-total');
     const cartCountElement = document.getElementById('cart-count');
-    
+
     cartItemsList.innerHTML = '';
-    
+
     let total = 0;
     let totalItems = 0;
 
@@ -40,14 +46,11 @@ function updateCartDisplay() {
 
             const li = document.createElement('li');
             li.innerHTML = `
-                <img src="${getImageSrc(item.name)}" alt="${item.name}" class="cart-item-img">
-                <div class="cart-item-info">
-                    <span class="item-name">${item.name}</span>
-                    <div class="quantity-controls">
-                        <button onclick="changeQuantity(${index}, -1)">-</button>
-                        <span class="item-quantity">${item.quantity}</span>
-                        <button onclick="changeQuantity(${index}, 1)">+</button>
-                    </div>
+                <span class="item-name">${item.name}</span>
+                <div class="quantity-controls">
+                    <button onclick="changeQuantity(${index}, -1)">-</button>
+                    <span class="item-quantity">${item.quantity}</span>
+                    <button onclick="changeQuantity(${index}, 1)">+</button>
                 </div>
                 <span class="item-price">${currencySymbol}${itemTotal.toFixed(0)}</span>
             `;
@@ -56,8 +59,8 @@ function updateCartDisplay() {
         document.getElementById('checkout-btn').disabled = false;
     }
 
-    animateNumber(cartCountElement, totalItems);
-    animateNumber(cartTotalElement, total, true);
+    cartTotalElement.textContent = `${currencySymbol}${total.toFixed(0)}`;
+    cartCountElement.textContent = totalItems;
 }
 
 function changeQuantity(index, delta) {
@@ -86,9 +89,9 @@ function checkout() {
     }
 
     let orderSummary = "Hello! I'm placing an order for pick-up.\n";
-    orderSummary += `CUSTOMER NAME: ${customerName}\n`;
-    orderSummary += `PICK-UP TIME: ${pickupTime}\n`;
-    orderSummary += `PAYMENT METHOD: ${paymentMethod}\n`;
+    orderSummary += `*CUSTOMER NAME: ${customerName}\n`;
+    orderSummary += `*PICK-UP TIME: ${pickupTime}\n`;
+    orderSummary += `*PAYMENT METHOD: ${paymentMethod}\n`;
     orderSummary += "--- ORDER DETAILS ---\n";
 
     let total = 0;
@@ -117,46 +120,21 @@ function flyToCart(img) {
     imgClone.style.left = imgRect.left + 'px';
     imgClone.style.width = imgRect.width + 'px';
     imgClone.style.height = imgRect.height + 'px';
-    imgClone.style.transition = 'all 0.7s ease-in-out, opacity 0.7s';
+    imgClone.style.transition = 'all 0.7s ease-in-out';
     imgClone.style.zIndex = 1000;
     document.body.appendChild(imgClone);
 
     setTimeout(() => {
         imgClone.style.top = cartRect.top + 'px';
         imgClone.style.left = cartRect.left + 'px';
-        imgClone.style.width = '30px';
-        imgClone.style.height = '30px';
-        imgClone.style.opacity = '0';
+        imgClone.style.width = '25px';  // smaller size
+        imgClone.style.height = '25px';
+        imgClone.style.opacity = '0.5';
     }, 10);
 
-    setTimeout(() => imgClone.remove(), 710);
-}
-
-function getImageSrc(name) {
-    switch(name) {
-        case "Regular Nachos": return "image/566525427_2187368088422232_3281536944644291040_n.jpg";
-        case "Veggie Nachos": return "image/veggie nachos.jpg";
-        case "Overload Cheesy Nachos": return "image/overload chees nachos.jpg";
-        case "Nacho Combo": return "image/combo.jpg";
-        case "Nacho Fries": return "image/nacho fries.jpg";
-        default: return "image/default.jpg";
-    }
-}
-
-function animateNumber(element, value, isCurrency=false) {
-    const start = parseFloat(element.textContent.replace(currencySymbol,'') || 0);
-    const end = value;
-    const duration = 300;
-    const startTime = performance.now();
-
-    function update(time) {
-        const progress = Math.min((time - startTime)/duration, 1);
-        const current = start + (end - start) * progress;
-        element.textContent = isCurrency ? `${currencySymbol}${current.toFixed(0)}` : Math.floor(current);
-        if (progress < 1) requestAnimationFrame(update);
-    }
-
-    requestAnimationFrame(update);
+    setTimeout(() => {
+        imgClone.remove();
+    }, 710);
 }
 
 updateCartDisplay();
