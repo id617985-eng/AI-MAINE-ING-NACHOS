@@ -9,238 +9,110 @@
 </head>
 <body>
 
-    <div class="container">
-        <header>
-            <img src="image/Nostalgic Nachos Logo with Playful Script Font.png" alt="Ai-Maize-ing Nachos Logo" class="logo">
-            <h1>Ai-Maize-ing Nachos</h1>
-            <p>Select your items below, then click <strong>View Cart</strong> to complete your order.</p>
-        </header>
+<div class="container">
+    <header>
+        <img src="image/Nostalgic Nachos Logo with Playful Script Font.png" alt="Ai-Maize-ing Nachos Logo" class="logo">
+        <h1>Ai-Maize-ing Nachos</h1>
+        <p>Select your items below, then click <strong>View Cart</strong> to complete your order.</p>
+    </header>
 
-        <section id="menu">
-            <h2>Our Menu</h2>
-            <div class="menu-grid">
+    <section id="menu">
+        <h2>Our Menu</h2>
+        <div class="menu-grid">
 
-                <div class="menu-item" data-name="Regular Nachos" data-price="100">
-                    <img src="image/566525427_2187368088422232_3281536944644291040_n.jpg" alt="Regular Nachos">
-                    <div class="menu-item-content">
-                        <h3>Regular Nachos</h3>
-                        <p class="description">Classic nachos loaded with cheese sauce and fresh toppings, served right in the bag for nostalgia!</p>
-                        <p class="price">₱100</p>
-                        <button class="add-to-cart-btn" onclick="addToCart('Regular Nachos', 100, this.closest('.menu-item').querySelector('img'))">Add to Cart</button>
-                    </div>
+            <div class="menu-item" data-name="Regular Nachos" data-price="100">
+                <img src="image/566525427_2187368088422232_3281536944644291040_n.jpg" alt="Regular Nachos">
+                <div class="menu-item-content">
+                    <h3>Regular Nachos</h3>
+                    <p class="description">Classic nachos loaded with cheese sauce and fresh toppings, served right in the bag for nostalgia!</p>
+                    <p class="price">₱100</p>
+                    <button class="add-to-cart-btn" onclick="addToCart('Regular Nachos', 100, this)">Add to Cart</button>
                 </div>
-
-                <div class="menu-item" data-name="Veggie Nachos" data-price="120">
-                    <img src="image/veggie nachos.jpg" alt="Veggie Nachos">
-                    <div class="menu-item-content">
-                        <h3>Veggie Nachos</h3>
-                        <p class="description">A fresh, vibrant mix of crisp veggies, sauces, and chips, all laid on a bed of lettuce.</p>
-                        <p class="price">₱120</p>
-                        <button class="add-to-cart-btn" onclick="addToCart('Veggie Nachos', 120, this.closest('.menu-item').querySelector('img'))">Add to Cart</button>
-                    </div>
-                </div>
-
-                <div class="menu-item" data-name="Overload Cheesy Nachos" data-price="180">
-                    <img src="image/overload chees nachos.jpg" alt="Overload Cheesy Nachos">
-                    <div class="menu-item-content">
-                        <h3>Overload Cheesy Nachos</h3>
-                        <p class="description">The ultimate cheese experience! Piled high with savory meat, veggies, and a mountain of shredded cheese.</p>
-                        <p class="price">₱180</p>
-                        <button class="add-to-cart-btn" onclick="addToCart('Overload Cheesy Nachos', 180, this.closest('.menu-item').querySelector('img'))">Add to Cart</button>
-                    </div>
-                </div>
-
-                <div class="menu-item" data-name="Nacho Combo" data-price="150">
-                    <img src="image/combo.jpg" alt="Nacho Combo">
-                    <div class="menu-item-content">
-                        <h3>Nacho Combo</h3>
-                        <p class="description">The perfect pair! Our classic nachos served conveniently over a refreshing blue lemonade.</p>
-                        <p class="price">₱150</p>
-                        <button class="add-to-cart-btn" onclick="addToCart('Nacho Combo', 150, this.closest('.menu-item').querySelector('img'))">Add to Cart</button>
-                    </div>
-                </div>
-
-                <div class="menu-item" data-name="Nacho Fries" data-price="140">
-                    <img src="image/nacho fries.jpg" alt="Nacho Fries">
-                    <div class="menu-item-content">
-                        <h3>Nacho Fries</h3>
-                        <p class="description">Can't decide? Have both! Crispy golden fries loaded with all your favorite nacho toppings.</p>
-                        <p class="price">₱140</p>
-                        <button class="add-to-cart-btn" onclick="addToCart('Nacho Fries', 140, this.closest('.menu-item').querySelector('img'))">Add to Cart</button>
-                    </div>
-                </div>
-
             </div>
-        </section>
 
+            <div class="menu-item" data-name="Veggie Nachos" data-price="120">
+                <img src="image/veggie nachos.jpg" alt="Veggie Nachos">
+                <div class="menu-item-content">
+                    <h3>Veggie Nachos</h3>
+                    <p class="description">A fresh, vibrant mix of crisp veggies, sauces, and chips, all laid on a bed of lettuce.</p>
+                    <p class="price">₱120</p>
+                    <button class="add-to-cart-btn" onclick="addToCart('Veggie Nachos', 120, this)">Add to Cart</button>
+                </div>
+            </div>
+
+            <div class="menu-item" data-name="Overload Cheesy Nachos" data-price="180">
+                <img src="image/overload chees nachos.jpg" alt="Overload Cheesy Nachos">
+                <div class="menu-item-content">
+                    <h3>Overload Cheesy Nachos</h3>
+                    <p class="description">The ultimate cheese experience! Piled high with savory meat, veggies, and a mountain of shredded cheese.</p>
+                    <p class="price">₱180</p>
+                    <button class="add-to-cart-btn" onclick="addToCart('Overload Cheesy Nachos', 180, this)">Add to Cart</button>
+                </div>
+            </div>
+
+            <div class="menu-item" data-name="Nacho Combo" data-price="150">
+                <img src="image/combo.jpg" alt="Nacho Combo">
+                <div class="menu-item-content">
+                    <h3>Nacho Combo</h3>
+                    <p class="description">The perfect pair! Our classic nachos served conveniently over a refreshing blue lemonade.</p>
+                    <p class="price">₱150</p>
+                    <button class="add-to-cart-btn" onclick="addToCart('Nacho Combo', 150, this)">Add to Cart</button>
+                </div>
+            </div>
+
+            <div class="menu-item" data-name="Nacho Fries" data-price="140">
+                <img src="image/nacho fries.jpg" alt="Nacho Fries">
+                <div class="menu-item-content">
+                    <h3>Nacho Fries</h3>
+                    <p class="description">Can't decide? Have both! Crispy golden fries loaded with all your favorite nacho toppings.</p>
+                    <p class="price">₱140</p>
+                    <button class="add-to-cart-btn" onclick="addToCart('Nacho Fries', 140, this)">Add to Cart</button>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+</div>
+
+<button id="cart-trigger" onclick="toggleCart()">
+    View Cart (<span id="cart-count">0</span>)
+</button>
+
+<div id="cart-popup" class="hidden">
+    <div class="cart-header">
+        <h3>Your Order</h3>
+        <button class="close-btn" onclick="toggleCart()">X</button>
     </div>
     
-    <button id="cart-trigger" onclick="toggleCart()">
-        View Cart (<span id="cart-count">0</span>)
-    </button>
+    <ul id="cart-items"></ul>
+    
+    <div class="cart-summary">
+        <p>Total: <span id="cart-total">₱0</span></p>
 
-    <div id="cart-popup" class="hidden">
-        <div class="cart-header">
-            <h3>Your Order</h3>
-            <button class="close-btn" onclick="toggleCart()">X</button>
+        <div class="order-details">
+            <h4>Order Details:</h4>
+            <input type="text" id="customer-name" placeholder="Your Name for Pickup" required>
+            <input type="text" id="pickup-time" placeholder="Approx. Pick-up Time (e.g., 6:30 PM)" required>
         </div>
         
-        <ul id="cart-items"></ul>
-        
-        <div class="cart-summary">
-            <p>Total: <span id="cart-total">₱0</span></p>
-
-            <div class="order-details">
-                <h4>Order Details:</h4>
-                <input type="text" id="customer-name" placeholder="Your Name for Pickup" required>
-                <input type="text" id="pickup-time" placeholder="Approx. Pick-up Time (e.g., 6:30 PM)" required>
-            </div>
-            
-            <div class="payment-options">
-                <h4>Payment Method:</h4>
-                <select id="payment-method">
-                    <option value="Cash on Pick-up">Cash on Pick-up</option>
-                    <option value="Gcash">Gcash / PayMaya</option>
-                    <option value="Bank Transfer">Bank Transfer</option>
-                </select>
-            </div>
-
-            <button id="checkout-btn" onclick="checkout()">
-                Send Order & Notify Us
-            </button>
-            <p class="note">We will reply via Messenger when your order is ready for pick-up!</p>
+        <div class="payment-options">
+            <h4>Payment Method:</h4>
+            <select id="payment-method">
+                <option value="Cash on Pick-up">Cash on Pick-up</option>
+                <option value="Gcash">Gcash / PayMaya</option>
+                <option value="Bank Transfer">Bank Transfer</option>
+            </select>
         </div>
+
+        <button id="checkout-btn" onclick="checkout()">
+            Send Order & Notify Us
+        </button>
+        <p class="note">We will reply via Messenger when your order is ready for pick-up!</p>
     </div>
+</div>
 
-    <script>
-        let cart = [];
-        const currencySymbol = '₱';
-        const pageUsername = 'https://web.facebook.com/profile.php?id=61577122178743';
+<script src="script.js"></script>
 
-        function addToCart(name, price, imgElement) {
-            name = String(name);
-            const existingItem = cart.find(item => item.name === name);
-
-            if (existingItem) {
-                existingItem.quantity += 1;
-            } else {
-                cart.push({ name, price, quantity: 1 });
-            }
-
-            updateCartDisplay();
-
-            // Animate cart button
-            const cartBtn = document.getElementById('cart-trigger');
-            cartBtn.classList.remove('bouncing');
-            void cartBtn.offsetWidth;
-            cartBtn.classList.add('bouncing');
-
-            // Fly image to cart
-            if (imgElement) flyToCart(imgElement);
-        }
-
-        function updateCartDisplay() {
-            const cartItemsList = document.getElementById('cart-items');
-            const cartTotalElement = document.getElementById('cart-total');
-            const cartCountElement = document.getElementById('cart-count');
-            
-            cartItemsList.innerHTML = ''; 
-            
-            let total = 0;
-            let totalItems = 0;
-
-            if (cart.length === 0) {
-                cartItemsList.innerHTML = '<li class="empty-cart">Your cart is empty.</li>';
-                document.getElementById('checkout-btn').disabled = true;
-            } else {
-                cart.forEach((item, index) => {
-                    const itemTotal = item.price * item.quantity;
-                    total += itemTotal;
-                    totalItems += item.quantity;
-
-                    const li = document.createElement('li');
-                    li.innerHTML = `
-                        <span class="item-name">${item.name}</span>
-                        <div class="quantity-controls">
-                            <button onclick="changeQuantity(${index}, -1)">-</button>
-                            <span class="item-quantity">${item.quantity}</span>
-                            <button onclick="changeQuantity(${index}, 1)">+</button>
-                        </div>
-                        <span class="item-price">${currencySymbol}${itemTotal.toFixed(0)}</span>
-                    `;
-                    cartItemsList.appendChild(li);
-                });
-                document.getElementById('checkout-btn').disabled = false;
-            }
-
-            cartTotalElement.textContent = `${currencySymbol}${total.toFixed(0)}`;
-            cartCountElement.textContent = totalItems;
-        }
-
-        function changeQuantity(index, delta) {
-            cart[index].quantity += delta;
-            if (cart[index].quantity <= 0) {
-                cart.splice(index, 1);
-            }
-            updateCartDisplay();
-        }
-
-        function toggleCart() {
-            document.getElementById('cart-popup').classList.toggle('hidden');
-        }
-
-        function checkout() {
-            if (cart.length === 0) {
-                alert('Your cart is empty!');
-                return;
-            }
-
-            const customerName = document.getElementById('customer-name').value;
-            const pickupTime = document.getElementById('pickup-time').value;
-            const paymentMethod = document.getElementById('payment-method').value;
-
-            if (!customerName || !pickupTime) {
-                alert('Please enter your Name and desired Pick-up Time to proceed!');
-                return;
-            }
-
-            let orderSummary = "Hello! I'm placing an order for pick-up.%0A%0A";
-            orderSummary += `*CUSTOMER NAME: ${customerName}*%0A`;
-            orderSummary += `*PICK-UP TIME: ${pickupTime}*%0A`;
-            orderSummary += `PAYMENT METHOD: ${paymentMethod}%0A%0A`;
-            orderSummary += "--- ORDER DETAILS ---%0A";
-
-            let total = 0;
-            cart.forEach(item => {
-                const itemTotal = item.price * item.quantity;
-                total += itemTotal;
-                orderSummary += `(${item.quantity}x) ${item.name} - ${currencySymbol}${item.price} each%0A`;
-            });
-
-            orderSummary += `%0A*TOTAL AMOUNT: ${currencySymbol}${total.toFixed(0)}*%0A%0A`;
-            orderSummary += `Please confirm this order and let me know when it's ready for pick-up! Thank you.`;
-
-            const messengerLink = `https://m.me/${pageUsername}?text=${orderSummary}`;
-            window.open(messengerLink, '_blank');
-        }
-
-        function flyToCart(imgElement) {
-            const cartBtn = document.getElementById('cart-trigger');
-            const cartTotal = document.getElementById('cart-total');
-
-            const flyingImg = imgElement.cloneNode(true);
-            flyingImg.classList.add('flying-item');
-
-            const rect = imgElement.getBoundingClientRect();
-            flyingImg.style.top = rect.top + 'px';
-            flyingImg.style.left = rect.left + 'px';
-            flyingImg.style.width = rect.width + 'px';
-            flyingImg.style.height = rect.height + 'px';
-
-            document.body.appendChild(flyingImg);
-
-            const cartRect = cartBtn.getBoundingClientRect();
-            flyingImg.offsetWidth;
-
-            flyingImg.style.transform = `translate(${cartRect.left - rect.left}px, ${cartRect.top - rect.top}px) scale(0.2)`;
-           
+</body>
+</html>
