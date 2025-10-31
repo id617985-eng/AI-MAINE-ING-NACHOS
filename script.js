@@ -1,6 +1,6 @@
 let cart = [];
 const currencySymbol = '₱';
-// Updated Facebook Messenger link
+// Messenger chat link
 const messengerChatLink = 'https://www.messenger.com/e2ee/t/8941907542595225';
 
 function addToCart(name, price, btn) {
@@ -72,31 +72,32 @@ function toggleCart() {
 
     if (cartPopup.style.display === 'block') {
         cartPopup.style.display = 'none';
-    } else {
-        const rect = cartBtn.getBoundingClientRect();
-        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-        const scrollLeft = window.pageXOffset || document.documentElement.scrollLeft;
-
-        let popupLeft = rect.left + rect.width / 2 - cartPopup.offsetWidth / 2 + scrollLeft;
-        let popupTop = rect.top + scrollTop - cartPopup.offsetHeight - 10;
-
-        const padding = 10;
-        if (popupLeft < padding) popupLeft = padding;
-        if (popupLeft + cartPopup.offsetWidth > window.innerWidth - padding) {
-            popupLeft = window.innerWidth - cartPopup.offsetWidth - padding;
-        }
-
-        if (popupTop < scrollTop + padding) {
-            popupTop = rect.bottom + scrollTop + 10;
-        }
-
-        cartPopup.style.left = `${popupLeft}px`;
-        cartPopup.style.top = `${popupTop}px`;
-        cartPopup.style.display = 'block';
+        return;
     }
+
+    const rect = cartBtn.getBoundingClientRect();
+    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    const scrollLeft = window.pageXOffset || document.documentElement.scrollLeft;
+
+    let popupTop = rect.top + scrollTop - cartPopup.offsetHeight - 10;
+    let popupLeft = rect.left + scrollLeft + rect.width / 2 - cartPopup.offsetWidth / 2;
+
+    const padding = 10;
+    if (popupLeft < padding) popupLeft = padding;
+    if (popupLeft + cartPopup.offsetWidth > window.innerWidth - padding) {
+        popupLeft = window.innerWidth - cartPopup.offsetWidth - padding;
+    }
+
+    if (popupTop < scrollTop + padding) {
+        popupTop = rect.bottom + scrollTop + 10;
+    }
+
+    cartPopup.style.position = 'absolute';
+    cartPopup.style.left = `${popupLeft}px`;
+    cartPopup.style.top = `${popupTop}px`;
+    cartPopup.style.display = 'block';
 }
 
-// ✅ Checkout with Messenger link
 function checkout() {
     if (cart.length === 0) {
         alert('Your cart is empty!');
@@ -112,7 +113,7 @@ function checkout() {
         return;
     }
 
-    let orderSummary = `Hello! I'm placing an order for pick-up.\n`;
+    let orderSummary = "Hello! I'm placing an order for pick-up.\n";
     orderSummary += `CUSTOMER NAME: ${customerName}\n`;
     orderSummary += `PICK-UP TIME: ${pickupTime}\n`;
     orderSummary += `PAYMENT METHOD: ${paymentMethod}\n`;
@@ -142,8 +143,8 @@ function flyToCart(img) {
     imgClone.style.position = 'fixed';
     imgClone.style.top = imgRect.top + 'px';
     imgClone.style.left = imgRect.left + 'px';
-    imgClone.style.width = imgRect.width * 0.5 + 'px'; // smaller image
-    imgClone.style.height = imgRect.height * 0.5 + 'px';
+    imgClone.style.width = imgRect.width + 'px';
+    imgClone.style.height = imgRect.height + 'px';
     imgClone.style.transition = 'all 0.7s ease-in-out';
     imgClone.style.zIndex = 1000;
     document.body.appendChild(imgClone);
@@ -151,7 +152,7 @@ function flyToCart(img) {
     setTimeout(() => {
         imgClone.style.top = cartRect.top + 'px';
         imgClone.style.left = cartRect.left + 'px';
-        imgClone.style.width = '30px';
+        imgClone.style.width = '30px';  // smaller in cart
         imgClone.style.height = '30px';
         imgClone.style.opacity = '0.5';
     }, 10);
@@ -161,4 +162,5 @@ function flyToCart(img) {
     }, 710);
 }
 
+// Initialize cart display
 updateCartDisplay();
