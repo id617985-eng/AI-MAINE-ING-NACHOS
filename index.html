@@ -1,17 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ai-Maize-ing Nachos - Order Online</title>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Shrikhand&display=swap" rel="stylesheet">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ai-Maize-ing Nachos - Order Online</title>
+<link rel="stylesheet" href="style.css">
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Shrikhand&display=swap" rel="stylesheet">
+<style>
+/* Minimal CSS for demonstration */
+body { font-family: 'Roboto', sans-serif; margin: 0; padding: 0; }
+.container { max-width: 1200px; margin: auto; padding: 20px; }
+.menu-grid { display: flex; flex-wrap: wrap; gap: 20px; }
+.menu-item { border: 1px solid #ccc; padding: 10px; width: 220px; text-align: center; }
+.menu-item img { width: 200px; height: 150px; object-fit: cover; }
+.add-to-cart-btn { margin-top: 10px; padding: 5px 10px; cursor: pointer; }
+#cart-trigger { position: fixed; bottom: 20px; right: 20px; padding: 10px 15px; cursor: pointer; }
+#cart-popup { position: fixed; top: 50px; right: 50px; width: 300px; background: #fff; border: 1px solid #ccc; padding: 15px; display: none; z-index: 1000; }
+#cart-popup ul { list-style: none; padding: 0; max-height: 300px; overflow-y: auto; }
+#cart-popup li { display: flex; justify-content: space-between; margin-bottom: 8px; }
+#cart-popup li .quantity-controls button { margin: 0 3px; }
+.bouncing { animation: bounce 0.5s; }
+@keyframes bounce { 0%,100%{transform:scale(1)}50%{transform:scale(1.2)} }
+</style>
 </head>
 <body>
 
 <div class="container">
     <header>
-        <img src="image/Nostalgic Nachos Logo with Playful Script Font.png" alt="Ai-Maize-ing Nachos Logo" class="logo">
         <h1>Ai-Maize-ing Nachos</h1>
         <p>Select your items below, then click <strong>View Cart</strong> to complete your order.</p>
     </header>
@@ -19,103 +34,184 @@
     <section id="menu">
         <h2>Our Menu</h2>
         <div class="menu-grid">
-            <!-- Regular Nachos -->
-            <div class="menu-item" data-name="Regular Nachos" data-price="100">
+
+            <div class="menu-item" data-name="Regular Nachos" data-price="35">
                 <img src="image/566525427_2187368088422232_3281536944644291040_n.jpg" alt="Regular Nachos">
-                <div class="menu-item-content">
-                    <h3>Regular Nachos</h3>
-                    <p class="description">Classic nachos loaded with cheese sauce and fresh toppings, served right in the bag for nostalgia!</p>
-                    <p class="price">₱35</p>
-                    <button class="add-to-cart-btn" onclick="addToCart('Regular Nachos', 100, this)">Add to Cart</button>
-                </div>
+                <h3>Regular Nachos</h3>
+                <p class="price">₱35</p>
+                <button class="add-to-cart-btn" onclick="addToCart(this)">Add to Cart</button>
             </div>
 
-            <!-- Veggie Nachos -->
-            <div class="menu-item" data-name="Veggie Nachos" data-price="120">
+            <div class="menu-item" data-name="Veggie Nachos" data-price="65">
                 <img src="image/veggie nachos.jpg" alt="Veggie Nachos">
-                <div class="menu-item-content">
-                    <h3>Veggie Nachos</h3>
-                    <p class="description">A fresh, vibrant mix of crisp veggies, sauces, and chips, all laid on a bed of lettuce.</p>
-                    <p class="price">₱65</p>
-                    <button class="add-to-cart-btn" onclick="addToCart('Veggie Nachos', 120, this)">Add to Cart</button>
-                </div>
+                <h3>Veggie Nachos</h3>
+                <p class="price">₱65</p>
+                <button class="add-to-cart-btn" onclick="addToCart(this)">Add to Cart</button>
             </div>
 
-            <!-- Overload Cheesy Nachos -->
-            <div class="menu-item" data-name="Overload Cheesy Nachos" data-price="180">
+            <div class="menu-item" data-name="Overload Cheesy Nachos" data-price="95">
                 <img src="image/overload chees nachos.jpg" alt="Overload Cheesy Nachos">
-                <div class="menu-item-content">
-                    <h3>Overload Cheesy Nachos</h3>
-                    <p class="description">The ultimate cheese experience! Piled high with savory meat, veggies, and a mountain of shredded cheese.</p>
-                    <p class="price">₱95</p>
-                    <button class="add-to-cart-btn" onclick="addToCart('Overload Cheesy Nachos', 180, this)">Add to Cart</button>
-                </div>
+                <h3>Overload Cheesy Nachos</h3>
+                <p class="price">₱95</p>
+                <button class="add-to-cart-btn" onclick="addToCart(this)">Add to Cart</button>
             </div>
 
-            <!-- Nacho Combo -->
-            <div class="menu-item" data-name="Nacho Combo" data-price="150">
+            <div class="menu-item" data-name="Nacho Combo" data-price="75">
                 <img src="image/combo.jpg" alt="Nacho Combo">
-                <div class="menu-item-content">
-                    <h3>Nacho Combo</h3>
-                    <p class="description">The perfect pair! Our classic nachos served conveniently over a refreshing blue lemonade.</p>
-                    <p class="price">₱75</p>
-                    <button class="add-to-cart-btn" onclick="addToCart('Nacho Combo', 150, this)">Add to Cart</button>
-                </div>
+                <h3>Nacho Combo</h3>
+                <p class="price">₱75</p>
+                <button class="add-to-cart-btn" onclick="addToCart(this)">Add to Cart</button>
             </div>
 
-            <!-- Nacho Fries -->
-            <div class="menu-item" data-name="Nacho Fries" data-price="140">
+            <div class="menu-item" data-name="Nacho Fries" data-price="85">
                 <img src="image/nacho fries.jpg" alt="Nacho Fries">
-                <div class="menu-item-content">
-                    <h3>Nacho Fries</h3>
-                    <p class="description">Can't decide? Have both! Crispy golden fries loaded with all your favorite nacho toppings.</p>
-                    <p class="price">₱85</p>
-                    <button class="add-to-cart-btn" onclick="addToCart('Nacho Fries', 140, this)">Add to Cart</button>
-                </div>
+                <h3>Nacho Fries</h3>
+                <p class="price">₱85</p>
+                <button class="add-to-cart-btn" onclick="addToCart(this)">Add to Cart</button>
             </div>
 
         </div>
     </section>
 </div>
 
-<!-- Cart Button -->
-<button id="cart-trigger" onclick="toggleCart()">
-    View Cart (<span id="cart-count">0</span>)
-</button>
+<button id="cart-trigger" onclick="toggleCart()">View Cart (<span id="cart-count">0</span>)</button>
 
-<!-- Cart Popup -->
-<div id="cart-popup" class="hidden">
+<div id="cart-popup">
     <div class="cart-header">
         <h3>Your Order</h3>
         <button class="close-btn" onclick="toggleCart()">X</button>
     </div>
     
     <ul id="cart-items"></ul>
-    
-    <div class="cart-summary">
-        <p>Total: <span id="cart-total">₱0</span></p>
+    <p>Total: <span id="cart-total">₱0</span></p>
 
-        <div class="order-details">
-            <h4>Order Details:</h4>
-            <input type="text" id="customer-name" placeholder="Your Name for Pickup" required>
-            <input type="text" id="pickup-time" placeholder="Approx. Pick-up Time (e.g., 6:30 PM)" required>
-        </div>
-        
-        <div class="payment-options">
-            <h4>Payment Method:</h4>
-            <select id="payment-method">
-                <option value="Cash on Pick-up">Cash on Pick-up</option>
-                <option value="Gcash">Gcash / PayMaya</option>
-                <option value="Bank Transfer">Bank Transfer</option>
-            </select>
-        </div>
-
-        <button id="checkout-btn" onclick="checkout()">Send Order & Notify Us</button>
-        <p class="note">We will reply via Messenger when your order is ready for pick-up!</p>
+    <div class="order-details">
+        <input type="text" id="customer-name" placeholder="Your Name for Pickup">
+        <input type="text" id="pickup-time" placeholder="Pick-up Time (e.g., 6:30 PM)">
     </div>
+
+    <div class="payment-options">
+        <select id="payment-method">
+            <option value="Cash on Pick-up">Cash on Pick-up</option>
+            <option value="Gcash">Gcash / PayMaya</option>
+            <option value="Bank Transfer">Bank Transfer</option>
+        </select>
+    </div>
+
+    <button id="checkout-btn" onclick="checkout()">Send Order & Notify Us</button>
 </div>
 
-<script src="script.js"></script>
+<script>
+let cart = [];
+const currencySymbol = '₱';
+const messengerChatLink = 'https://www.messenger.com/e2ee/t/8941907542595225';
+
+function addToCart(btn) {
+    const menuItem = btn.closest('.menu-item');
+    const name = menuItem.dataset.name;
+    const price = parseFloat(menuItem.dataset.price);
+    const img = menuItem.querySelector('img');
+
+    const existingItem = cart.find(item => item.name === name);
+    if(existingItem) { existingItem.quantity += 1; } 
+    else { cart.push({name, price, quantity:1}); }
+
+    updateCartDisplay();
+
+    const cartBtn = document.getElementById('cart-trigger');
+    cartBtn.classList.add('bouncing');
+    setTimeout(() => cartBtn.classList.remove('bouncing'), 500);
+
+    flyToCart(img);
+}
+
+function updateCartDisplay() {
+    const cartItemsList = document.getElementById('cart-items');
+    const cartTotalElement = document.getElementById('cart-total');
+    const cartCountElement = document.getElementById('cart-count');
+
+    cartItemsList.innerHTML = '';
+    let total = 0, totalItems = 0;
+
+    if(cart.length === 0) { 
+        cartItemsList.innerHTML = '<li>Your cart is empty.</li>'; 
+        document.getElementById('checkout-btn').disabled = true;
+    } else {
+        cart.forEach((item,index)=>{
+            const itemTotal = item.price*item.quantity;
+            total+=itemTotal; totalItems+=item.quantity;
+
+            const li = document.createElement('li');
+            li.innerHTML = `<span>${item.name}</span>
+                            <div class="quantity-controls">
+                                <button onclick="changeQuantity(${index},-1)">-</button>
+                                <span>${item.quantity}</span>
+                                <button onclick="changeQuantity(${index},1)">+</button>
+                            </div>
+                            <span>${currencySymbol}${itemTotal.toFixed(0)}</span>`;
+            cartItemsList.appendChild(li);
+        });
+        document.getElementById('checkout-btn').disabled = false;
+    }
+    cartTotalElement.textContent = `${currencySymbol}${total.toFixed(0)}`;
+    cartCountElement.textContent = totalItems;
+}
+
+function changeQuantity(index,delta){
+    cart[index].quantity+=delta;
+    if(cart[index].quantity<=0) cart.splice(index,1);
+    updateCartDisplay();
+}
+
+function toggleCart(){ 
+    const popup = document.getElementById('cart-popup');
+    popup.style.display = popup.style.display==='block'?'none':'block'; 
+}
+
+function checkout(){
+    if(cart.length===0){ alert('Cart empty!'); return; }
+    const customerName = document.getElementById('customer-name').value;
+    const pickupTime = document.getElementById('pickup-time').value;
+    const paymentMethod = document.getElementById('payment-method').value;
+
+    if(!customerName || !pickupTime){ alert('Enter Name & Pick-up Time!'); return; }
+
+    let orderSummary=`Hello! I'm placing an order.\nName: ${customerName}\nPick-up: ${pickupTime}\nPayment: ${paymentMethod}\n---ORDER---\n`;
+    let total=0;
+    cart.forEach(item=>{ orderSummary+=`(${item.quantity}x) ${item.name} - ${currencySymbol}${item.price}\n`; total+=item.price*item.quantity; });
+    orderSummary+=`TOTAL: ${currencySymbol}${total.toFixed(0)}`;
+
+    window.open(`${messengerChatLink}?text=${encodeURIComponent(orderSummary)}`,'_blank');
+}
+
+function flyToCart(img){
+    const cartBtn=document.getElementById('cart-trigger');
+    const clone=img.cloneNode(true);
+    const rect=img.getBoundingClientRect();
+    const cartRect=cartBtn.getBoundingClientRect();
+
+    clone.style.position='fixed';
+    clone.style.top=rect.top+'px';
+    clone.style.left=rect.left+'px';
+    clone.style.width=rect.width+'px';
+    clone.style.height=rect.height+'px';
+    clone.style.transition='all 0.7s ease-in-out';
+    clone.style.zIndex=1000;
+    document.body.appendChild(clone);
+
+    setTimeout(()=>{
+        clone.style.top=cartRect.top+'px';
+        clone.style.left=cartRect.left+'px';
+        clone.style.width='25px';
+        clone.style.height='25px';
+        clone.style.opacity='0.5';
+    },10);
+
+    setTimeout(()=>clone.remove(),710);
+}
+
+updateCartDisplay();
+</script>
+
 </body>
 </html>
-
