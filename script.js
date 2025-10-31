@@ -1,7 +1,6 @@
 let cart = [];
 const currencySymbol = '₱';
-// Messenger chat link
-const messengerChatLink = 'https://www.messenger.com/e2ee/t/8941907542595225';
+const messengerChatLink = 'https://web.facebook.com/messages/e2ee/t/8941907542595225';
 
 function addToCart(name, price, btn) {
     const existingItem = cart.find(item => item.name === name);
@@ -26,9 +25,9 @@ function updateCartDisplay() {
     const cartItemsList = document.getElementById('cart-items');
     const cartTotalElement = document.getElementById('cart-total');
     const cartCountElement = document.getElementById('cart-count');
-
+    
     cartItemsList.innerHTML = '';
-
+    
     let total = 0;
     let totalItems = 0;
 
@@ -49,14 +48,14 @@ function updateCartDisplay() {
                     <span class="item-quantity">${item.quantity}</span>
                     <button onclick="changeQuantity(${index}, 1)">+</button>
                 </div>
-                <span class="item-price">${currencySymbol}${itemTotal.toFixed(0)}</span>
+                <span class="item-price">${currencySymbol}${itemTotal}</span>
             `;
             cartItemsList.appendChild(li);
         });
         document.getElementById('checkout-btn').disabled = false;
     }
 
-    cartTotalElement.textContent = `${currencySymbol}${total.toFixed(0)}`;
+    cartTotalElement.textContent = `${currencySymbol}${total}`;
     cartCountElement.textContent = totalItems;
 }
 
@@ -69,33 +68,16 @@ function changeQuantity(index, delta) {
 function toggleCart() {
     const cartPopup = document.getElementById('cart-popup');
     const cartBtn = document.getElementById('cart-trigger');
+    
+    cartPopup.classList.toggle('hidden');
 
-    if (cartPopup.style.display === 'block') {
-        cartPopup.style.display = 'none';
-        return;
+    // Position cart popup below the cart button
+    if (!cartPopup.classList.contains('hidden')) {
+        const btnRect = cartBtn.getBoundingClientRect();
+        cartPopup.style.position = 'absolute';
+        cartPopup.style.top = `${btnRect.bottom + window.scrollY + 5}px`;
+        cartPopup.style.left = `${btnRect.left + window.scrollX}px`;
     }
-
-    const rect = cartBtn.getBoundingClientRect();
-    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-    const scrollLeft = window.pageXOffset || document.documentElement.scrollLeft;
-
-    let popupTop = rect.top + scrollTop - cartPopup.offsetHeight - 10;
-    let popupLeft = rect.left + scrollLeft + rect.width / 2 - cartPopup.offsetWidth / 2;
-
-    const padding = 10;
-    if (popupLeft < padding) popupLeft = padding;
-    if (popupLeft + cartPopup.offsetWidth > window.innerWidth - padding) {
-        popupLeft = window.innerWidth - cartPopup.offsetWidth - padding;
-    }
-
-    if (popupTop < scrollTop + padding) {
-        popupTop = rect.bottom + scrollTop + 10;
-    }
-
-    cartPopup.style.position = 'absolute';
-    cartPopup.style.left = `${popupLeft}px`;
-    cartPopup.style.top = `${popupTop}px`;
-    cartPopup.style.display = 'block';
 }
 
 function checkout() {
@@ -113,10 +95,10 @@ function checkout() {
         return;
     }
 
-    let orderSummary = "Hello! I'm placing an order for pick-up.\n";
+    let orderSummary = `Hello! I'm placing an order for pick-up.\n\n`;
     orderSummary += `CUSTOMER NAME: ${customerName}\n`;
     orderSummary += `PICK-UP TIME: ${pickupTime}\n`;
-    orderSummary += `PAYMENT METHOD: ${paymentMethod}\n`;
+    orderSummary += `PAYMENT METHOD: ${paymentMethod}\n\n`;
     orderSummary += "--- ORDER DETAILS ---\n";
 
     let total = 0;
@@ -126,9 +108,10 @@ function checkout() {
         orderSummary += `(${item.quantity}x) ${item.name} - ${currencySymbol}${item.price} each\n`;
     });
 
-    orderSummary += `TOTAL AMOUNT: ${currencySymbol}${total.toFixed(0)}\n`;
-    orderSummary += "Please confirm this order and let me know when it's ready for pick-up! Thank you.";
+    orderSummary += `TOTAL AMOUNT: ${currencySymbol}${total}\n`;
+    orderSummary += `Please confirm this order and let me know when it's ready for pick-up! Thank you.`;
 
+    // Opens Messenger chat with prefilled order message
     const encodedMessage = encodeURIComponent(orderSummary);
     const finalLink = `${messengerChatLink}?text=${encodedMessage}`;
     window.open(finalLink, '_blank');
@@ -152,7 +135,7 @@ function flyToCart(img) {
     setTimeout(() => {
         imgClone.style.top = cartRect.top + 'px';
         imgClone.style.left = cartRect.left + 'px';
-        imgClone.style.width = '30px';  // smaller in cart
+        imgClone.style.width = '30px';
         imgClone.style.height = '30px';
         imgClone.style.opacity = '0.5';
     }, 10);
@@ -162,5 +145,4 @@ function flyToCart(img) {
     }, 710);
 }
 
-// Initialize cart display
 updateCartDisplay();
