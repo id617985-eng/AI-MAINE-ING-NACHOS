@@ -1,13 +1,9 @@
 let cart = [];
 const currencySymbol = '₱';
+// Updated Facebook Messenger link
 const messengerChatLink = 'https://www.messenger.com/e2ee/t/8941907542595225';
 
-function addToCart(btn) {
-    const menuItem = btn.closest('.menu-item');
-    const name = menuItem.dataset.name;
-    const price = parseFloat(menuItem.dataset.price); // get correct price
-    const img = menuItem.querySelector('img');
-
+function addToCart(name, price, btn) {
     const existingItem = cart.find(item => item.name === name);
 
     if (existingItem) {
@@ -22,6 +18,7 @@ function addToCart(btn) {
     cartBtn.classList.add('bouncing');
     setTimeout(() => cartBtn.classList.remove('bouncing'), 500);
 
+    const img = btn.closest('.menu-item').querySelector('img');
     flyToCart(img);
 }
 
@@ -76,15 +73,30 @@ function toggleCart() {
     if (cartPopup.style.display === 'block') {
         cartPopup.style.display = 'none';
     } else {
-        // Get button position
         const rect = cartBtn.getBoundingClientRect();
-        cartPopup.style.left = rect.left + 'px';
-        cartPopup.style.top = rect.top + 'px';
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        const scrollLeft = window.pageXOffset || document.documentElement.scrollLeft;
+
+        let popupLeft = rect.left + rect.width / 2 - cartPopup.offsetWidth / 2 + scrollLeft;
+        let popupTop = rect.top + scrollTop - cartPopup.offsetHeight - 10;
+
+        const padding = 10;
+        if (popupLeft < padding) popupLeft = padding;
+        if (popupLeft + cartPopup.offsetWidth > window.innerWidth - padding) {
+            popupLeft = window.innerWidth - cartPopup.offsetWidth - padding;
+        }
+
+        if (popupTop < scrollTop + padding) {
+            popupTop = rect.bottom + scrollTop + 10;
+        }
+
+        cartPopup.style.left = `${popupLeft}px`;
+        cartPopup.style.top = `${popupTop}px`;
         cartPopup.style.display = 'block';
     }
 }
 
-
+// ✅ Checkout with Messenger link
 function checkout() {
     if (cart.length === 0) {
         alert('Your cart is empty!');
@@ -100,10 +112,10 @@ function checkout() {
         return;
     }
 
-    let orderSummary = "Hello! I'm placing an order for pick-up.\n";
-    orderSummary += `*CUSTOMER NAME: ${customerName}\n`;
-    orderSummary += `*PICK-UP TIME: ${pickupTime}\n`;
-    orderSummary += `*PAYMENT METHOD: ${paymentMethod}\n`;
+    let orderSummary = `Hello! I'm placing an order for pick-up.\n`;
+    orderSummary += `CUSTOMER NAME: ${customerName}\n`;
+    orderSummary += `PICK-UP TIME: ${pickupTime}\n`;
+    orderSummary += `PAYMENT METHOD: ${paymentMethod}\n`;
     orderSummary += "--- ORDER DETAILS ---\n";
 
     let total = 0;
@@ -130,8 +142,8 @@ function flyToCart(img) {
     imgClone.style.position = 'fixed';
     imgClone.style.top = imgRect.top + 'px';
     imgClone.style.left = imgRect.left + 'px';
-    imgClone.style.width = imgRect.width + 'px';
-    imgClone.style.height = imgRect.height + 'px';
+    imgClone.style.width = imgRect.width * 0.5 + 'px'; // smaller image
+    imgClone.style.height = imgRect.height * 0.5 + 'px';
     imgClone.style.transition = 'all 0.7s ease-in-out';
     imgClone.style.zIndex = 1000;
     document.body.appendChild(imgClone);
@@ -139,8 +151,8 @@ function flyToCart(img) {
     setTimeout(() => {
         imgClone.style.top = cartRect.top + 'px';
         imgClone.style.left = cartRect.left + 'px';
-        imgClone.style.width = '25px';  // smaller size
-        imgClone.style.height = '25px';
+        imgClone.style.width = '30px';
+        imgClone.style.height = '30px';
         imgClone.style.opacity = '0.5';
     }, 10);
 
@@ -150,4 +162,3 @@ function flyToCart(img) {
 }
 
 updateCartDisplay();
-
