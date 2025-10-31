@@ -1,6 +1,7 @@
 let cart = [];
 const currencySymbol = '₱';
-const pageUsername = '61577122178743'; // Only numeric ID for Messenger link
+// Updated Facebook Messenger link
+const messengerChatLink = 'https://www.messenger.com/e2ee/t/8941907542595225';
 
 function addToCart(name, price, btn) {
     const existingItem = cart.find(item => item.name === name);
@@ -13,12 +14,10 @@ function addToCart(name, price, btn) {
 
     updateCartDisplay();
 
-    // Bounce cart button
     const cartBtn = document.getElementById('cart-trigger');
     cartBtn.classList.add('bouncing');
     setTimeout(() => cartBtn.classList.remove('bouncing'), 500);
 
-    // Fly-to-cart animation
     const img = btn.closest('.menu-item').querySelector('img');
     flyToCart(img);
 }
@@ -71,6 +70,7 @@ function toggleCart() {
     document.getElementById('cart-popup').classList.toggle('hidden');
 }
 
+// ✅ UPDATED checkout() function using new Messenger chat link
 function checkout() {
     if (cart.length === 0) {
         alert('Your cart is empty!');
@@ -102,8 +102,10 @@ function checkout() {
     orderSummary += `%0A*TOTAL AMOUNT: ${currencySymbol}${total.toFixed(0)}*%0A%0A`;
     orderSummary += `Please confirm this order and let me know when it's ready for pick-up! Thank you.`;
 
-    const messengerLink = `https://m.me/${pageUsername}?text=${orderSummary}`;
-    window.open(messengerLink, '_blank');
+    // ✅ Opens the Messenger e2ee chat with the prefilled order message
+    const encodedMessage = encodeURIComponent(orderSummary);
+    const finalLink = `${messengerChatLink}?text=${encodedMessage}`;
+    window.open(finalLink, '_blank');
 }
 
 function flyToCart(img) {
@@ -134,6 +136,4 @@ function flyToCart(img) {
     }, 710);
 }
 
-// Initialize cart
 updateCartDisplay();
-
