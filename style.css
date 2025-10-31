@@ -1,0 +1,322 @@
+/* --- Basic Setup (Existing Styles) --- */
+body {
+    font-family: 'Roboto', Arial, sans-serif;
+    background-color: #f7f3e8; /* Light cream background */
+    margin: 0;
+    padding: 0;
+    color: #333;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 0 20px;
+}
+
+/* --- Header & Logo (Existing Styles) --- */
+header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+header .logo {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    border: 5px solid #fff;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    object-fit: cover;
+}
+
+header h1 {
+    font-family: 'Shrikhand', cursive;
+    font-size: 3em;
+    color: #d35400; /* Nacho orange */
+    margin: 10px 0 5px 0;
+}
+
+header p {
+    font-size: 1.1em;
+    color: #555;
+}
+
+/* --- Menu Section (Existing Styles) --- */
+#menu h2 {
+    text-align: center;
+    font-size: 2.5em;
+    font-family: 'Shrikhand', cursive;
+    color: #e67e22; /* Darker orange */
+    margin-bottom: 30px;
+}
+
+.menu-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 25px;
+}
+
+/* --- Menu Item Card (Existing Styles) --- */
+.menu-item {
+    background-color: #ffffff;
+    border-radius: 15px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.menu-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+}
+
+.menu-item img {
+    width: 100%;
+    height: 240px;
+    object-fit: cover;
+    border-bottom: 1px solid #eee;
+}
+
+.menu-item-content {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.menu-item h3 {
+    font-size: 1.6em;
+    font-weight: 700;
+    color: #333;
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+
+.menu-item .description {
+    font-size: 1em;
+    color: #666;
+    line-height: 1.5;
+    flex-grow: 1;
+    margin-bottom: 15px;
+}
+
+.menu-item .price {
+    font-size: 1.4em;
+    font-weight: 700;
+    color: #e67e22;
+    margin-bottom: 20px;
+}
+
+/* --- Add to Cart Button (Existing Styles) --- */
+.add-to-cart-btn {
+    background-color: #4CAF50; /* Green for "Add" */
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1.1em;
+    font-weight: 700;
+    transition: background-color 0.3s ease;
+}
+
+.add-to-cart-btn:hover {
+    background-color: #45a049;
+}
+
+/* --- Floating Cart Trigger (Existing Styles) --- */
+#cart-trigger {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #e67e22; /* Orange */
+    color: white;
+    padding: 15px 20px;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    font-size: 1.1em;
+    font-weight: 700;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    transition: transform 0.15s ease;
+}
+
+#cart-trigger:hover {
+    background-color: #d35400;
+}
+
+@keyframes bounce {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+}
+
+.bouncing {
+    animation: bounce 0.5s ease;
+}
+
+/* --- Cart Popup/Sidebar (Existing Styles) --- */
+#cart-popup {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 100%;
+    max-width: 400px;
+    height: 100%;
+    background-color: #ffffff;
+    box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+    z-index: 1001;
+    display: flex;
+    flex-direction: column;
+    transform: translateX(0);
+    transition: transform 0.3s ease-in-out;
+}
+
+#cart-popup.hidden {
+    transform: translateX(100%);
+}
+
+.cart-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    border-bottom: 2px solid #e67e22;
+}
+
+.cart-header h3 {
+    margin: 0;
+    font-size: 1.8em;
+    color: #d35400;
+}
+
+.cart-header .close-btn {
+    background: none;
+    border: none;
+    font-size: 1.5em;
+    cursor: pointer;
+    color: #333;
+}
+
+#cart-items {
+    list-style: none;
+    padding: 0 20px;
+    margin: 0;
+    flex-grow: 1;
+    overflow-y: auto;
+}
+
+#cart-items li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 0;
+    border-bottom: 1px solid #eee;
+}
+
+#cart-items .empty-cart {
+    text-align: center;
+    color: #999;
+    padding: 40px 0;
+}
+
+.item-name {
+    flex-grow: 1;
+    font-weight: 500;
+}
+
+.quantity-controls {
+    display: flex;
+    align-items: center;
+    margin: 0 10px;
+}
+
+.quantity-controls button {
+    background: #f1f1f1;
+    border: 1px solid #ddd;
+    width: 25px;
+    height: 25px;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 1.1em;
+}
+
+.item-quantity {
+    padding: 0 10px;
+    font-weight: 700;
+}
+
+.cart-summary {
+    padding: 20px;
+    border-top: 2px solid #e67e22;
+}
+
+.cart-summary p {
+    font-size: 1.5em;
+    font-weight: 700;
+    text-align: right;
+    margin-bottom: 15px;
+}
+
+/* --- NEW: Order Details & Inputs --- */
+.order-details, .payment-options {
+    margin-bottom: 20px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #fcfcfc;
+}
+
+.order-details h4, .payment-options h4 {
+    font-size: 1.1em;
+    margin-top: 0;
+    margin-bottom: 10px;
+    color: #e67e22;
+}
+
+#customer-name, #pickup-time, #payment-method {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1em;
+    box-sizing: border-box; /* Include padding and border in the element's total width and height */
+}
+
+#checkout-btn {
+    width: 100%;
+    background-color: #1877F2; /* Facebook Blue */
+    color: white;
+    padding: 15px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1.2em;
+    font-weight: 700;
+    transition: background-color 0.3s ease;
+    margin-top: 10px;
+}
+
+#checkout-btn:hover:not(:disabled) {
+    background-color: #1669c9;
+}
+
+#checkout-btn:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+}
+
+.note {
+    font-size: 0.9em;
+    color: #666;
+    text-align: center;
+    margin-top: 10px;
+}
+
+/* Adjust total font size in summary to fit better with inputs */
+.cart-summary p {
+    font-size: 1.4em; 
+    margin-bottom: 10px;
+}
