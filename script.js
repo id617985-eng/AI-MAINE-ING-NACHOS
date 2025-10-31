@@ -137,3 +137,4 @@ function flyToCart(img) {
 }
 
 updateCartDisplay();
+
