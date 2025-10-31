@@ -136,3 +136,4 @@ function flyToCart(img) {
 
 // Initialize cart
 updateCartDisplay();
+
