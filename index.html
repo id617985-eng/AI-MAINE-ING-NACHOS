@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ai-Maize-ing Nachos - Order Online</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https_//fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Shrikhand&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Shrikhand&display=swap" rel="stylesheet">
 </head>
 <body>
 
@@ -13,7 +13,7 @@
         <header>
             <img src="image/Nostalgic Nachos Logo with Playful Script Font.png" alt="Ai-Maize-ing Nachos Logo" class="logo">
             <h1>Ai-Maize-ing Nachos</h1>
-            <p>Select your items below, then click **View Cart** to complete your order.</p>
+            <p>Select your items below, then click <strong>View Cart</strong> to complete your order.</p>
         </header>
 
         <section id="menu">
@@ -26,7 +26,7 @@
                         <h3>Regular Nachos</h3>
                         <p class="description">Classic nachos loaded with cheese sauce and fresh toppings, served right in the bag for nostalgia!</p>
                         <p class="price">₱100</p>
-                        <button class="add-to-cart-btn" onclick="addToCart('Regular Nachos', 100)">Add to Cart</button>
+                        <button class="add-to-cart-btn" onclick="addToCart('Regular Nachos', 100, this.closest('.menu-item').querySelector('img'))">Add to Cart</button>
                     </div>
                 </div>
 
@@ -36,7 +36,7 @@
                         <h3>Veggie Nachos</h3>
                         <p class="description">A fresh, vibrant mix of crisp veggies, sauces, and chips, all laid on a bed of lettuce.</p>
                         <p class="price">₱120</p>
-                        <button class="add-to-cart-btn" onclick="addToCart('Veggie Nachos', 120)">Add to Cart</button>
+                        <button class="add-to-cart-btn" onclick="addToCart('Veggie Nachos', 120, this.closest('.menu-item').querySelector('img'))">Add to Cart</button>
                     </div>
                 </div>
 
@@ -46,7 +46,7 @@
                         <h3>Overload Cheesy Nachos</h3>
                         <p class="description">The ultimate cheese experience! Piled high with savory meat, veggies, and a mountain of shredded cheese.</p>
                         <p class="price">₱180</p>
-                        <button class="add-to-cart-btn" onclick="addToCart('Overload Cheesy Nachos', 180)">Add to Cart</button>
+                        <button class="add-to-cart-btn" onclick="addToCart('Overload Cheesy Nachos', 180, this.closest('.menu-item').querySelector('img'))">Add to Cart</button>
                     </div>
                 </div>
 
@@ -56,7 +56,7 @@
                         <h3>Nacho Combo</h3>
                         <p class="description">The perfect pair! Our classic nachos served conveniently over a refreshing blue lemonade.</p>
                         <p class="price">₱150</p>
-                        <button class="add-to-cart-btn" onclick="addToCart('Nacho Combo', 150)">Add to Cart</button>
+                        <button class="add-to-cart-btn" onclick="addToCart('Nacho Combo', 150, this.closest('.menu-item').querySelector('img'))">Add to Cart</button>
                     </div>
                 </div>
 
@@ -66,7 +66,7 @@
                         <h3>Nacho Fries</h3>
                         <p class="description">Can't decide? Have both! Crispy golden fries loaded with all your favorite nacho toppings.</p>
                         <p class="price">₱140</p>
-                        <button class="add-to-cart-btn" onclick="addToCart('Nacho Fries', 140)">Add to Cart</button>
+                        <button class="add-to-cart-btn" onclick="addToCart('Nacho Fries', 140, this.closest('.menu-item').querySelector('img'))">Add to Cart</button>
                     </div>
                 </div>
 
@@ -85,8 +85,7 @@
             <button class="close-btn" onclick="toggleCart()">X</button>
         </div>
         
-        <ul id="cart-items">
-            </ul>
+        <ul id="cart-items"></ul>
         
         <div class="cart-summary">
             <p>Total: <span id="cart-total">₱0</span></p>
@@ -114,12 +113,12 @@
     </div>
 
     <script>
-        // Store the cart as an array of objects
         let cart = [];
         const currencySymbol = '₱';
-        const pageUsername = 'https://web.facebook.com/profile.php?id=61577122178743'
+        const pageUsername = 'https://web.facebook.com/profile.php?id=61577122178743';
 
-        function addToCart(name, price) {
+        function addToCart(name, price, imgElement) {
+            name = String(name);
             const existingItem = cart.find(item => item.name === name);
 
             if (existingItem) {
@@ -129,10 +128,15 @@
             }
 
             updateCartDisplay();
-            document.getElementById('cart-trigger').classList.add('bouncing');
-            setTimeout(() => {
-                document.getElementById('cart-trigger').classList.remove('bouncing');
-            }, 500); 
+
+            // Animate cart button
+            const cartBtn = document.getElementById('cart-trigger');
+            cartBtn.classList.remove('bouncing');
+            void cartBtn.offsetWidth;
+            cartBtn.classList.add('bouncing');
+
+            // Fly image to cart
+            if (imgElement) flyToCart(imgElement);
         }
 
         function updateCartDisplay() {
@@ -175,11 +179,9 @@
 
         function changeQuantity(index, delta) {
             cart[index].quantity += delta;
-
             if (cart[index].quantity <= 0) {
                 cart.splice(index, 1);
             }
-
             updateCartDisplay();
         }
 
@@ -202,16 +204,12 @@
                 return;
             }
 
-
-            let orderSummary = "Hello! I'm placing an order for pick-up.%0A%0A"; // %0A is a line break in URLs
-
-            // Customer/Order Details
+            let orderSummary = "Hello! I'm placing an order for pick-up.%0A%0A";
             orderSummary += `*CUSTOMER NAME: ${customerName}*%0A`;
             orderSummary += `*PICK-UP TIME: ${pickupTime}*%0A`;
             orderSummary += `PAYMENT METHOD: ${paymentMethod}%0A%0A`;
-            
-            // Order Items
             orderSummary += "--- ORDER DETAILS ---%0A";
+
             let total = 0;
             cart.forEach(item => {
                 const itemTotal = item.price * item.quantity;
@@ -222,14 +220,27 @@
             orderSummary += `%0A*TOTAL AMOUNT: ${currencySymbol}${total.toFixed(0)}*%0A%0A`;
             orderSummary += `Please confirm this order and let me know when it's ready for pick-up! Thank you.`;
 
-            // Open Facebook Messenger link with the pre-filled message
             const messengerLink = `https://m.me/${pageUsername}?text=${orderSummary}`;
             window.open(messengerLink, '_blank');
         }
 
-        // Initialize the cart display when the page loads
-        updateCartDisplay();
-    </script>
+        function flyToCart(imgElement) {
+            const cartBtn = document.getElementById('cart-trigger');
+            const cartTotal = document.getElementById('cart-total');
 
-</body>
-</html>
+            const flyingImg = imgElement.cloneNode(true);
+            flyingImg.classList.add('flying-item');
+
+            const rect = imgElement.getBoundingClientRect();
+            flyingImg.style.top = rect.top + 'px';
+            flyingImg.style.left = rect.left + 'px';
+            flyingImg.style.width = rect.width + 'px';
+            flyingImg.style.height = rect.height + 'px';
+
+            document.body.appendChild(flyingImg);
+
+            const cartRect = cartBtn.getBoundingClientRect();
+            flyingImg.offsetWidth;
+
+            flyingImg.style.transform = `translate(${cartRect.left - rect.left}px, ${cartRect.top - rect.top}px) scale(0.2)`;
+           
