@@ -86,20 +86,20 @@ function checkout() {
         return;
     }
 
-    let orderSummary = "Hello! I'm placing an order for pick-up.%0A%0A";
-    orderSummary += `*CUSTOMER NAME: ${customerName}*%0A`;
-    orderSummary += `*PICK-UP TIME: ${pickupTime}*%0A`;
-    orderSummary += `PAYMENT METHOD: ${paymentMethod}%0A%0A`;
-    orderSummary += "--- ORDER DETAILS ---%0A";
+    let orderSummary = "Hello! I'm placing an order for pick-up.";
+    orderSummary += `*CUSTOMER NAME: ${customerName};
+    orderSummary += `*PICK-UP TIME: ${pickupTime}`;
+    orderSummary += `PAYMENT METHOD: ${paymentMethod}`;
+    orderSummary += "--- ORDER DETAILS ---";
 
     let total = 0;
     cart.forEach(item => {
         const itemTotal = item.price * item.quantity;
         total += itemTotal;
-        orderSummary += `(${item.quantity}x) ${item.name} - ${currencySymbol}${item.price} each%0A`;
+        orderSummary += `(${item.quantity}x) ${item.name} - ${currencySymbol}${item.price} each`;
     });
 
-    orderSummary += `%0A*TOTAL AMOUNT: ${currencySymbol}${total.toFixed(0)}*%0A%0A`;
+    orderSummary += `TOTAL AMOUNT: ${currencySymbol}${total.toFixed(0)}`;
     orderSummary += `Please confirm this order and let me know when it's ready for pick-up! Thank you.`;
 
     // ✅ Opens the Messenger e2ee chat with the prefilled order message
@@ -137,4 +137,5 @@ function flyToCart(img) {
 }
 
 updateCartDisplay();
+
 
