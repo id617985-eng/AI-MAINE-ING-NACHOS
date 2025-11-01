@@ -85,29 +85,33 @@ function checkout() {
         return; 
     }
 
-    let orderSummary = `Hello! I'm placing an order.\nName: ${customerName}\nPick-up: ${pickupTime}\nPayment: ${paymentMethod}\n---ORDER---\n`;
+    // Pre-written message template
+    let message = `🌽 *Ai-Maize-ing Nachos Order* 🌽\n\n`;
+    message += `👤 Name: ${customerName}\n⏰ Pick-up: ${pickupTime}\n💰 Payment: ${paymentMethod}\n\n🛒 *Order Items:*\n`;
+
     let total = 0;
     cart.forEach(item => { 
-        orderSummary += `(${item.quantity}x) ${item.name} - ${currencySymbol}${item.price}\n`; 
+        message += `- ${item.quantity} x ${item.name} = ${currencySymbol}${item.price * item.quantity}\n`; 
         total += item.price * item.quantity; 
     });
-    orderSummary += `TOTAL: ${currencySymbol}${total.toFixed(0)}`;
+    message += `\n💵 *Total: ${currencySymbol}${total.toFixed(0)}*\n\n`;
+    message += `Please prepare my order. Thank you! 🙌`;
 
-    openMessenger(orderSummary);
+    openMessenger(message);
 }
 
-// Function to open Messenger on mobile or desktop
-function openMessenger(orderSummary) {
-    const mobileLink = `fb-messenger://user-thread/${messengerUserId}`;
-    const webLink = `https://m.me/${messengerUserId}`;
+// Open Messenger app on mobile or fallback to web
+function openMessenger(message) {
+    const mobileLink = `fb-messenger://user-thread/${messengerUserId}?text=${encodeURIComponent(message)}`;
+    const webLink = `https://m.me/${messengerUserId}?ref=${encodeURIComponent(message)}`;
 
-    // Try to open Messenger app first
-    const newWindow = window.open(mobileLink + '?text=' + encodeURIComponent(orderSummary), '_blank');
+    // Try app first
+    const newWindow = window.open(mobileLink, '_blank');
 
-    // If app doesn't open after 1s, fallback to web
+    // If app not opened, fallback to web after 1s
     setTimeout(() => {
-        if (!newWindow || newWindow.closed) {
-            window.open(webLink + '?ref=' + encodeURIComponent(orderSummary), '_blank');
+        if(!newWindow || newWindow.closed){
+            window.open(webLink, '_blank');
         }
     }, 1000);
 }
