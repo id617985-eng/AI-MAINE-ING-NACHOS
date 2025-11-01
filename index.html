@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ai-Maize-ing Nachos - Order Online</title>
+<title>Ai-Maize-ing Nachos - AI FOODIES</title>
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Shrikhand&display=swap" rel="stylesheet">
 <style>
 body {
@@ -143,6 +143,13 @@ input, select {
     color: #ff5722;
     border-bottom: 2px solid #ffb347;
     padding-bottom: 5px;
+    text-align: center;
+}
+.category-logo {
+    display: block;
+    margin: 10px auto;
+    width: 80px;
+    height: 80px;
 }
 </style>
 </head>
@@ -151,45 +158,19 @@ input, select {
 <header>
     <img src="image/logo.png" alt="Logo">
     <h1>Ai-Maize-ing Nachos</h1>
-    <p>Select your items below, then click <strong>View Cart</strong> to complete your order.</p>
+    <p>Order your favorite AI FOODIES items below and click <strong>View Cart</strong> to complete your order.</p>
 </header>
 
 <div class="container">
     <section id="menu">
-        <h2 class="category-title">Classic Nachos</h2>
-        <div class="menu-grid">
-            <div class="menu-item" data-name="Regular Nachos" data-price="35">
-                <img src="image/566525427_2187368088422232_3281536944644291040_n.jpg" alt="Regular Nachos">
-                <h3>Regular Nachos</h3>
-                <p class="price">₱35</p>
-                <button class="add-to-cart-btn" onclick="addToCart(this)">Add to Cart</button>
-            </div>
-            <div class="menu-item" data-name="Veggie Nachos" data-price="65">
-                <img src="image/veggie nachos.jpg" alt="Veggie Nachos">
-                <h3>Veggie Nachos</h3>
-                <p class="price">₱65</p>
-                <button class="add-to-cart-btn" onclick="addToCart(this)">Add to Cart</button>
-            </div>
-        </div>
+        <h2 class="category-title">AI FOODIES</h2>
+        <img src="image/ai_foodies_logo.png" alt="AI Foodies Logo" class="category-logo">
 
-        <h2 class="category-title">Cheesy & Combos</h2>
         <div class="menu-grid">
-            <div class="menu-item" data-name="Overload Cheesy Nachos" data-price="95">
-                <img src="image/overload chees nachos.jpg" alt="Overload Cheesy Nachos">
-                <h3>Overload Cheesy Nachos</h3>
-                <p class="price">₱95</p>
-                <button class="add-to-cart-btn" onclick="addToCart(this)">Add to Cart</button>
-            </div>
-            <div class="menu-item" data-name="Nacho Combo" data-price="75">
-                <img src="image/combo.jpg" alt="Nacho Combo">
-                <h3>Nacho Combo</h3>
-                <p class="price">₱75</p>
-                <button class="add-to-cart-btn" onclick="addToCart(this)">Add to Cart</button>
-            </div>
-            <div class="menu-item" data-name="Nacho Fries" data-price="85">
-                <img src="image/nacho fries.jpg" alt="Nacho Fries">
-                <h3>Nacho Fries</h3>
-                <p class="price">₱85</p>
+            <div class="menu-item" data-name="AI Nacho Delight" data-price="120">
+                <img src="image/ai_nacho.jpg" alt="AI Nacho Delight">
+                <h3>AI Nacho Delight</h3>
+                <p class="price">₱120</p>
                 <button class="add-to-cart-btn" onclick="addToCart(this)">Add to Cart</button>
             </div>
             <div class="menu-item" data-name="Supreme Nachos" data-price="180">
@@ -198,14 +179,10 @@ input, select {
                 <p class="price">₱180</p>
                 <button class="add-to-cart-btn" onclick="addToCart(this)">Add to Cart</button>
             </div>
-        </div>
-
-        <h2 class="category-title">AI FOODIES</h2>
-        <div class="menu-grid">
-            <div class="menu-item" data-name="AI Nacho Delight" data-price="120">
-                <img src="image/ai_nacho.jpg" alt="AI Nacho Delight">
-                <h3>AI Nacho Delight</h3>
-                <p class="price">₱120</p>
+            <div class="menu-item" data-name="Overload Cheesy Nachos" data-price="95">
+                <img src="image/overload chees nachos.jpg" alt="Overload Cheesy Nachos">
+                <h3>Overload Cheesy Nachos</h3>
+                <p class="price">₱95</p>
                 <button class="add-to-cart-btn" onclick="addToCart(this)">Add to Cart</button>
             </div>
         </div>
@@ -241,7 +218,7 @@ input, select {
 <script>
 let cart = [];
 const currencySymbol = '₱';
-const messengerChatLink = 'https://m.me/8941907542595225'; // mobile friendly link
+const messengerChatLink = 'https://m.me/8941907542595225';
 
 function addToCart(btn) {
     const menuItem = btn.closest('.menu-item');
