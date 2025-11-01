@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -22,28 +21,8 @@ body { font-family: 'Roboto', sans-serif; margin: 0; padding: 0; }
 #cart-popup li .quantity-controls button { margin: 0 3px; }
 .bouncing { animation: bounce 0.5s; }
 @keyframes bounce { 0%,100%{transform:scale(1)}50%{transform:scale(1.2)} }
-
-/* Navigation */
-.menu-nav {
-    margin: 15px 0;
-    font-weight: bold;
-    text-align: center;
-    font-family: 'Shrikhand', cursive;
-}
-.menu-nav a {
-    text-decoration: none;
-    color: #ff5722;
-    margin: 0 10px;
-    transition: color 0.3s;
-}
-.menu-nav a:hover { color: #ffa000; }
-
-/* AI FOODIES Section */
-#ai-foodies h2 {
-    font-family: 'Shrikhand', cursive;
-    color: #009688;
-    margin-top: 40px;
-}
+h2 { margin-top: 40px; }
+.category-title { margin-top: 30px; font-size: 1.5em; text-decoration: underline; }
 </style>
 </head>
 <body>
@@ -54,17 +33,11 @@ body { font-family: 'Roboto', sans-serif; margin: 0; padding: 0; }
         <p>Select your items below, then click <strong>View Cart</strong> to complete your order.</p>
     </header>
 
-    <!-- Navigation -->
-    <nav class="menu-nav">
-        <a href="#menu">Classic Nachos</a> |
-        <a href="#ai-foodies">AI FOODIES</a>
-    </nav>
-
-    <!-- Classic Menu -->
     <section id="menu">
         <h2>Our Menu</h2>
-        <div class="menu-grid">
 
+        <div class="menu-grid">
+            <!-- Original Menu Items -->
             <div class="menu-item" data-name="Regular Nachos" data-price="35">
                 <img src="image/566525427_2187368088422232_3281536944644291040_n.jpg" alt="Regular Nachos">
                 <h3>Regular Nachos</h3>
@@ -106,34 +79,25 @@ body { font-family: 'Roboto', sans-serif; margin: 0; padding: 0; }
                 <p class="price">₱180</p>
                 <button class="add-to-cart-btn" onclick="addToCart(this)">Add to Cart</button>
             </div>
-
         </div>
-    </section>
 
-    <!-- AI FOODIES Section -->
-    <section id="ai-foodies">
-        <h2>AI FOODIES</h2>
+        <!-- New AI Foodies Category -->
+        <h2 class="category-title">AI Foodies</h2>
         <div class="menu-grid">
-
-            <div class="menu-item" data-name="oreo and bisscoff" data-price="120">
-                <img src="image/oreo and bisscoff.png" alt="oreo and bisscoff">
-                <h3>Oreo and Bisscof</h3>
+            <div class="menu-item" data-name="AI Nacho Delight" data-price="120">
+                <img src="image/ai-nacho.jpg" alt="AI Nacho Delight">
+                <h3>AI Nacho Delight</h3>
                 <p class="price">₱120</p>
                 <button class="add-to-cart-btn" onclick="addToCart(this)">Add to Cart</button>
             </div>
-
-            <div class="menu-item" data-name="mango " data-price="140">
-                <img src="image/mango.gif" alt="mango">
-                <h3>mango</h3>
-                <p class="price">₱140</p>
+            <div class="menu-item" data-name="AI Cheese Explosion" data-price="150">
+                <img src="image/ai-cheese.jpg" alt="AI Cheese Explosion">
+                <h3>AI Cheese Explosion</h3>
+                <p class="price">₱150</p>
                 <button class="add-to-cart-btn" onclick="addToCart(this)">Add to Cart</button>
             </div>
-
-        
-
         </div>
     </section>
-
 </div>
 
 <button id="cart-trigger" onclick="toggleCart()">View Cart (<span id="cart-count">0</span>)</button>
@@ -166,7 +130,7 @@ body { font-family: 'Roboto', sans-serif; margin: 0; padding: 0; }
 <script>
 let cart = [];
 const currencySymbol = '₱';
-const messengerChatLink = 'https://www.messenger.com/e2ee/t/8941907542595225';
+const messengerUserId = '8941907542595225'; // Your FB Messenger Page/User ID
 
 function addToCart(btn) {
     const menuItem = btn.closest('.menu-item');
@@ -175,8 +139,11 @@ function addToCart(btn) {
     const img = menuItem.querySelector('img');
 
     const existingItem = cart.find(item => item.name === name);
-    if(existingItem) { existingItem.quantity += 1; } 
-    else { cart.push({name, price, quantity:1}); }
+    if(existingItem) { 
+        existingItem.quantity += 1; 
+    } else { 
+        cart.push({name, price, quantity:1}); 
+    }
 
     updateCartDisplay();
 
@@ -200,8 +167,9 @@ function updateCartDisplay() {
         document.getElementById('checkout-btn').disabled = true;
     } else {
         cart.forEach((item,index)=>{
-            const itemTotal = item.price*item.quantity;
-            total+=itemTotal; totalItems+=item.quantity;
+            const itemTotal = item.price * item.quantity;
+            total += itemTotal;
+            totalItems += item.quantity;
 
             const li = document.createElement('li');
             li.innerHTML = `<span>${item.name}</span>
@@ -215,66 +183,93 @@ function updateCartDisplay() {
         });
         document.getElementById('checkout-btn').disabled = false;
     }
+
     cartTotalElement.textContent = `${currencySymbol}${total.toFixed(0)}`;
     cartCountElement.textContent = totalItems;
 }
 
-function changeQuantity(index,delta){
-    cart[index].quantity+=delta;
-    if(cart[index].quantity<=0) cart.splice(index,1);
+function changeQuantity(index, delta) {
+    cart[index].quantity += delta;
+    if(cart[index].quantity <= 0) cart.splice(index,1);
     updateCartDisplay();
 }
 
-function toggleCart(){ 
+function toggleCart() { 
     const popup = document.getElementById('cart-popup');
-    popup.style.display = popup.style.display==='block'?'none':'block'; 
+    popup.style.display = popup.style.display === 'block' ? 'none' : 'block'; 
 }
 
-function checkout(){
-    if(cart.length===0){ alert('Cart empty!'); return; }
+function checkout() {
+    if(cart.length === 0){ 
+        alert('Cart empty!'); 
+        return; 
+    }
+
     const customerName = document.getElementById('customer-name').value;
     const pickupTime = document.getElementById('pickup-time').value;
     const paymentMethod = document.getElementById('payment-method').value;
 
-    if(!customerName || !pickupTime){ alert('Enter Name & Pick-up Time!'); return; }
+    if(!customerName || !pickupTime){ 
+        alert('Enter Name & Pick-up Time!'); 
+        return; 
+    }
 
-    let orderSummary=`Hello! I'm placing an order.\nName: ${customerName}\nPick-up: ${pickupTime}\nPayment: ${paymentMethod}\n---ORDER---\n`;
-    let total=0;
-    cart.forEach(item=>{ orderSummary+=`(${item.quantity}x) ${item.name} - ${currencySymbol}${item.price}\n`; total+=item.price*item.quantity; });
-    orderSummary+=`TOTAL: ${currencySymbol}${total.toFixed(0)}`;
+    let orderSummary = `Hello! I'm placing an order.\nName: ${customerName}\nPick-up: ${pickupTime}\nPayment: ${paymentMethod}\n---ORDER---\n`;
+    let total = 0;
+    cart.forEach(item => { 
+        orderSummary += `(${item.quantity}x) ${item.name} - ${currencySymbol}${item.price}\n`; 
+        total += item.price * item.quantity; 
+    });
+    orderSummary += `TOTAL: ${currencySymbol}${total.toFixed(0)}`;
 
-    window.open(`${messengerChatLink}?text=${encodeURIComponent(orderSummary)}`,'_blank');
+    openMessenger(orderSummary);
 }
 
-function flyToCart(img){
-    const cartBtn=document.getElementById('cart-trigger');
-    const clone=img.cloneNode(true);
-    const rect=img.getBoundingClientRect();
-    const cartRect=cartBtn.getBoundingClientRect();
+// Function to open Messenger on mobile or desktop
+function openMessenger(orderSummary) {
+    const mobileLink = `fb-messenger://user-thread/${messengerUserId}`;
+    const webLink = `https://m.me/${messengerUserId}`;
 
-    clone.style.position='fixed';
-    clone.style.top=rect.top+'px';
-    clone.style.left=rect.left+'px';
-    clone.style.width=rect.width+'px';
-    clone.style.height=rect.height+'px';
-    clone.style.transition='all 0.7s ease-in-out';
-    clone.style.zIndex=1000;
+    // Try to open Messenger app first
+    const newWindow = window.open(mobileLink + '?text=' + encodeURIComponent(orderSummary), '_blank');
+
+    // If app doesn't open after 1s, fallback to web
+    setTimeout(() => {
+        if (!newWindow || newWindow.closed) {
+            window.open(webLink + '?ref=' + encodeURIComponent(orderSummary), '_blank');
+        }
+    }, 1000);
+}
+
+function flyToCart(img) {
+    const cartBtn = document.getElementById('cart-trigger');
+    const clone = img.cloneNode(true);
+    const rect = img.getBoundingClientRect();
+    const cartRect = cartBtn.getBoundingClientRect();
+
+    clone.style.position = 'fixed';
+    clone.style.top = rect.top + 'px';
+    clone.style.left = rect.left + 'px';
+    clone.style.width = rect.width + 'px';
+    clone.style.height = rect.height + 'px';
+    clone.style.transition = 'all 0.7s ease-in-out';
+    clone.style.zIndex = 1000;
     document.body.appendChild(clone);
 
-    setTimeout(()=>{
-        clone.style.top=cartRect.top+'px';
-        clone.style.left=cartRect.left+'px';
-        clone.style.width='25px';
-        clone.style.height='25px';
-        clone.style.opacity='0.5';
-    },10);
+    setTimeout(() => {
+        clone.style.top = cartRect.top + 'px';
+        clone.style.left = cartRect.left + 'px';
+        clone.style.width = '25px';
+        clone.style.height = '25px';
+        clone.style.opacity = '0.5';
+    }, 10);
 
-    setTimeout(()=>clone.remove(),710);
+    setTimeout(() => clone.remove(), 710);
 }
 
+// Initialize
 updateCartDisplay();
 </script>
 
 </body>
 </html>
-
