@@ -1,9 +1,18 @@
 let cart = [];
 const currencySymbol = '₱';
-
-// Messenger link (works on mobile & desktop)
 const messengerUserID = '8941907542595225';
 
+// Initialize: attach click listeners to all Add to Cart buttons
+document.querySelectorAll('.add-to-cart-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+        const menuItem = btn.closest('.menu-item');
+        const name = menuItem.dataset.name;
+        const price = parseFloat(menuItem.dataset.price);
+        addToCart(name, price, btn);
+    });
+});
+
+// Add item to cart
 function addToCart(name, price, btn) {
     const existingItem = cart.find(item => item.name === name);
 
@@ -15,21 +24,23 @@ function addToCart(name, price, btn) {
 
     updateCartDisplay();
 
+    // Bounce cart button
     const cartBtn = document.getElementById('cart-trigger');
     cartBtn.classList.add('bouncing');
     setTimeout(() => cartBtn.classList.remove('bouncing'), 500);
 
+    // Fly image to cart
     const img = btn.closest('.menu-item').querySelector('img');
     flyToCart(img);
 }
 
+// Update cart UI
 function updateCartDisplay() {
     const cartItemsList = document.getElementById('cart-items');
     const cartTotalElement = document.getElementById('cart-total');
     const cartCountElement = document.getElementById('cart-count');
     
     cartItemsList.innerHTML = '';
-    
     let total = 0;
     let totalItems = 0;
 
@@ -60,22 +71,24 @@ function updateCartDisplay() {
     cartTotalElement.textContent = `${currencySymbol}${total.toFixed(0)}`;
     cartCountElement.textContent = totalItems;
 
-    // Position cart popup below cart button
     positionCartPopup();
 }
 
+// Change item quantity in cart
 function changeQuantity(index, delta) {
     cart[index].quantity += delta;
     if (cart[index].quantity <= 0) cart.splice(index, 1);
     updateCartDisplay();
 }
 
+// Toggle cart popup
 function toggleCart() {
     const cartPopup = document.getElementById('cart-popup');
     cartPopup.classList.toggle('hidden');
     positionCartPopup();
 }
 
+// Position cart popup under the cart button
 function positionCartPopup() {
     const cartPopup = document.getElementById('cart-popup');
     const cartBtn = document.getElementById('cart-trigger');
@@ -88,14 +101,15 @@ function positionCartPopup() {
     cartPopup.style.zIndex = 9999;
 }
 
+// Checkout & send order via Messenger
 function checkout() {
     if (cart.length === 0) {
         alert('Your cart is empty!');
         return;
     }
 
-    const customerName = document.getElementById('customer-name').value;
-    const pickupTime = document.getElementById('pickup-time').value;
+    const customerName = document.getElementById('customer-name').value.trim();
+    const pickupTime = document.getElementById('pickup-time').value.trim();
     const paymentMethod = document.getElementById('payment-method').value;
 
     if (!customerName || !pickupTime) {
@@ -103,25 +117,29 @@ function checkout() {
         return;
     }
 
-    let orderSummary = `Hello! I'm placing an order for pick-up.\n\nCUSTOMER NAME: ${customerName}\nPICK-UP TIME: ${pickupTime}\nPAYMENT METHOD: ${paymentMethod}\n--- ORDER DETAILS ---\n`;
-    let total = 0;
+    let orderSummary = `Hello! I'm placing an order for pick-up.\n\n`;
+    orderSummary += `CUSTOMER NAME: ${customerName}\n`;
+    orderSummary += `PICK-UP TIME: ${pickupTime}\n`;
+    orderSummary += `PAYMENT METHOD: ${paymentMethod}\n`;
+    orderSummary += `--- ORDER DETAILS ---\n`;
 
+    let totalAmount = 0;
     cart.forEach(item => {
         const itemTotal = item.price * item.quantity;
-        total += itemTotal;
+        totalAmount += itemTotal;
         orderSummary += `(${item.quantity}x) ${item.name} - ${currencySymbol}${item.price} each\n`;
     });
 
-    orderSummary += `TOTAL AMOUNT: ${currencySymbol}${total.toFixed(0)}\nPlease confirm this order and let me know when it's ready for pick-up! Thank you.`;
+    orderSummary += `TOTAL AMOUNT: ${currencySymbol}${totalAmount.toFixed(0)}\n`;
+    orderSummary += `Please confirm this order and let me know when it's ready for pick-up. Thank you!`;
 
     const encodedMessage = encodeURIComponent(orderSummary);
-
-    // Use mobile-friendly Messenger web link
-    const messengerLink = `https://m.me/${messengerUserID}?ref=${encodedMessage}`;
+    const messengerLink = `https://m.me/${messengerUserID}?text=${encodedMessage}`;
 
     window.open(messengerLink, '_blank');
 }
 
+// Fly image animation to cart
 function flyToCart(img) {
     const cartBtn = document.getElementById('cart-trigger');
     const imgClone = img.cloneNode(true);
@@ -145,10 +163,8 @@ function flyToCart(img) {
         imgClone.style.opacity = '0.5';
     }, 10);
 
-    setTimeout(() => {
-        imgClone.remove();
-    }, 710);
+    setTimeout(() => imgClone.remove(), 710);
 }
 
-// Initialize display
+// Initialize cart display
 updateCartDisplay();
