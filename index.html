@@ -81,4 +81,176 @@ h1, h2 { font-family: 'Shrikhand', cursive; color:#333; }
                 <img src="image/Supreme Nachos.png" alt="Supreme Nachos">
                 <h3>Supreme Nachos</h3>
                 <p class="price">₱180</p>
-                <button class="add-to-cart-btn" onclick=
+                <button class="add-to-cart-btn" onclick="addToCart(this)">Add to Cart</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- AI FOODIES Menu -->
+    <section id="ai-foodies">
+        <h2>AI FOODIES</h2>
+        <div class="menu-grid">
+            <div class="menu-item" data-name="AI Burger" data-price="150">
+                <img src="image/ai-burger.jpg" alt="AI Burger">
+                <h3>AI Burger</h3>
+                <p class="price">₱150</p>
+                <button class="add-to-cart-btn" onclick="addToCart(this)">Add to Cart</button>
+            </div>
+            <div class="menu-item" data-name="AI Fries" data-price="90">
+                <img src="image/ai-fries.jpg" alt="AI Fries">
+                <h3>AI Fries</h3>
+                <p class="price">₱90</p>
+                <button class="add-to-cart-btn" onclick="addToCart(this)">Add to Cart</button>
+            </div>
+            <div class="menu-item" data-name="AI Shake" data-price="120">
+                <img src="image/ai-shake.jpg" alt="AI Shake">
+                <h3>AI Shake</h3>
+                <p class="price">₱120</p>
+                <button class="add-to-cart-btn" onclick="addToCart(this)">Add to Cart</button>
+            </div>
+        </div>
+    </section>
+</div>
+
+<!-- Cart Button & Popup -->
+<button id="cart-trigger" onclick="toggleCart()">View Cart (<span id="cart-count">0</span>)</button>
+
+<div id="cart-popup">
+    <div class="cart-header">
+        <h3>Your Order</h3>
+        <button class="close-btn" onclick="toggleCart()">X</button>
+    </div>
+    <ul id="cart-items"></ul>
+    <p>Total: <span id="cart-total">₱0</span></p>
+
+    <div class="order-details">
+        <input type="text" id="customer-name" placeholder="Your Name for Pickup">
+        <input type="text" id="pickup-time" placeholder="Pick-up Time (e.g., 6:30 PM)">
+    </div>
+
+    <div class="payment-options">
+        <select id="payment-method">
+            <option value="Cash on Pick-up">Cash on Pick-up</option>
+            <option value="Gcash">Gcash / PayMaya</option>
+            <option value="Bank Transfer">Bank Transfer</option>
+        </select>
+    </div>
+
+    <button id="checkout-btn" onclick="checkout()">Send Order & Notify Us</button>
+</div>
+
+<script>
+let cart = [];
+const currencySymbol = '₱';
+const messengerUserId = '8941907542595225'; // Replace with your Messenger ID
+
+function addToCart(btn){
+    const menuItem = btn.closest('.menu-item');
+    const name = menuItem.dataset.name;
+    const price = parseFloat(menuItem.dataset.price);
+    const img = menuItem.querySelector('img');
+
+    const existing = cart.find(item => item.name === name);
+    if(existing) existing.quantity += 1;
+    else cart.push({name, price, quantity:1});
+
+    updateCartDisplay();
+    animateCartButton();
+    flyToCart(img);
+}
+
+function updateCartDisplay(){
+    const cartItemsList = document.getElementById('cart-items');
+    const cartTotalElement = document.getElementById('cart-total');
+    const cartCountElement = document.getElementById('cart-count');
+
+    cartItemsList.innerHTML = '';
+    let total=0, totalItems=0;
+
+    if(cart.length === 0){
+        cartItemsList.innerHTML = '<li>Your cart is empty.</li>';
+        document.getElementById('checkout-btn').disabled = true;
+    } else {
+        cart.forEach((item,index)=>{
+            total += item.price*item.quantity;
+            totalItems += item.quantity;
+
+            const li = document.createElement('li');
+            li.innerHTML = `<span>${item.name}</span>
+                            <div class="quantity-controls">
+                                <button onclick="changeQuantity(${index},-1)">-</button>
+                                <span>${item.quantity}</span>
+                                <button onclick="changeQuantity(${index},1)">+</button>
+                            </div>
+                            <span>${currencySymbol}${(item.price*item.quantity).toFixed(0)}</span>`;
+            cartItemsList.appendChild(li);
+        });
+        document.getElementById('checkout-btn').disabled = false;
+    }
+
+    cartCountElement.textContent = totalItems;
+    cartTotalElement.textContent = `${currencySymbol}${total.toFixed(0)}`;
+}
+
+function changeQuantity(index,delta){
+    cart[index].quantity += delta;
+    if(cart[index].quantity <= 0) cart.splice(index,1);
+    updateCartDisplay();
+}
+
+function toggleCart(){
+    const popup = document.getElementById('cart-popup');
+    popup.style.display = (popup.style.display==='block')?'none':'block';
+}
+
+function animateCartButton(){
+    const btn = document.getElementById('cart-trigger');
+    btn.classList.add('bouncing');
+    setTimeout(()=>btn.classList.remove('bouncing'),500);
+}
+
+function flyToCart(img){
+    if(!img) return;
+    const clone = img.cloneNode(true);
+    const rect = img.getBoundingClientRect();
+    clone.style.position = 'fixed';
+    clone.style.left = rect.left+'px';
+    clone.style.top = rect.top+'px';
+    clone.style.width = rect.width+'px';
+    clone.style.height = rect.height+'px';
+    clone.style.transition='all 0.8s ease-in-out';
+    clone.style.zIndex=10000;
+    document.body.appendChild(clone);
+
+    const cartBtn = document.getElementById('cart-trigger');
+    const cartRect = cartBtn.getBoundingClientRect();
+    setTimeout(()=>{
+        clone.style.left = cartRect.left+'px';
+        clone.style.top = cartRect.top+'px';
+        clone.style.width = '20px';
+        clone.style.height = '20px';
+        clone.style.opacity = 0.5;
+    },10);
+
+    setTimeout(()=>document.body.removeChild(clone),800);
+}
+
+function checkout(){
+    if(cart.length===0){ alert('Cart is empty!'); return; }
+    const name = document.getElementById('customer-name').value || 'Customer';
+    const time = document.getElementById('pickup-time').value || 'Not specified';
+    const payment = document.getElementById('payment-method').value;
+    let orderMessage=`Hello! I would like to place an order:%0A`;
+    cart.forEach(item=>{
+        orderMessage += `${item.quantity} x ${item.name} = ${currencySymbol}${(item.quantity*item.price).toFixed(0)}%0A`;
+    });
+    const total = cart.reduce((a,b)=>a+b.price*b.quantity,0);
+    orderMessage += `Total: ${currencySymbol}${total.toFixed(0)}%0AName: ${name}%0APick-up Time: ${time}%0APayment: ${payment}`;
+
+    const url = `https://m.me/${messengerUserId}?ref=${encodeURIComponent(orderMessage)}`;
+    window.open(url,'_blank');
+}
+</script>
+
+</body>
+</html>
