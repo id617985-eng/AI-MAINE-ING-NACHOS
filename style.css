@@ -308,25 +308,26 @@ header p {
   }
 }
 
-/* === AI FOODIES CATEGORY === */
-.ai-foodies-heading {
-  color: #8e24aa;
-  margin-top: 40px;
-  font-size: 1.8em;
-  text-shadow: 2px 2px #f3e5f5;
+/* Hover effect for AI FOODIES items */
+#ai-foodies .menu-item {
+    transition: transform 0.3s, box-shadow 0.3s;
+    border-color: #ff6600; /* optional: orange border */
 }
 
-.menu-item.ai-foodies {
-  background: linear-gradient(135deg, #f3e5f5, #e1bee7);
-  border: 2px solid #ab47bc;
+#ai-foodies .menu-item:hover {
+    transform: translateY(-10px) scale(1.05);
+    box-shadow: 0 10px 20px rgba(255, 102, 0, 0.5);
+    border-color: #ff4500;
 }
 
-.menu-item.ai-foodies h3 {
-  color: #6a1b9a;
+#ai-foodies .menu-item h3 {
+    color: #ff6600;
 }
 
-.menu-item.ai-foodies:hover {
-  transform: scale(1.06);
-  box-shadow: 0 10px 20px rgba(171, 71, 188, 0.3);
+#ai-foodies .menu-item p.price {
+    font-weight: bold;
+    color: #ff3300;
 }
+
+
 
