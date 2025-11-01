@@ -1,145 +1,350 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Ai-Maize-ing Nachos - Order Online</title>
-
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Shrikhand&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="style.css" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ai-Maize-ing Nachos - Order Online</title>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Shrikhand&display=swap" rel="stylesheet">
+<style>
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    background: #fff8f0;
+}
+header {
+    text-align: center;
+    padding: 20px;
+    background: #ffdb99;
+}
+header img {
+    width: 50px;
+    height: 50px;
+}
+h1 {
+    font-family: 'Shrikhand', cursive;
+    margin: 10px 0;
+}
+.container {
+    max-width: 1200px;
+    margin: auto;
+    padding: 20px;
+}
+.menu-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+.menu-item {
+    border: 2px solid #ffb347;
+    border-radius: 10px;
+    padding: 10px;
+    width: 220px;
+    text-align: center;
+    background: #fff3e0;
+    transition: transform 0.2s;
+}
+.menu-item:hover {
+    transform: scale(1.05);
+}
+.menu-item img {
+    width: 200px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+.add-to-cart-btn {
+    margin-top: 10px;
+    padding: 5px 10px;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    background: #ff7f50;
+    color: white;
+    font-weight: bold;
+    transition: background 0.2s;
+}
+.add-to-cart-btn:hover {
+    background: #ff5722;
+}
+#cart-trigger {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    padding: 10px 15px;
+    cursor: pointer;
+    background: #ff7f50;
+    color: white;
+    border: none;
+    border-radius: 50px;
+    font-weight: bold;
+    z-index: 1001;
+}
+#cart-popup {
+    position: fixed;
+    top: 70px;
+    right: 20px;
+    width: 320px;
+    max-height: 80vh;
+    background: #fff;
+    border: 2px solid #ffb347;
+    border-radius: 10px;
+    padding: 15px;
+    display: none;
+    z-index: 1000;
+    overflow-y: auto;
+}
+#cart-popup ul {
+    list-style: none;
+    padding: 0;
+}
+#cart-popup li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+}
+#cart-popup li .quantity-controls button {
+    margin: 0 3px;
+}
+.bouncing {
+    animation: bounce 0.5s;
+}
+@keyframes bounce {
+    0%,100%{transform:scale(1)}
+    50%{transform:scale(1.2)}
+}
+input, select {
+    width: 100%;
+    padding: 5px;
+    margin: 5px 0;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+#checkout-btn {
+    width: 100%;
+    padding: 10px;
+    background: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+}
+#checkout-btn:hover {
+    background: #45a049;
+}
+.order-details, .payment-options {
+    margin: 10px 0;
+}
+.category-title {
+    font-size: 1.5em;
+    margin: 20px 0 10px;
+    color: #ff5722;
+    border-bottom: 2px solid #ffb347;
+    padding-bottom: 5px;
+}
+</style>
 </head>
-
 <body>
-  <div class="container">
-    <header>
-      <img src="image/Nostalgic Nachos Logo with Playful Script Font.png" alt="Ai-Maize-ing Nachos Logo" class="logo" />
-      <h1>Ai-Maize-ing Nachos</h1>
-      <p>Select your items below, then click <strong>View Cart</strong> to complete your order.</p>
-    </header>
 
-    <!-- ============ NACHOS MENU SECTION ============ -->
+<header>
+    <img src="image/logo.png" alt="Logo">
+    <h1>Ai-Maize-ing Nachos</h1>
+    <p>Select your items below, then click <strong>View Cart</strong> to complete your order.</p>
+</header>
+
+<div class="container">
     <section id="menu">
-      <h2>Our Menu</h2>
-      <div class="menu-grid">
-
-        <!-- Regular Nachos -->
-        <div class="menu-item" data-name="Regular Nachos" data-price="35">
-          <img src="image/566525427_2187368088422232_3281536944644291040_n.jpg" alt="Regular Nachos" />
-          <h3>Regular Nachos</h3>
-          <p class="description">Classic nachos loaded with cheese sauce and fresh toppings, served right in the bag for nostalgia!</p>
-          <p class="price">₱35</p>
-          <button class="add-to-cart-btn" onclick="addToCart(this)">Add to Cart</button>
+        <h2 class="category-title">Classic Nachos</h2>
+        <div class="menu-grid">
+            <div class="menu-item" data-name="Regular Nachos" data-price="35">
+                <img src="image/566525427_2187368088422232_3281536944644291040_n.jpg" alt="Regular Nachos">
+                <h3>Regular Nachos</h3>
+                <p class="price">₱35</p>
+                <button class="add-to-cart-btn" onclick="addToCart(this)">Add to Cart</button>
+            </div>
+            <div class="menu-item" data-name="Veggie Nachos" data-price="65">
+                <img src="image/veggie nachos.jpg" alt="Veggie Nachos">
+                <h3>Veggie Nachos</h3>
+                <p class="price">₱65</p>
+                <button class="add-to-cart-btn" onclick="addToCart(this)">Add to Cart</button>
+            </div>
         </div>
 
-        <!-- Veggie Nachos -->
-        <div class="menu-item" data-name="Veggie Nachos" data-price="65">
-          <img src="image/veggie nachos.jpg" alt="Veggie Nachos" />
-          <h3>Veggie Nachos</h3>
-          <p class="description">A fresh, vibrant mix of crisp veggies, sauces, and chips, all laid on a bed of lettuce.</p>
-          <p class="price">₱65</p>
-          <button class="add-to-cart-btn" onclick="addToCart(this)">Add to Cart</button>
+        <h2 class="category-title">Cheesy & Combos</h2>
+        <div class="menu-grid">
+            <div class="menu-item" data-name="Overload Cheesy Nachos" data-price="95">
+                <img src="image/overload chees nachos.jpg" alt="Overload Cheesy Nachos">
+                <h3>Overload Cheesy Nachos</h3>
+                <p class="price">₱95</p>
+                <button class="add-to-cart-btn" onclick="addToCart(this)">Add to Cart</button>
+            </div>
+            <div class="menu-item" data-name="Nacho Combo" data-price="75">
+                <img src="image/combo.jpg" alt="Nacho Combo">
+                <h3>Nacho Combo</h3>
+                <p class="price">₱75</p>
+                <button class="add-to-cart-btn" onclick="addToCart(this)">Add to Cart</button>
+            </div>
+            <div class="menu-item" data-name="Nacho Fries" data-price="85">
+                <img src="image/nacho fries.jpg" alt="Nacho Fries">
+                <h3>Nacho Fries</h3>
+                <p class="price">₱85</p>
+                <button class="add-to-cart-btn" onclick="addToCart(this)">Add to Cart</button>
+            </div>
+            <div class="menu-item" data-name="Supreme Nachos" data-price="180">
+                <img src="image/Supreme Nachos.png" alt="Supreme Nachos">
+                <h3>Supreme Nachos</h3>
+                <p class="price">₱180</p>
+                <button class="add-to-cart-btn" onclick="addToCart(this)">Add to Cart</button>
+            </div>
         </div>
 
-        <!-- Overload Cheesy Nachos -->
-        <div class="menu-item" data-name="Overload Cheesy Nachos" data-price="95">
-          <img src="image/overload chees nachos.jpg" alt="Overload Cheesy Nachos" />
-          <h3>Overload Cheesy Nachos</h3>
-          <p class="description">The ultimate cheese experience! Piled high with savory meat, veggies, and a mountain of shredded cheese.</p>
-          <p class="price">₱95</p>
-          <button class="add-to-cart-btn" onclick="addToCart(this)">Add to Cart</button>
+        <h2 class="category-title">AI FOODIES</h2>
+        <div class="menu-grid">
+            <div class="menu-item" data-name="AI Nacho Delight" data-price="120">
+                <img src="image/ai_nacho.jpg" alt="AI Nacho Delight">
+                <h3>AI Nacho Delight</h3>
+                <p class="price">₱120</p>
+                <button class="add-to-cart-btn" onclick="addToCart(this)">Add to Cart</button>
+            </div>
         </div>
-
-        <!-- Nacho Combo -->
-        <div class="menu-item" data-name="Nacho Combo" data-price="75">
-          <img src="image/combo.jpg" alt="Nacho Combo" />
-          <h3>Nacho Combo</h3>
-          <p class="description">The perfect pair! Our classic nachos served conveniently over a refreshing blue lemonade.</p>
-          <p class="price">₱75</p>
-          <button class="add-to-cart-btn" onclick="addToCart(this)">Add to Cart</button>
-        </div>
-
-        <!-- Nacho Fries -->
-        <div class="menu-item" data-name="Nacho Fries" data-price="85">
-          <img src="image/nacho fries.jpg" alt="Nacho Fries" />
-          <h3>Nacho Fries</h3>
-          <p class="description">Can't decide? Have both! Crispy golden fries loaded with all your favorite nacho toppings.</p>
-          <p class="price">₱85</p>
-          <button class="add-to-cart-btn" onclick="addToCart(this)">Add to Cart</button>
-        </div>
-
-        <!-- Supreme Nachos -->
-        <div class="menu-item" data-name="Supreme Nachos" data-price="180">
-          <img src="image/Supreme Nachos.png" alt="Supreme Nachos" />
-          <h3>Supreme Nachos</h3>
-          <p class="description">The king of nachos — a massive cheesy masterpiece loaded with every topping you could dream of!</p>
-          <p class="price">₱180</p>
-          <button class="add-to-cart-btn" onclick="addToCart(this)">Add to Cart</button>
-        </div>
-
-      </div>
-
-      <!-- ============ AI FOODIES CATEGORY ============ -->
-      <h2 class="ai-foodies-heading">AI FOODIES 🤖🍔</h2>
-      <div class="menu-grid">
-
-        <div class="menu-item ai-foodies" data-name="AI Burger Deluxe" data-price="150">
-          <img src="image/ai-burger.jpg" alt="AI Burger Deluxe" />
-          <h3>AI Burger Deluxe</h3>
-          <p class="description">Juicy beef patty stacked with cheddar, lettuce, and our secret AI sauce.</p>
-          <p class="price">₱150</p>
-          <button class="add-to-cart-btn" onclick="addToCart(this)">Add to Cart</button>
-        </div>
-
-        <div class="menu-item ai-foodies" data-name="AI Cheesy Fries" data-price="90">
-          <img src="image/ai-fries.jpg" alt="AI Cheesy Fries" />
-          <h3>AI Cheesy Fries</h3>
-          <p class="description">Crispy fries smothered with melted cheese and sprinkled with techie spices!</p>
-          <p class="price">₱90</p>
-          <button class="add-to-cart-btn" onclick="addToCart(this)">Add to Cart</button>
-        </div>
-
-        <div class="menu-item ai-foodies" data-name="AI Milkshake" data-price="110">
-          <img src="image/ai-milkshake.jpg" alt="AI Milkshake" />
-          <h3>AI Milkshake</h3>
-          <p class="description">A creamy, colorful shake mixed with futuristic flavors and fun!</p>
-          <p class="price">₱110</p>
-          <button class="add-to-cart-btn" onclick="addToCart(this)">Add to Cart</button>
-        </div>
-
-      </div>
     </section>
-  </div>
+</div>
 
-  <!-- ============ CART BUTTON & POPUP ============ -->
-  <button id="cart-trigger" onclick="toggleCart()">🛒 View Cart (<span id="cart-count">0</span>)</button>
+<button id="cart-trigger" onclick="toggleCart()">View Cart (<span id="cart-count">0</span>)</button>
 
-  <div id="cart-popup" class="hidden">
+<div id="cart-popup">
     <div class="cart-header">
-      <h3>Your Order</h3>
-      <button class="close-btn" onclick="toggleCart()">X</button>
+        <h3>Your Order</h3>
+        <button class="close-btn" onclick="toggleCart()">X</button>
     </div>
-
     <ul id="cart-items"></ul>
     <p>Total: <span id="cart-total">₱0</span></p>
 
     <div class="order-details">
-      <input type="text" id="customer-name" placeholder="Your Name for Pickup" required />
-      <input type="text" id="pickup-time" placeholder="Pick-up Time (e.g., 6:30 PM)" required />
+        <input type="text" id="customer-name" placeholder="Your Name for Pickup">
+        <input type="text" id="pickup-time" placeholder="Pick-up Time (e.g., 6:30 PM)">
     </div>
 
     <div class="payment-options">
-      <select id="payment-method">
-        <option value="Cash on Pick-up">Cash on Pick-up</option>
-        <option value="Gcash">Gcash / PayMaya</option>
-        <option value="Bank Transfer">Bank Transfer</option>
-      </select>
+        <select id="payment-method">
+            <option value="Cash on Pick-up">Cash on Pick-up</option>
+            <option value="Gcash">Gcash / PayMaya</option>
+            <option value="Bank Transfer">Bank Transfer</option>
+        </select>
     </div>
 
     <button id="checkout-btn" onclick="checkout()">Send Order & Notify Us</button>
-    <p class="note">We’ll message you via Messenger when your order is ready!</p>
-  </div>
+</div>
 
-  <script src="script.js"></script>
+<script>
+let cart = [];
+const currencySymbol = '₱';
+const messengerChatLink = 'https://m.me/8941907542595225'; // mobile friendly link
+
+function addToCart(btn) {
+    const menuItem = btn.closest('.menu-item');
+    const name = menuItem.dataset.name;
+    const price = parseFloat(menuItem.dataset.price);
+    const img = menuItem.querySelector('img');
+
+    const existingItem = cart.find(item => item.name === name);
+    if(existingItem) existingItem.quantity += 1;
+    else cart.push({name, price, quantity: 1});
+
+    updateCartDisplay();
+    document.getElementById('cart-trigger').classList.add('bouncing');
+    setTimeout(()=> document.getElementById('cart-trigger').classList.remove('bouncing'),500);
+
+    if(img) flyToCart(img);
+}
+
+function updateCartDisplay() {
+    const cartItemsList = document.getElementById('cart-items');
+    const cartTotalElement = document.getElementById('cart-total');
+    const cartCountElement = document.getElementById('cart-count');
+
+    cartItemsList.innerHTML = '';
+    let total=0, totalItems=0;
+
+    if(cart.length===0){
+        cartItemsList.innerHTML = '<li>Your cart is empty.</li>';
+        document.getElementById('checkout-btn').disabled = true;
+    } else {
+        cart.forEach((item,index)=>{
+            const itemTotal=item.price*item.quantity;
+            total+=itemTotal; totalItems+=item.quantity;
+            const li=document.createElement('li');
+            li.innerHTML=`<span>${item.name}</span>
+            <div class="quantity-controls">
+            <button onclick="changeQuantity(${index},-1)">-</button>
+            <span>${item.quantity}</span>
+            <button onclick="changeQuantity(${index},1)">+</button>
+            </div>
+            <span>${currencySymbol}${itemTotal}</span>`;
+            cartItemsList.appendChild(li);
+        });
+        document.getElementById('checkout-btn').disabled = false;
+    }
+    cartTotalElement.textContent=`${currencySymbol}${total}`;
+    cartCountElement.textContent=totalItems;
+}
+
+function changeQuantity(index, delta){
+    cart[index].quantity+=delta;
+    if(cart[index].quantity<=0) cart.splice(index,1);
+    updateCartDisplay();
+}
+
+function toggleCart(){
+    const popup=document.getElementById('cart-popup');
+    popup.style.display = (popup.style.display==='block')?'none':'block';
+}
+
+function checkout(){
+    if(cart.length===0){ alert('Cart empty!'); return; }
+    const name=document.getElementById('customer-name').value;
+    const time=document.getElementById('pickup-time').value;
+    const payment=document.getElementById('payment-method').value;
+    if(!name || !time){ alert('Enter Name & Pick-up Time!'); return; }
+
+    let summary=`Hello! I'm placing an order.\nName: ${name}\nPick-up: ${time}\nPayment: ${payment}\n---ORDER---\n`;
+    let total=0;
+    cart.forEach(item=>{ summary+=`(${item.quantity}x) ${item.name} - ${currencySymbol}${item.price}\n`; total+=item.price*item.quantity; });
+    summary+=`TOTAL: ${currencySymbol}${total}`;
+
+    window.open(`${messengerChatLink}?text=${encodeURIComponent(summary)}`,'_blank');
+}
+
+function flyToCart(img){
+    const cartBtn=document.getElementById('cart-trigger');
+    const clone=img.cloneNode(true);
+    const rect=img.getBoundingClientRect();
+    const cartRect=cartBtn.getBoundingClientRect();
+
+    clone.style.position='fixed';
+    clone.style.top=rect.top+'px';
+    clone.style.left=rect.left+'px';
+    clone.style.width=rect.width+'px';
+    clone.style.height=rect.height+'px';
+    clone.style.transition='all 0.7s ease-in-out';
+    clone.style.zIndex=1000;
+    document.body.appendChild(clone);
+
+    setTimeout(()=>{
+        clone.style.top=cartRect.top+'px';
+        clone.style.left=cartRect.left+'px';
+        clone.style.width='25px';
+        clone.style.height='25px';
+        clone.style.opacity='0.5';
+    },10);
+
+    setTimeout(()=>clone.remove(),710);
+}
+
+updateCartDisplay();
+</script>
+
 </body>
 </html>
