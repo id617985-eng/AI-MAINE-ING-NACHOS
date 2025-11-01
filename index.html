@@ -7,7 +7,6 @@
 <link rel="stylesheet" href="style.css">
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Shrikhand&display=swap" rel="stylesheet">
 <style>
-/* Minimal CSS for demonstration */
 body { font-family: 'Roboto', sans-serif; margin: 0; padding: 0; }
 .container { max-width: 1200px; margin: auto; padding: 20px; }
 .menu-grid { display: flex; flex-wrap: wrap; gap: 20px; }
@@ -21,8 +20,6 @@ body { font-family: 'Roboto', sans-serif; margin: 0; padding: 0; }
 #cart-popup li .quantity-controls button { margin: 0 3px; }
 .bouncing { animation: bounce 0.5s; }
 @keyframes bounce { 0%,100%{transform:scale(1)}50%{transform:scale(1.2)} }
-h2 { margin-top: 40px; }
-.category-title { margin-top: 30px; font-size: 1.5em; text-decoration: underline; }
 </style>
 </head>
 <body>
@@ -35,9 +32,8 @@ h2 { margin-top: 40px; }
 
     <section id="menu">
         <h2>Our Menu</h2>
-
         <div class="menu-grid">
-            <!-- Original Menu Items -->
+
             <div class="menu-item" data-name="Regular Nachos" data-price="35">
                 <img src="image/566525427_2187368088422232_3281536944644291040_n.jpg" alt="Regular Nachos">
                 <h3>Regular Nachos</h3>
@@ -79,23 +75,7 @@ h2 { margin-top: 40px; }
                 <p class="price">₱180</p>
                 <button class="add-to-cart-btn" onclick="addToCart(this)">Add to Cart</button>
             </div>
-        </div>
 
-        <!-- New AI Foodies Category -->
-        <h2 class="category-title">AI Foodies</h2>
-        <div class="menu-grid">
-            <div class="menu-item" data-name="AI Nacho Delight" data-price="120">
-                <img src="image/ai-nacho.jpg" alt="AI Nacho Delight">
-                <h3>AI Nacho Delight</h3>
-                <p class="price">₱120</p>
-                <button class="add-to-cart-btn" onclick="addToCart(this)">Add to Cart</button>
-            </div>
-            <div class="menu-item" data-name="AI Cheese Explosion" data-price="150">
-                <img src="image/ai-cheese.jpg" alt="AI Cheese Explosion">
-                <h3>AI Cheese Explosion</h3>
-                <p class="price">₱150</p>
-                <button class="add-to-cart-btn" onclick="addToCart(this)">Add to Cart</button>
-            </div>
         </div>
     </section>
 </div>
@@ -130,7 +110,7 @@ h2 { margin-top: 40px; }
 <script>
 let cart = [];
 const currencySymbol = '₱';
-const messengerUserId = '8941907542595225'; // Your FB Messenger Page/User ID
+const messengerUserId = '8941907542595225'; // Replace with your FB Messenger ID
 
 function addToCart(btn) {
     const menuItem = btn.closest('.menu-item');
@@ -214,31 +194,22 @@ function checkout() {
         return; 
     }
 
-    let orderSummary = `Hello! I'm placing an order.\nName: ${customerName}\nPick-up: ${pickupTime}\nPayment: ${paymentMethod}\n---ORDER---\n`;
+    // Pre-written message
+    let message = `🌽 *Ai-Maize-ing Nachos Order* 🌽\n\n`;
+    message += `👤 Name: ${customerName}\n⏰ Pick-up: ${pickupTime}\n💰 Payment: ${paymentMethod}\n\n🛒 *Order Items:*\n`;
+
     let total = 0;
     cart.forEach(item => { 
-        orderSummary += `(${item.quantity}x) ${item.name} - ${currencySymbol}${item.price}\n`; 
+        message += `- ${item.quantity} x ${item.name} = ${currencySymbol}${item.price * item.quantity}\n`; 
         total += item.price * item.quantity; 
     });
-    orderSummary += `TOTAL: ${currencySymbol}${total.toFixed(0)}`;
+    message += `\n💵 *Total: ${currencySymbol}${total.toFixed(0)}*\n\nPlease prepare my order. Thank you! 🙌`;
 
-    openMessenger(orderSummary);
-}
+    // Messenger web link (works on mobile and desktop)
+    const messengerLink = `https://m.me/${messengerUserId}?ref=${encodeURIComponent(message)}`;
 
-// Function to open Messenger on mobile or desktop
-function openMessenger(orderSummary) {
-    const mobileLink = `fb-messenger://user-thread/${messengerUserId}`;
-    const webLink = `https://m.me/${messengerUserId}`;
-
-    // Try to open Messenger app first
-    const newWindow = window.open(mobileLink + '?text=' + encodeURIComponent(orderSummary), '_blank');
-
-    // If app doesn't open after 1s, fallback to web
-    setTimeout(() => {
-        if (!newWindow || newWindow.closed) {
-            window.open(webLink + '?ref=' + encodeURIComponent(orderSummary), '_blank');
-        }
-    }, 1000);
+    // Open Messenger
+    window.open(messengerLink, '_blank');
 }
 
 function flyToCart(img) {
@@ -267,7 +238,7 @@ function flyToCart(img) {
     setTimeout(() => clone.remove(), 710);
 }
 
-// Initialize
+// Initialize cart
 updateCartDisplay();
 </script>
 
