@@ -1,36 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ai-Maize-ing Nachos - Order Online</title>
-<link rel="stylesheet" href="style.css">
-<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Shrikhand&display=swap" rel="stylesheet">
-<style>
-/* Minimal CSS for demonstration */
-body { font-family: 'Roboto', sans-serif; margin: 0; padding: 0; }
-.container { max-width: 1200px; margin: auto; padding: 20px; }
-.menu-grid { display: flex; flex-wrap: wrap; gap: 20px; }
-.menu-item { border: 1px solid #ccc; padding: 10px; width: 220px; text-align: center; }
-.menu-item img { width: 200px; height: 150px; object-fit: cover; }
-.add-to-cart-btn { margin-top: 10px; padding: 5px 10px; cursor: pointer; }
-#cart-trigger { position: fixed; bottom: 20px; right: 20px; padding: 10px 15px; cursor: pointer; }
-#cart-popup { position: fixed; top: 50px; right: 50px; width: 300px; background: #fff; border: 1px solid #ccc; padding: 15px; display: none; z-index: 1000; }
-#cart-popup ul { list-style: none; padding: 0; max-height: 300px; overflow-y: auto; }
-#cart-popup li { display: flex; justify-content: space-between; margin-bottom: 8px; }
-#cart-popup li .quantity-controls button { margin: 0 3px; }
-.bouncing { animation: bounce 0.5s; }
-@keyframes bounce { 0%,100%{transform:scale(1)}50%{transform:scale(1.2)} }
-</style>
-</head>
-<body>
-
 <div class="container">
     <header>
         <h1>Ai-Maize-ing Nachos</h1>
         <p>Select your items below, then click <strong>View Cart</strong> to complete your order.</p>
     </header>
 
+    <!-- Existing Nachos Menu -->
     <section id="menu">
         <h2>Our Menu</h2>
         <div class="menu-grid">
@@ -39,189 +13,76 @@ body { font-family: 'Roboto', sans-serif; margin: 0; padding: 0; }
                 <img src="image/566525427_2187368088422232_3281536944644291040_n.jpg" alt="Regular Nachos">
                 <h3>Regular Nachos</h3>
                 <p class="price">₱35</p>
-                <button class="add-to-cart-btn" onclick="addToCart(this)">Add to Cart</button>
+                <button class="add-to-cart-btn">Add to Cart</button>
             </div>
 
             <div class="menu-item" data-name="Veggie Nachos" data-price="65">
                 <img src="image/veggie nachos.jpg" alt="Veggie Nachos">
                 <h3>Veggie Nachos</h3>
                 <p class="price">₱65</p>
-                <button class="add-to-cart-btn" onclick="addToCart(this)">Add to Cart</button>
+                <button class="add-to-cart-btn">Add to Cart</button>
             </div>
 
             <div class="menu-item" data-name="Overload Cheesy Nachos" data-price="95">
                 <img src="image/overload chees nachos.jpg" alt="Overload Cheesy Nachos">
                 <h3>Overload Cheesy Nachos</h3>
                 <p class="price">₱95</p>
-                <button class="add-to-cart-btn" onclick="addToCart(this)">Add to Cart</button>
+                <button class="add-to-cart-btn">Add to Cart</button>
             </div>
 
             <div class="menu-item" data-name="Nacho Combo" data-price="75">
                 <img src="image/combo.jpg" alt="Nacho Combo">
                 <h3>Nacho Combo</h3>
                 <p class="price">₱75</p>
-                <button class="add-to-cart-btn" onclick="addToCart(this)">Add to Cart</button>
+                <button class="add-to-cart-btn">Add to Cart</button>
             </div>
 
             <div class="menu-item" data-name="Nacho Fries" data-price="85">
                 <img src="image/nacho fries.jpg" alt="Nacho Fries">
                 <h3>Nacho Fries</h3>
                 <p class="price">₱85</p>
-                <button class="add-to-cart-btn" onclick="addToCart(this)">Add to Cart</button>
+                <button class="add-to-cart-btn">Add to Cart</button>
             </div>
-              <div class="menu-item" data-name="Supreme Nachos" data-price="180">
-                <img src="image/Supreme Nachos.png" alt="Supreme nschos">
-                <h3>Supreme nachos</h3>
+
+            <div class="menu-item" data-name="Supreme Nachos" data-price="180">
+                <img src="image/Supreme Nachos.png" alt="Supreme Nachos">
+                <h3>Supreme Nachos</h3>
                 <p class="price">₱180</p>
-                <button class="add-to-cart-btn" onclick="addToCart(this)">Add to Cart</button>
+                <button class="add-to-cart-btn">Add to Cart</button>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- NEW CATEGORY: AI FOODIES -->
+    <section id="ai-foodies-category">
+        <h2>
+            <img src="image/ai-foodies-logo.png" alt="AI FOODIES Logo" class="category-logo">
+            AI FOODIES
+        </h2>
+        <div class="menu-grid">
+
+            <div class="menu-item" data-name="AI Burger" data-price="250">
+                <img src="image/ai-burger.png" alt="AI Burger">
+                <h3>AI Burger</h3>
+                <p class="price">₱250</p>
+                <button class="add-to-cart-btn">Add to Cart</button>
+            </div>
+
+            <div class="menu-item" data-name="AI Fries" data-price="120">
+                <img src="image/ai-fries.png" alt="AI Fries">
+                <h3>AI Fries</h3>
+                <p class="price">₱120</p>
+                <button class="add-to-cart-btn">Add to Cart</button>
+            </div>
+
+            <div class="menu-item" data-name="AI Shake" data-price="150">
+                <img src="image/ai-shake.png" alt="AI Shake">
+                <h3>AI Shake</h3>
+                <p class="price">₱150</p>
+                <button class="add-to-cart-btn">Add to Cart</button>
             </div>
 
         </div>
     </section>
 </div>
-
-<button id="cart-trigger" onclick="toggleCart()">View Cart (<span id="cart-count">0</span>)</button>
-
-<div id="cart-popup">
-    <div class="cart-header">
-        <h3>Your Order</h3>
-        <button class="close-btn" onclick="toggleCart()">X</button>
-    </div>
-    
-    <ul id="cart-items"></ul>
-    <p>Total: <span id="cart-total">₱0</span></p>
-
-    <div class="order-details">
-        <input type="text" id="customer-name" placeholder="Your Name for Pickup">
-        <input type="text" id="pickup-time" placeholder="Pick-up Time (e.g., 6:30 PM)">
-    </div>
-
-    <div class="payment-options">
-        <select id="payment-method">
-            <option value="Cash on Pick-up">Cash on Pick-up</option>
-            <option value="Gcash">Gcash / PayMaya</option>
-            <option value="Bank Transfer">Bank Transfer</option>
-        </select>
-    </div>
-
-    <button id="checkout-btn" onclick="checkout()">Send Order & Notify Us</button>
-</div>
-
-<script>
-let cart = [];
-const currencySymbol = '₱';
-const messengerChatLink = 'https://www.messenger.com/e2ee/t/8941907542595225';
-
-function addToCart(btn) {
-    const menuItem = btn.closest('.menu-item');
-    const name = menuItem.dataset.name;
-    const price = parseFloat(menuItem.dataset.price);
-    const img = menuItem.querySelector('img');
-
-    const existingItem = cart.find(item => item.name === name);
-    if(existingItem) { existingItem.quantity += 1; } 
-    else { cart.push({name, price, quantity:1}); }
-
-    updateCartDisplay();
-
-    const cartBtn = document.getElementById('cart-trigger');
-    cartBtn.classList.add('bouncing');
-    setTimeout(() => cartBtn.classList.remove('bouncing'), 500);
-
-    flyToCart(img);
-}
-
-function updateCartDisplay() {
-    const cartItemsList = document.getElementById('cart-items');
-    const cartTotalElement = document.getElementById('cart-total');
-    const cartCountElement = document.getElementById('cart-count');
-
-    cartItemsList.innerHTML = '';
-    let total = 0, totalItems = 0;
-
-    if(cart.length === 0) { 
-        cartItemsList.innerHTML = '<li>Your cart is empty.</li>'; 
-        document.getElementById('checkout-btn').disabled = true;
-    } else {
-        cart.forEach((item,index)=>{
-            const itemTotal = item.price*item.quantity;
-            total+=itemTotal; totalItems+=item.quantity;
-
-            const li = document.createElement('li');
-            li.innerHTML = `<span>${item.name}</span>
-                            <div class="quantity-controls">
-                                <button onclick="changeQuantity(${index},-1)">-</button>
-                                <span>${item.quantity}</span>
-                                <button onclick="changeQuantity(${index},1)">+</button>
-                            </div>
-                            <span>${currencySymbol}${itemTotal.toFixed(0)}</span>`;
-            cartItemsList.appendChild(li);
-        });
-        document.getElementById('checkout-btn').disabled = false;
-    }
-    cartTotalElement.textContent = `${currencySymbol}${total.toFixed(0)}`;
-    cartCountElement.textContent = totalItems;
-}
-
-function changeQuantity(index,delta){
-    cart[index].quantity+=delta;
-    if(cart[index].quantity<=0) cart.splice(index,1);
-    updateCartDisplay();
-}
-
-function toggleCart(){ 
-    const popup = document.getElementById('cart-popup');
-    popup.style.display = popup.style.display==='block'?'none':'block'; 
-}
-
-function checkout(){
-    if(cart.length===0){ alert('Cart empty!'); return; }
-    const customerName = document.getElementById('customer-name').value;
-    const pickupTime = document.getElementById('pickup-time').value;
-    const paymentMethod = document.getElementById('payment-method').value;
-
-    if(!customerName || !pickupTime){ alert('Enter Name & Pick-up Time!'); return; }
-
-    let orderSummary=`Hello! I'm placing an order.\nName: ${customerName}\nPick-up: ${pickupTime}\nPayment: ${paymentMethod}\n---ORDER---\n`;
-    let total=0;
-    cart.forEach(item=>{ orderSummary+=`(${item.quantity}x) ${item.name} - ${currencySymbol}${item.price}\n`; total+=item.price*item.quantity; });
-    orderSummary+=`TOTAL: ${currencySymbol}${total.toFixed(0)}`;
-
-    window.open(`${messengerChatLink}?text=${encodeURIComponent(orderSummary)}`,'_blank');
-}
-
-function flyToCart(img){
-    const cartBtn=document.getElementById('cart-trigger');
-    const clone=img.cloneNode(true);
-    const rect=img.getBoundingClientRect();
-    const cartRect=cartBtn.getBoundingClientRect();
-
-    clone.style.position='fixed';
-    clone.style.top=rect.top+'px';
-    clone.style.left=rect.left+'px';
-    clone.style.width=rect.width+'px';
-    clone.style.height=rect.height+'px';
-    clone.style.transition='all 0.7s ease-in-out';
-    clone.style.zIndex=1000;
-    document.body.appendChild(clone);
-
-    setTimeout(()=>{
-        clone.style.top=cartRect.top+'px';
-        clone.style.left=cartRect.left+'px';
-        clone.style.width='25px';
-        clone.style.height='25px';
-        clone.style.opacity='0.5';
-    },10);
-
-    setTimeout(()=>clone.remove(),710);
-}
-
-updateCartDisplay();
-</script>
-
-</body>
-</html>
-
-
-
-
