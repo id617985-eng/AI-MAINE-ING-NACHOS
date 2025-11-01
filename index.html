@@ -3,188 +3,79 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ai-Maize-ing Nachos - AI FOODIES</title>
+<title>Ai-Maize-ing Nachos - Order Online</title>
+<link rel="stylesheet" href="style.css">
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Shrikhand&display=swap" rel="stylesheet">
 <style>
-body {
-    font-family: 'Roboto', sans-serif;
-    margin: 0;
-    padding: 0;
-    background: #fff8f0;
-}
-header {
-    text-align: center;
-    padding: 20px;
-    background: #ffdb99;
-}
-header img {
-    width: 50px;
-    height: 50px;
-}
-h1 {
-    font-family: 'Shrikhand', cursive;
-    margin: 10px 0;
-}
-.container {
-    max-width: 1200px;
-    margin: auto;
-    padding: 20px;
-}
-.menu-grid {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-}
-.menu-item {
-    border: 2px solid #ffb347;
-    border-radius: 10px;
-    padding: 10px;
-    width: 220px;
-    text-align: center;
-    background: #fff3e0;
-    transition: transform 0.2s;
-}
-.menu-item:hover {
-    transform: scale(1.05);
-}
-.menu-item img {
-    width: 200px;
-    height: 150px;
-    object-fit: cover;
-    border-radius: 8px;
-}
-.add-to-cart-btn {
-    margin-top: 10px;
-    padding: 5px 10px;
-    cursor: pointer;
-    border: none;
-    border-radius: 5px;
-    background: #ff7f50;
-    color: white;
-    font-weight: bold;
-    transition: background 0.2s;
-}
-.add-to-cart-btn:hover {
-    background: #ff5722;
-}
-#cart-trigger {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    padding: 10px 15px;
-    cursor: pointer;
-    background: #ff7f50;
-    color: white;
-    border: none;
-    border-radius: 50px;
-    font-weight: bold;
-    z-index: 1001;
-}
-#cart-popup {
-    position: fixed;
-    top: 70px;
-    right: 20px;
-    width: 320px;
-    max-height: 80vh;
-    background: #fff;
-    border: 2px solid #ffb347;
-    border-radius: 10px;
-    padding: 15px;
-    display: none;
-    z-index: 1000;
-    overflow-y: auto;
-}
-#cart-popup ul {
-    list-style: none;
-    padding: 0;
-}
-#cart-popup li {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 8px;
-}
-#cart-popup li .quantity-controls button {
-    margin: 0 3px;
-}
-.bouncing {
-    animation: bounce 0.5s;
-}
-@keyframes bounce {
-    0%,100%{transform:scale(1)}
-    50%{transform:scale(1.2)}
-}
-input, select {
-    width: 100%;
-    padding: 5px;
-    margin: 5px 0;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-}
-#checkout-btn {
-    width: 100%;
-    padding: 10px;
-    background: #4caf50;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    font-weight: bold;
-    cursor: pointer;
-}
-#checkout-btn:hover {
-    background: #45a049;
-}
-.order-details, .payment-options {
-    margin: 10px 0;
-}
-.category-title {
-    font-size: 1.5em;
-    margin: 20px 0 10px;
-    color: #ff5722;
-    border-bottom: 2px solid #ffb347;
-    padding-bottom: 5px;
-    text-align: center;
-}
-.category-logo {
-    display: block;
-    margin: 10px auto;
-    width: 80px;
-    height: 80px;
-}
+/* Minimal CSS for demonstration */
+body { font-family: 'Roboto', sans-serif; margin: 0; padding: 0; }
+.container { max-width: 1200px; margin: auto; padding: 20px; }
+.menu-grid { display: flex; flex-wrap: wrap; gap: 20px; }
+.menu-item { border: 1px solid #ccc; padding: 10px; width: 220px; text-align: center; }
+.menu-item img { width: 200px; height: 150px; object-fit: cover; }
+.add-to-cart-btn { margin-top: 10px; padding: 5px 10px; cursor: pointer; }
+#cart-trigger { position: fixed; bottom: 20px; right: 20px; padding: 10px 15px; cursor: pointer; }
+#cart-popup { position: fixed; top: 50px; right: 50px; width: 300px; background: #fff; border: 1px solid #ccc; padding: 15px; display: none; z-index: 1000; }
+#cart-popup ul { list-style: none; padding: 0; max-height: 300px; overflow-y: auto; }
+#cart-popup li { display: flex; justify-content: space-between; margin-bottom: 8px; }
+#cart-popup li .quantity-controls button { margin: 0 3px; }
+.bouncing { animation: bounce 0.5s; }
+@keyframes bounce { 0%,100%{transform:scale(1)}50%{transform:scale(1.2)} }
 </style>
 </head>
 <body>
 
-<header>
-    <img src="image/logo.png" alt="Logo">
-    <h1>Ai-Maize-ing Nachos</h1>
-    <p>Order your favorite AI FOODIES items below and click <strong>View Cart</strong> to complete your order.</p>
-</header>
-
 <div class="container">
-    <section id="menu">
-        <h2 class="category-title">AI FOODIES</h2>
-        <img src="image/ai_foodies_logo.png" alt="AI Foodies Logo" class="category-logo">
+    <header>
+        <h1>Ai-Maize-ing Nachos</h1>
+        <p>Select your items below, then click <strong>View Cart</strong> to complete your order.</p>
+    </header>
 
+    <section id="menu">
+        <h2>Our Menu</h2>
         <div class="menu-grid">
-            <div class="menu-item" data-name="AI Nacho Delight" data-price="120">
-                <img src="image/ai_nacho.jpg" alt="AI Nacho Delight">
-                <h3>AI Nacho Delight</h3>
-                <p class="price">₱120</p>
+
+            <div class="menu-item" data-name="Regular Nachos" data-price="35">
+                <img src="image/566525427_2187368088422232_3281536944644291040_n.jpg" alt="Regular Nachos">
+                <h3>Regular Nachos</h3>
+                <p class="price">₱35</p>
                 <button class="add-to-cart-btn" onclick="addToCart(this)">Add to Cart</button>
             </div>
-            <div class="menu-item" data-name="Supreme Nachos" data-price="180">
-                <img src="image/Supreme Nachos.png" alt="Supreme Nachos">
-                <h3>Supreme Nachos</h3>
-                <p class="price">₱180</p>
+
+            <div class="menu-item" data-name="Veggie Nachos" data-price="65">
+                <img src="image/veggie nachos.jpg" alt="Veggie Nachos">
+                <h3>Veggie Nachos</h3>
+                <p class="price">₱65</p>
                 <button class="add-to-cart-btn" onclick="addToCart(this)">Add to Cart</button>
             </div>
+
             <div class="menu-item" data-name="Overload Cheesy Nachos" data-price="95">
                 <img src="image/overload chees nachos.jpg" alt="Overload Cheesy Nachos">
                 <h3>Overload Cheesy Nachos</h3>
                 <p class="price">₱95</p>
                 <button class="add-to-cart-btn" onclick="addToCart(this)">Add to Cart</button>
             </div>
+
+            <div class="menu-item" data-name="Nacho Combo" data-price="75">
+                <img src="image/combo.jpg" alt="Nacho Combo">
+                <h3>Nacho Combo</h3>
+                <p class="price">₱75</p>
+                <button class="add-to-cart-btn" onclick="addToCart(this)">Add to Cart</button>
+            </div>
+
+            <div class="menu-item" data-name="Nacho Fries" data-price="85">
+                <img src="image/nacho fries.jpg" alt="Nacho Fries">
+                <h3>Nacho Fries</h3>
+                <p class="price">₱85</p>
+                <button class="add-to-cart-btn" onclick="addToCart(this)">Add to Cart</button>
+            </div>
+              <div class="menu-item" data-name="Regular Nachos" data-price="35">
+                <img src="image/Supreme Nachos.png" alt="Supreme nschos">
+                <h3>Supreme nschos</h3>
+                <p class="price">₱180</p>
+                <button class="add-to-cart-btn" onclick="addToCart(this)">Add to Cart</button>
+            </div>
+
         </div>
     </section>
 </div>
@@ -196,6 +87,7 @@ input, select {
         <h3>Your Order</h3>
         <button class="close-btn" onclick="toggleCart()">X</button>
     </div>
+    
     <ul id="cart-items"></ul>
     <p>Total: <span id="cart-total">₱0</span></p>
 
@@ -218,7 +110,7 @@ input, select {
 <script>
 let cart = [];
 const currencySymbol = '₱';
-const messengerChatLink = 'https://m.me/8941907542595225';
+const messengerChatLink = 'https://www.messenger.com/e2ee/t/8941907542595225';
 
 function addToCart(btn) {
     const menuItem = btn.closest('.menu-item');
@@ -227,14 +119,16 @@ function addToCart(btn) {
     const img = menuItem.querySelector('img');
 
     const existingItem = cart.find(item => item.name === name);
-    if(existingItem) existingItem.quantity += 1;
-    else cart.push({name, price, quantity: 1});
+    if(existingItem) { existingItem.quantity += 1; } 
+    else { cart.push({name, price, quantity:1}); }
 
     updateCartDisplay();
-    document.getElementById('cart-trigger').classList.add('bouncing');
-    setTimeout(()=> document.getElementById('cart-trigger').classList.remove('bouncing'),500);
 
-    if(img) flyToCart(img);
+    const cartBtn = document.getElementById('cart-trigger');
+    cartBtn.classList.add('bouncing');
+    setTimeout(() => cartBtn.classList.remove('bouncing'), 500);
+
+    flyToCart(img);
 }
 
 function updateCartDisplay() {
@@ -243,55 +137,57 @@ function updateCartDisplay() {
     const cartCountElement = document.getElementById('cart-count');
 
     cartItemsList.innerHTML = '';
-    let total=0, totalItems=0;
+    let total = 0, totalItems = 0;
 
-    if(cart.length===0){
-        cartItemsList.innerHTML = '<li>Your cart is empty.</li>';
+    if(cart.length === 0) { 
+        cartItemsList.innerHTML = '<li>Your cart is empty.</li>'; 
         document.getElementById('checkout-btn').disabled = true;
     } else {
         cart.forEach((item,index)=>{
-            const itemTotal=item.price*item.quantity;
+            const itemTotal = item.price*item.quantity;
             total+=itemTotal; totalItems+=item.quantity;
-            const li=document.createElement('li');
-            li.innerHTML=`<span>${item.name}</span>
-            <div class="quantity-controls">
-            <button onclick="changeQuantity(${index},-1)">-</button>
-            <span>${item.quantity}</span>
-            <button onclick="changeQuantity(${index},1)">+</button>
-            </div>
-            <span>${currencySymbol}${itemTotal}</span>`;
+
+            const li = document.createElement('li');
+            li.innerHTML = `<span>${item.name}</span>
+                            <div class="quantity-controls">
+                                <button onclick="changeQuantity(${index},-1)">-</button>
+                                <span>${item.quantity}</span>
+                                <button onclick="changeQuantity(${index},1)">+</button>
+                            </div>
+                            <span>${currencySymbol}${itemTotal.toFixed(0)}</span>`;
             cartItemsList.appendChild(li);
         });
         document.getElementById('checkout-btn').disabled = false;
     }
-    cartTotalElement.textContent=`${currencySymbol}${total}`;
-    cartCountElement.textContent=totalItems;
+    cartTotalElement.textContent = `${currencySymbol}${total.toFixed(0)}`;
+    cartCountElement.textContent = totalItems;
 }
 
-function changeQuantity(index, delta){
+function changeQuantity(index,delta){
     cart[index].quantity+=delta;
     if(cart[index].quantity<=0) cart.splice(index,1);
     updateCartDisplay();
 }
 
-function toggleCart(){
-    const popup=document.getElementById('cart-popup');
-    popup.style.display = (popup.style.display==='block')?'none':'block';
+function toggleCart(){ 
+    const popup = document.getElementById('cart-popup');
+    popup.style.display = popup.style.display==='block'?'none':'block'; 
 }
 
 function checkout(){
     if(cart.length===0){ alert('Cart empty!'); return; }
-    const name=document.getElementById('customer-name').value;
-    const time=document.getElementById('pickup-time').value;
-    const payment=document.getElementById('payment-method').value;
-    if(!name || !time){ alert('Enter Name & Pick-up Time!'); return; }
+    const customerName = document.getElementById('customer-name').value;
+    const pickupTime = document.getElementById('pickup-time').value;
+    const paymentMethod = document.getElementById('payment-method').value;
 
-    let summary=`Hello! I'm placing an order.\nName: ${name}\nPick-up: ${time}\nPayment: ${payment}\n---ORDER---\n`;
+    if(!customerName || !pickupTime){ alert('Enter Name & Pick-up Time!'); return; }
+
+    let orderSummary=`Hello! I'm placing an order.\nName: ${customerName}\nPick-up: ${pickupTime}\nPayment: ${paymentMethod}\n---ORDER---\n`;
     let total=0;
-    cart.forEach(item=>{ summary+=`(${item.quantity}x) ${item.name} - ${currencySymbol}${item.price}\n`; total+=item.price*item.quantity; });
-    summary+=`TOTAL: ${currencySymbol}${total}`;
+    cart.forEach(item=>{ orderSummary+=`(${item.quantity}x) ${item.name} - ${currencySymbol}${item.price}\n`; total+=item.price*item.quantity; });
+    orderSummary+=`TOTAL: ${currencySymbol}${total.toFixed(0)}`;
 
-    window.open(`${messengerChatLink}?text=${encodeURIComponent(summary)}`,'_blank');
+    window.open(`${messengerChatLink}?text=${encodeURIComponent(orderSummary)}`,'_blank');
 }
 
 function flyToCart(img){
@@ -325,3 +221,6 @@ updateCartDisplay();
 
 </body>
 </html>
+
+
+
