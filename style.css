@@ -275,3 +275,25 @@ header p {
     bottom: 80px;
   }
 }
+
+/* === AI FOODIES CATEGORY === */
+.ai-foodies-heading {
+  color: #8e24aa;
+  margin-top: 40px;
+  font-size: 1.8em;
+  text-shadow: 2px 2px #f3e5f5;
+}
+
+.menu-item.ai-foodies {
+  background: linear-gradient(135deg, #f3e5f5, #e1bee7);
+  border: 2px solid #ab47bc;
+}
+
+.menu-item.ai-foodies h3 {
+  color: #6a1b9a;
+}
+
+.menu-item.ai-foodies:hover {
+  transform: scale(1.06);
+  box-shadow: 0 10px 20px rgba(171, 71, 188, 0.3);
+}
