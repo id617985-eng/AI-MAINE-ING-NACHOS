@@ -21,6 +21,28 @@ body { font-family: 'Roboto', sans-serif; margin: 0; padding: 0; }
 #cart-popup li .quantity-controls button { margin: 0 3px; }
 .bouncing { animation: bounce 0.5s; }
 @keyframes bounce { 0%,100%{transform:scale(1)}50%{transform:scale(1.2)} }
+
+/* Navigation */
+.menu-nav {
+    margin: 15px 0;
+    font-weight: bold;
+    text-align: center;
+    font-family: 'Shrikhand', cursive;
+}
+.menu-nav a {
+    text-decoration: none;
+    color: #ff5722;
+    margin: 0 10px;
+    transition: color 0.3s;
+}
+.menu-nav a:hover { color: #ffa000; }
+
+/* AI FOODIES Section */
+#ai-foodies h2 {
+    font-family: 'Shrikhand', cursive;
+    color: #009688;
+    margin-top: 40px;
+}
 </style>
 </head>
 <body>
@@ -31,6 +53,13 @@ body { font-family: 'Roboto', sans-serif; margin: 0; padding: 0; }
         <p>Select your items below, then click <strong>View Cart</strong> to complete your order.</p>
     </header>
 
+    <!-- Navigation -->
+    <nav class="menu-nav">
+        <a href="#menu">Classic Nachos</a> |
+        <a href="#ai-foodies">AI FOODIES</a>
+    </nav>
+
+    <!-- Classic Menu -->
     <section id="menu">
         <h2>Our Menu</h2>
         <div class="menu-grid">
@@ -69,15 +98,46 @@ body { font-family: 'Roboto', sans-serif; margin: 0; padding: 0; }
                 <p class="price">₱85</p>
                 <button class="add-to-cart-btn" onclick="addToCart(this)">Add to Cart</button>
             </div>
-              <div class="menu-item" data-name="Supreme NACHOS" data-price="180">
-                <img src="image/Supreme Nachos.png" alt="Supreme nschos">
-                <h3>Supreme nschos</h3>
+
+            <div class="menu-item" data-name="Supreme NACHOS" data-price="180">
+                <img src="image/Supreme Nachos.png" alt="Supreme Nachos">
+                <h3>Supreme Nachos</h3>
                 <p class="price">₱180</p>
                 <button class="add-to-cart-btn" onclick="addToCart(this)">Add to Cart</button>
             </div>
 
         </div>
     </section>
+
+    <!-- AI FOODIES Section -->
+    <section id="ai-foodies">
+        <h2>AI FOODIES</h2>
+        <div class="menu-grid">
+
+            <div class="menu-item" data-name="AI Nacho Delight" data-price="120">
+                <img src="image/ai-nacho.jpg" alt="AI Nacho Delight">
+                <h3>AI Nacho Delight</h3>
+                <p class="price">₱120</p>
+                <button class="add-to-cart-btn" onclick="addToCart(this)">Add to Cart</button>
+            </div>
+
+            <div class="menu-item" data-name="Robo Cheese Nachos" data-price="140">
+                <img src="image/robo-cheese.jpg" alt="Robo Cheese Nachos">
+                <h3>Robo Cheese Nachos</h3>
+                <p class="price">₱140</p>
+                <button class="add-to-cart-btn" onclick="addToCart(this)">Add to Cart</button>
+            </div>
+
+            <div class="menu-item" data-name="Neural Network Nachos" data-price="160">
+                <img src="image/neural-nachos.jpg" alt="Neural Network Nachos">
+                <h3>Neural Network Nachos</h3>
+                <p class="price">₱160</p>
+                <button class="add-to-cart-btn" onclick="addToCart(this)">Add to Cart</button>
+            </div>
+
+        </div>
+    </section>
+
 </div>
 
 <button id="cart-trigger" onclick="toggleCart()">View Cart (<span id="cart-count">0</span>)</button>
@@ -221,6 +281,3 @@ updateCartDisplay();
 
 </body>
 </html>
-
-
-
