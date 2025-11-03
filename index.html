@@ -416,9 +416,7 @@ function openMessengerManual() {
     
     if (isMobile) {
         window.location.href = `fb-messenger://user-thread/${messengerUserId}`;
-        setTimeout(() => {
-            window.location.href = `https://m.me/${messengerUserId}`;
-        }, 1000);
+        
     } else {
         window.open(`https://www.messenger.com/t/${messengerUserId}`, '_blank');
     }
@@ -427,3 +425,4 @@ function openMessengerManual() {
 
 </body>
 </html>
+
