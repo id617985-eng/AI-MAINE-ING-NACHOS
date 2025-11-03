@@ -117,6 +117,14 @@
     <button id="checkout-btn">Send Order & Notify Us</button>
 </div>
 
+<!-- Custom Alert Modal -->
+<div id="custom-alert" class="modal-overlay" style="display: none;">
+    <div class="modal-content">
+        <p id="custom-alert-message"></p>
+        <button id="custom-alert-ok">OK</button>
+    </div>
+</div>
+
 <script>
 // Cart functionality
 let cart = [];
@@ -146,10 +154,20 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Checkout button
     document.getElementById('checkout-btn').addEventListener('click', checkout);
+
+    // Custom Alert OK Button
+    document.getElementById('custom-alert-ok').addEventListener('click', () => {
+        document.getElementById('custom-alert').style.display = 'none';
+    });
     
     // Initial cart update
     updateCartDisplay();
 });
+
+function showCustomAlert(message) {
+    document.getElementById('custom-alert-message').textContent = message;
+    document.getElementById('custom-alert').style.display = 'flex';
+}
 
 function addToCart(btn) {
     console.log('addToCart function called');
@@ -267,7 +285,7 @@ function flyToCart(img) {
 
 function checkout() {
     if(cart.length === 0) {
-        alert('Your cart is empty! Please add some items first.');
+        showCustomAlert('Your cart is empty! Please add some items first.');
         return;
     }
 
@@ -276,12 +294,12 @@ function checkout() {
     const paymentMethod = document.getElementById('payment-method').value;
 
     if(!customerName) {
-        alert('Please enter your name for pickup.');
+        showCustomAlert('Please enter your name for pickup.');
         return;
     }
     
     if(!pickupTime) {
-        alert('Please enter your preferred pick-up time.');
+        showCustomAlert('Please enter your preferred pick-up time.');
         return;
     }
 
@@ -307,19 +325,20 @@ function checkout() {
     
     // Create Messenger links
     const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
-    let messengerUrl;
     
+    // --- FIX APPLIED ---
+    // Using window.location.href for mobile devices is often more reliable
+    // for triggering the native Messenger app to open with the pre-filled text.
     if (isMobile) {
-        messengerUrl = `https://m.me/${messengerUserId}?text=${encodedMessage}`;
+        window.location.href = `https://m.me/${messengerUserId}?text=${encodedMessage}`;
     } else {
-        messengerUrl = `https://www.messenger.com/t/${messengerUserId}?text=${encodedMessage}`;
+        // Desktop browsers can continue to use window.open
+        window.open(`https://www.messenger.com/t/${messengerUserId}?text=${encodedMessage}`, '_blank');
     }
+    // --- END OF FIX ---
 
-    // Open Messenger
-    window.open(messengerUrl, '_blank');
-    
-    // Show confirmation
-    alert('Your order has been prepared! Please send the message in Messenger to complete your order.');
+    // Show custom confirmation instead of alert()
+    showCustomAlert('Your order has been prepared! Please send the message in Messenger to complete your order.');
     
     // Clear cart and reset form
     cart = [];
