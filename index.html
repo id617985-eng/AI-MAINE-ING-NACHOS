@@ -6,6 +6,57 @@
 <title>Ai-Maize-ing Nachos - Order Online</title>
 <link rel="stylesheet" href="style.css">
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Shrikhand&display=swap" rel="stylesheet">
+<style>
+/* Flip Card Styles */
+.flip-card {
+  background: transparent;
+  width: 100%;
+  height: 180px;
+  perspective: 1000px;
+  margin: 10px 0;
+  cursor: pointer;
+}
+
+.flip-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
+}
+
+.flip-card.flipped .flip-card-inner {
+  transform: rotateY(180deg);
+}
+
+.flip-card-front, .flip-card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+}
+
+.flip-card-front img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.flip-card-back {
+  transform: rotateY(180deg);
+  background-color: #ffe9b3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  font-size: 0.9em;
+  text-align: center;
+  color: #333;
+}
+</style>
 </head>
 <body>
 
@@ -19,42 +70,79 @@
     <section id="menu">
         <h2>Our Nachos Menu</h2>
         <div class="menu-grid">
+
             <div class="menu-item" data-name="Regular Nachos" data-price="35">
-                <img src="image/566525427_2187368088422232_3281536944644291040_n.jpg" alt="Regular Nachos">
+                <div class="flip-card">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front"><img src="image/566525427_2187368088422232_3281536944644291040_n.jpg" alt="Regular Nachos"></div>
+                        <div class="flip-card-back"><p>Ingredients: Corn chips, cheese sauce, jalapeños, salsa, sour cream.</p></div>
+                    </div>
+                </div>
                 <h3>Regular Nachos</h3>
                 <p class="price">₱35</p>
                 <button class="add-to-cart-btn">Add to Cart</button>
             </div>
+
             <div class="menu-item" data-name="Veggie Nachos" data-price="65">
-                <img src="image/veggie nachos.jpg" alt="Veggie Nachos">
+                <div class="flip-card">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front"><img src="image/veggie nachos.jpg" alt="Veggie Nachos"></div>
+                        <div class="flip-card-back"><p>Ingredients: Corn chips, bell peppers, onions, olives, melted cheese, guacamole.</p></div>
+                    </div>
+                </div>
                 <h3>Veggie Nachos</h3>
                 <p class="price">₱65</p>
                 <button class="add-to-cart-btn">Add to Cart</button>
             </div>
+
             <div class="menu-item" data-name="Overload Cheesy Nachos" data-price="95">
-                <img src="image/overload chees nachos.jpg" alt="Overload Cheesy Nachos">
+                <div class="flip-card">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front"><img src="image/overload chees nachos.jpg" alt="Overload Cheesy Nachos"></div>
+                        <div class="flip-card-back"><p>Ingredients: Corn chips, triple cheese blend, beef, salsa, sour cream.</p></div>
+                    </div>
+                </div>
                 <h3>Overload Cheesy Nachos</h3>
                 <p class="price">₱95</p>
                 <button class="add-to-cart-btn">Add to Cart</button>
             </div>
+
             <div class="menu-item" data-name="Nacho Combo" data-price="75">
-                <img src="image/combo.jpg" alt="Nacho Combo">
+                <div class="flip-card">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front"><img src="image/combo.jpg" alt="Nacho Combo"></div>
+                        <div class="flip-card-back"><p>Ingredients: Regular nachos, fries, cheese sauce, salsa dip.</p></div>
+                    </div>
+                </div>
                 <h3>Nacho Combo</h3>
                 <p class="price">₱75</p>
                 <button class="add-to-cart-btn">Add to Cart</button>
             </div>
+
             <div class="menu-item" data-name="Nacho Fries" data-price="85">
-                <img src="image/nacho fries.jpg" alt="Nacho Fries">
+                <div class="flip-card">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front"><img src="image/nacho fries.jpg" alt="Nacho Fries"></div>
+                        <div class="flip-card-back"><p>Ingredients: Fries, nacho cheese, jalapeños, beef bits, sour cream.</p></div>
+                    </div>
+                </div>
                 <h3>Nacho Fries</h3>
                 <p class="price">₱85</p>
                 <button class="add-to-cart-btn">Add to Cart</button>
             </div>
+
             <div class="menu-item" data-name="Supreme Nachos" data-price="180">
-                <img src="image/Supreme Nachos.png" alt="Supreme Nachos">
+                <div class="flip-card">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front"><img src="image/Supreme Nachos.png" alt="Supreme Nachos"></div>
+                        <div class="flip-card-back"><p>Ingredients: Corn chips, beef, tomatoes, onions, triple cheese, guacamole.</p></div>
+                    </div>
+                </div>
                 <h3>Supreme Nachos</h3>
                 <p class="price">₱180</p>
                 <button class="add-to-cart-btn">Add to Cart</button>
             </div>
+
         </div>
     </section>
 
@@ -62,30 +150,55 @@
     <section id="ai-foodies">
         <h2>AI FOODIES</h2>
         <div class="menu-grid">
+
             <div class="menu-item" data-name="Mango Graham" data-price="40">
-                <img src="image/mango.gif" alt="Mango Graham">
+                <div class="flip-card">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front"><img src="image/mango.gif" alt="Mango Graham"></div>
+                        <div class="flip-card-back"><p>Ingredients: Mango slices, graham crackers, cream, condensed milk.</p></div>
+                    </div>
+                </div>
                 <h3>Mango Graham</h3>
                 <p class="price">₱40</p>
                 <button class="add-to-cart-btn">Add to Cart</button>
             </div>
+
             <div class="menu-item" data-name="Mango tiramisu on tube" data-price="100">
-                <img src="image/mango tiramisu on tub-price 100.jpeg" alt="Mango tiramisu on tube">
+                <div class="flip-card">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front"><img src="image/mango tiramisu on tub-price 100.jpeg" alt="Mango tiramisu on tube"></div>
+                        <div class="flip-card-back"><p>Ingredients: Mango puree, mascarpone, ladyfingers, cream, cocoa dust.</p></div>
+                    </div>
+                </div>
                 <h3>Mango tiramisu on tube</h3>
                 <p class="price">₱100</p>
                 <button class="add-to-cart-btn">Add to Cart</button>
             </div>
+
             <div class="menu-item" data-name="Biscoff" data-price="159">
-                <img src="image/biscoff.jpeg" alt="Biscoff">
+                <div class="flip-card">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front"><img src="image/biscoff.jpeg" alt="Biscoff"></div>
+                        <div class="flip-card-back"><p>Ingredients: Biscoff spread, crushed cookies, cream, condensed milk.</p></div>
+                    </div>
+                </div>
                 <h3>Biscoff</h3>
                 <p class="price">₱159</p>
                 <button class="add-to-cart-btn">Add to Cart</button>
             </div>
-             <div class="menu-item" data-name="Oreo" data-price="149">
-                <img src="image/oreo and bisscoff.png" alt="Oreo">
+
+            <div class="menu-item" data-name="Oreo" data-price="149">
+                <div class="flip-card">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front"><img src="image/oreo and bisscoff.png" alt="Oreo"></div>
+                        <div class="flip-card-back"><p>Ingredients: Oreo cookies, whipped cream, chocolate syrup, condensed milk.</p></div>
+                    </div>
+                </div>
                 <h3>Oreo</h3>
                 <p class="price">₱149</p>
                 <button class="add-to-cart-btn">Add to Cart</button>
             </div>
+
         </div>
     </section>
 </div>
@@ -124,6 +237,17 @@
         <button id="custom-alert-ok">OK</button>
     </div>
 </div>
+
+<script>
+/* Flip on photo click */
+document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('.flip-card').forEach(card => {
+        card.addEventListener('click', () => {
+            card.classList.toggle('flipped');
+        });
+    });
+});
+</script>
 
 <script>
 // Cart functionality
