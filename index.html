@@ -326,18 +326,27 @@ function checkout() {
     // Create Messenger links
     const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
     
-    // --- FIX APPLIED ---
-    // Using window.location.href for mobile devices is often more reliable
-    // for triggering the native Messenger app to open with the pre-filled text.
+    // Improved mobile Messenger handling
     if (isMobile) {
-        window.location.href = `https://m.me/${messengerUserId}?text=${encodedMessage}`;
+        // Try multiple approaches for mobile
+        const messengerAppLink = `fb-messenger://user-thread/${messengerUserId}?text=${encodedMessage}`;
+        const messengerWebLink = `https://m.me/${messengerUserId}?text=${encodedMessage}`;
+        
+        // First try to open the Messenger app directly
+        window.location.href = messengerAppLink;
+        
+        // Fallback to web version if app doesn't open
+        setTimeout(() => {
+            if (!document.webkitHidden && !document.hidden) {
+                window.location.href = messengerWebLink;
+            }
+        }, 500);
     } else {
-        // Desktop browsers can continue to use window.open
+        // Desktop browsers
         window.open(`https://www.messenger.com/t/${messengerUserId}?text=${encodedMessage}`, '_blank');
     }
-    // --- END OF FIX ---
 
-    // Show custom confirmation instead of alert()
+    // Show custom confirmation
     showCustomAlert('Your order has been prepared! Please send the message in Messenger to complete your order.');
     
     // Clear cart and reset form
