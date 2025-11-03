@@ -320,35 +320,37 @@ function checkout() {
     message += `\n💵 *Total Amount: ${currencySymbol}${total.toFixed(0)}*\n\n`;
     message += `Please prepare my order. Thank you! 🙌`;
 
-    // Encode message for URL
-    const encodedMessage = encodeURIComponent(message);
-    
-    // Create Messenger links
-    const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
-    
-    // Improved mobile Messenger handling
-    if (isMobile) {
-        // Try multiple approaches for mobile
-        const messengerAppLink = `fb-messenger://user-thread/${messengerUserId}?text=${encodedMessage}`;
-        const messengerWebLink = `https://m.me/${messengerUserId}?text=${encodedMessage}`;
+    // NEW APPROACH: Copy to clipboard and open Messenger
+    copyToClipboard(message).then(() => {
+        // Show instructions to user
+        showCustomAlert('✅ Your order has been copied to clipboard! Opening Messenger now. Please paste your order message when Messenger opens.');
         
-        // First try to open the Messenger app directly
-        window.location.href = messengerAppLink;
+        // Open Messenger without pre-filled text (more reliable)
+        const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
         
-        // Fallback to web version if app doesn't open
-        setTimeout(() => {
-            if (!document.webkitHidden && !document.hidden) {
-                window.location.href = messengerWebLink;
-            }
-        }, 500);
-    } else {
-        // Desktop browsers
-        window.open(`https://www.messenger.com/t/${messengerUserId}?text=${encodedMessage}`, '_blank');
-    }
+        if (isMobile) {
+            // For mobile - try multiple approaches
+            setTimeout(() => {
+                // Try native app first
+                window.location.href = `fb-messenger://user-thread/${messengerUserId}`;
+                
+                // Fallback to web after delay
+                setTimeout(() => {
+                    window.location.href = `https://m.me/${messengerUserId}`;
+                }, 1000);
+            }, 2000);
+        } else {
+            // For desktop
+            setTimeout(() => {
+                window.open(`https://www.messenger.com/t/${messengerUserId}`, '_blank');
+            }, 2000);
+        }
+    }).catch(err => {
+        // Fallback if clipboard fails - show message and QR code approach
+        console.error('Clipboard failed:', err);
+        showCustomAlertWithManualOption(message);
+    });
 
-    // Show custom confirmation
-    showCustomAlert('Your order has been prepared! Please send the message in Messenger to complete your order.');
-    
     // Clear cart and reset form
     cart = [];
     updateCartDisplay();
@@ -356,6 +358,70 @@ function checkout() {
     document.getElementById('pickup-time').value = '';
     document.getElementById('payment-method').selectedIndex = 0;
     document.getElementById('cart-popup').style.display = 'none';
+}
+
+// NEW FUNCTION: Copy text to clipboard
+function copyToClipboard(text) {
+    if (navigator.clipboard && window.isSecureContext) {
+        return navigator.clipboard.writeText(text);
+    } else {
+        // Fallback for older browsers
+        const textArea = document.createElement('textarea');
+        textArea.value = text;
+        textArea.style.position = 'fixed';
+        textArea.style.opacity = '0';
+        document.body.appendChild(textArea);
+        textArea.select();
+        try {
+            const successful = document.execCommand('copy');
+            document.body.removeChild(textArea);
+            if (successful) {
+                return Promise.resolve();
+            } else {
+                return Promise.reject('Fallback copy failed');
+            }
+        } catch (err) {
+            document.body.removeChild(textArea);
+            return Promise.reject(err);
+        }
+    }
+}
+
+// NEW FUNCTION: Show manual option if clipboard fails
+function showCustomAlertWithManualOption(message) {
+    const alertDiv = document.createElement('div');
+    alertDiv.className = 'modal-overlay';
+    alertDiv.style.display = 'flex';
+    alertDiv.innerHTML = `
+        <div class="modal-content">
+            <p><strong>Manual Order Submission</strong></p>
+            <p>Please manually send this order message to our Facebook Page:</p>
+            <div style="background: #f5f5f5; padding: 10px; border-radius: 5px; margin: 10px 0; font-size: 0.9em; max-height: 200px; overflow-y: auto;">
+                ${message.replace(/\n/g, '<br>')}
+            </div>
+            <p>Click the button below to open Messenger, then paste this message.</p>
+            <button onclick="openMessengerManual()" style="background: linear-gradient(135deg, #ff9800, #f57c00); color: white; border: none; border-radius: 8px; padding: 10px 20px; cursor: pointer; margin: 5px;">Open Messenger</button>
+            <button onclick="this.closest('.modal-overlay').remove()" style="background: #666; color: white; border: none; border-radius: 8px; padding: 10px 20px; cursor: pointer; margin: 5px;">Close</button>
+        </div>
+    `;
+    document.body.appendChild(alertDiv);
+    
+    // Store message for manual function
+    window.tempOrderMessage = message;
+}
+
+// NEW FUNCTION: Open Messenger for manual approach
+function openMessengerManual() {
+    const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+    
+    if (isMobile) {
+        window.location.href = `fb-messenger://user-thread/${messengerUserId}`;
+        setTimeout(() => {
+            window.location.href = `https://m.me/${messengerUserId}`;
+        }, 1000);
+    } else {
+        window.open(`https://www.messenger.com/t/${messengerUserId}`, '_blank');
+    }
 }
 </script>
 
