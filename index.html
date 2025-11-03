@@ -264,7 +264,7 @@ function checkout() {
 
     let messengerUrl;
     if (isMobile) {
-        messengerUrl = `fb-messenger://user-thread/${messengerUserId}?text=${orderMessage}`;
+        messengerUrl = ``https://m.me/${messengerUserId}?text=${orderMessage}`;
     } else {
         messengerUrl = `https://www.messenger.com/t/${messengerUserId}?text=${orderMessage}`;
     }
@@ -284,4 +284,5 @@ function checkout() {
 
 </body>
 </html>
+
 
