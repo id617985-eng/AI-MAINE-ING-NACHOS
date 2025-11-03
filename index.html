@@ -150,139 +150,141 @@ let cart = [];
 const currencySymbol = '₱';
 
 function addToCart(btn){
-    const menuItem = btn.closest('.menu-item');
-    const name = menuItem.dataset.name;
-    const price = parseFloat(menuItem.dataset.price);
-    const img = menuItem.querySelector('img');
+    const menuItem = btn.closest('.menu-item');
+    const name = menuItem.dataset.name;
+    const price = parseFloat(menuItem.dataset.price);
+    const img = menuItem.querySelector('img');
 
-    const existing = cart.find(item => item.name === name);
-    if(existing) existing.quantity += 1;
-    else cart.push({name, price, quantity:1});
+    const existing = cart.find(item => item.name === name);
+    if(existing) existing.quantity += 1;
+    else cart.push({name, price, quantity:1});
 
-    updateCartDisplay();
-    animateCartButton();
-    flyToCart(img);
+    updateCartDisplay();
+    animateCartButton();
+    flyToCart(img);
 }
 
 function updateCartDisplay(){
-    const cartItemsList = document.getElementById('cart-items');
-    const cartTotalElement = document.getElementById('cart-total');
-    const cartCountElement = document.getElementById('cart-count');
+    const cartItemsList = document.getElementById('cart-items');
+    const cartTotalElement = document.getElementById('cart-total');
+    const cartCountElement = document.getElementById('cart-count');
 
-    cartItemsList.innerHTML = '';
-    let total=0, totalItems=0;
+    cartItemsList.innerHTML = '';
+    let total=0, totalItems=0;
 
-    if(cart.length === 0){
-        cartItemsList.innerHTML = '<li>Your cart is empty.</li>';
-        document.getElementById('checkout-btn').disabled = true;
-    } else {
-        cart.forEach((item,index)=>{
-            total += item.price*item.quantity;
-            totalItems += item.quantity;
+    if(cart.length === 0){
+        cartItemsList.innerHTML = '<li>Your cart is empty.</li>';
+        document.getElementById('checkout-btn').disabled = true;
+    } else {
+        cart.forEach((item,index)=>{
+            total += item.price*item.quantity;
+            totalItems += item.quantity;
 
-            const li = document.createElement('li');
-            li.innerHTML = `<span>${item.name}</span>
-                            <div class="quantity-controls">
-                                <button onclick="changeQuantity(${index},-1)">-</button>
-                                <span>${item.quantity}</span>
-                                <button onclick="changeQuantity(${index},1)">+</button>
-                            </div>
-                            <span>${currencySymbol}${(item.price*item.quantity).toFixed(0)}</span>`;
-            cartItemsList.appendChild(li);
-        });
-        document.getElementById('checkout-btn').disabled = false;
-    }
+            const li = document.createElement('li');
+            li.innerHTML = `<span>${item.name}</span>
+                            <div class="quantity-controls">
+                                <button onclick="changeQuantity(${index},-1)">-</button>
+                                <span>${item.quantity}</span>
+                                <button onclick="changeQuantity(${index},1)">+</button>
+                            </div>
+                            <span>${currencySymbol}${(item.price*item.quantity).toFixed(0)}</span>`;
+            cartItemsList.appendChild(li);
+        });
+        document.getElementById('checkout-btn').disabled = false;
+    }
 
-    cartCountElement.textContent = totalItems;
-    cartTotalElement.textContent = `${currencySymbol}${total.toFixed(0)}`;
+    cartCountElement.textContent = totalItems;
+    cartTotalElement.textContent = `${currencySymbol}${total.toFixed(0)}`;
 }
 
 function changeQuantity(index,delta){
-    cart[index].quantity += delta;
-    if(cart[index].quantity <= 0) cart.splice(index,1);
-    updateCartDisplay();
+    cart[index].quantity += delta;
+    if(cart[index].quantity <= 0) cart.splice(index,1);
+    updateCartDisplay();
 }
 
 function toggleCart(){
-    const popup = document.getElementById('cart-popup');
-    popup.style.display = (popup.style.display==='block')?'none':'block';
+    const popup = document.getElementById('cart-popup');
+    popup.style.display = (popup.style.display==='block')?'none':'block';
 }
 
 function animateCartButton(){
-    const btn = document.getElementById('cart-trigger');
-    btn.classList.add('bouncing');
-    setTimeout(()=>btn.classList.remove('bouncing'),500);
+    const btn = document.getElementById('cart-trigger');
+    btn.classList.add('bouncing');
+    setTimeout(()=>btn.classList.remove('bouncing'),500);
 }
 
 function flyToCart(img){
-    if(!img) return;
-    const clone = img.cloneNode(true);
-    const rect = img.getBoundingClientRect();
-    clone.style.position = 'fixed';
-    clone.style.left = rect.left+'px';
-    clone.style.top = rect.top+'px';
-    clone.style.width = rect.width+'px';
-    clone.style.height = rect.height+'px';
-    clone.style.transition='all 0.8s ease-in-out';
-    clone.style.zIndex=10000;
-    document.body.appendChild(clone);
+    if(!img) return;
+    const clone = img.cloneNode(true);
+    const rect = img.getBoundingClientRect();
+    clone.style.position = 'fixed';
+    clone.style.left = rect.left+'px';
+    clone.style.top = rect.top+'px';
+s   clone.style.width = rect.width+'px';
+    clone.style.height = rect.height+'px';
+    clone.style.transition='all 0.8s ease-in-out';
+    clone.style.zIndex=10000;
+    document.body.appendChild(clone);
 
-    const cartBtn = document.getElementById('cart-trigger');
-    const cartRect = cartBtn.getBoundingClientRect();
-    setTimeout(()=>{
-        clone.style.left = cartRect.left+'px';
-        clone.style.top = cartRect.top+'px';
-        clone.style.width = '20px';
-        clone.style.height = '20px';
-        clone.style.opacity = 0.5;
-    },10);
+    const cartBtn = document.getElementById('cart-trigger');
+    const cartRect = cartBtn.getBoundingClientRect();
+    setTimeout(()=>{
+        clone.style.left = cartRect.left+'px';
+        clone.style.top = cartRect.top+'px';
+        clone.style.width = '20px';
+        clone.style.height = '20px';
+        clone.style.opacity = 0.5;
+    },10);
 
-    setTimeout(()=>document.body.removeChild(clone),800);
+    setTimeout(()=>document.body.removeChild(clone),800);
 }
 
 // ✅ Final checkout with Messenger pre-written message
 function checkout() {
-    if (cart.length === 0) { 
-        alert('Cart is empty!'); 
-        return; 
-    }
+    if (cart.length === 0) { 
+        alert('Cart is empty!'); 
+        return; 
+    }
 
-    const name = document.getElementById('customer-name').value || 'Customer';
-    const time = document.getElementById('pickup-time').value || 'Not specified';
-    const payment = document.getElementById('payment-method').value;
+    const name = document.getElementById('customer-name').value || 'Customer';
+    const time = document.getElementById('pickup-time').value || 'Not specified';
+    const payment = document.getElementById('payment-method').value;
 
-    let orderMessage = `Hello! I would like to place an order:%0A%0A`;
-    cart.forEach(item => {
-        orderMessage += `${item.quantity} x ${item.name} = ₱${(item.quantity * item.price).toFixed(0)}%0A`;
-    });
+    let orderMessage = `Hello! I would like to place an order:%0A%0A`;
+    cart.forEach(item => {
+        orderMessage += `${item.quantity} x ${item.name} = ₱${(item.quantity * item.price).toFixed(0)}%0A`;
+    });
 
-    const total = cart.reduce((a, b) => a + b.price * b.quantity, 0);
-    orderMessage += `%0A--------------------%0ATotal: ₱${total.toFixed(0)}%0AName: ${name}%0APick-up Time: ${time}%0APayment: ${payment}%0A%0AThank you for ordering from Ai-Maize-ing Nachos!`;
+    const total = cart.reduce((a, b) => a + b.price * b.quantity, 0);
+    orderMessage += `%0A--------------------%0ATotal: ₱${total.toFixed(0)}%0AName: ${name}%0APick-up Time: ${time}%0APayment: ${payment}%0A%0AThank you for ordering from Ai-Maize-ing Nachos!`;
 
-    const messengerUserId = '8941907542595225'; // your Page ID
-    const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+    const messengerUserId = '8941907542595225'; // your Page ID
+    const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
 
-    let messengerUrl;
-    if (isMobile) {
-        messengerUrl = ``https://m.me/${messengerUserId}?text=${orderMessage}`;
-    } else {
-        messengerUrl = `https://www.messenger.com/t/${messengerUserId}?text=${orderMessage}`;
-    }
+    let messengerUrl;
+    if (isMobile) {
+        // THIS IS THE FIXED LINE:
+        messengerUrl = `https://m.me/${messengerUserId}?text=${orderMessage}`;
+    } else {
+        messengerUrl = `https://www.messenger.com/t/${messengerUserId}?text=${orderMessage}`;
+    }
 
-    window.open(messengerUrl, '_blank');
+    window.open(messengerUrl, '_blank');
 
-    // ✅ Clear cart & reset UI
-    cart = [];
-    updateCartDisplay();
-    document.getElementById('customer-name').value = '';
-    document.getElementById('pickup-time').value = '';
-    document.getElementById('payment-method').selectedIndex = 0;
-    document.getElementById('cart-popup').style.display = 'none';
-    alert('Your order message is ready in Messenger! Please send it to complete your order.');
+    // ✅ Clear cart & reset UI
+    cart = [];
+    updateCartDisplay();
+    document.getElementById('customer-name').value = '';
+    document.getElementById('pickup-time').value = '';
+    document.getElementById('payment-method').selectedIndex = 0;
+    document.getElementById('cart-popup').style.display = 'none';
+    alert('Your order message is ready in Messenger! Please send it to complete your order.');
 }
 </script>
 
 </body>
 </html>
+
 
 
