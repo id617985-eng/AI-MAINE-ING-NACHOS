@@ -1,36 +1,4 @@
-/* ===== LOGO STYLING ===== */
-.logo {
-  width: 50px;
-  height: 50px;
-  object-fit: cover;
-  border-radius: 50%;
-  margin-right: 10px;
-  vertical-align: middle;
-}
-
-/* ===== HEADER ALIGNMENT ===== */
-header {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  text-align: center;
-  margin-bottom: 20px;
-}
-
-header h1 {
-  font-family: 'Shrikhand', cursive;
-  font-size: 2rem;
-  margin: 10px 0 5px 0;
-  color: #ff8c00;
-}
-
-header p {
-  font-size: 1rem;
-  color: #333;
-}
-
-/* === GLOBAL STYLES === */
+/* ===== GLOBAL STYLES ===== */
 body {
   font-family: 'Roboto', sans-serif;
   margin: 0;
@@ -38,6 +6,13 @@ body {
   color: #333;
 }
 
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* ===== HEADER STYLES ===== */
 header {
   text-align: center;
   margin: 20px 0;
@@ -47,32 +22,33 @@ header h1 {
   font-family: 'Shrikhand', cursive;
   color: #e65100;
   font-size: 2.2em;
+  margin: 10px 0;
 }
 
 header p {
   font-size: 1.1em;
   color: #5d4037;
+  margin: 5px 0 20px 0;
 }
 
-/* === MENU SECTION === */
-#menu {
+/* ===== SECTION HEADERS ===== */
+h2 {
+  font-family: 'Shrikhand', cursive;
+  color: #333;
   text-align: center;
-  margin-top: 20px;
+  margin: 30px 0 20px 0;
 }
 
-#menu h2 {
-  color: #ef6c00;
-  margin-bottom: 20px;
-}
-
+/* ===== MENU GRID ===== */
 .menu-grid {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   gap: 20px;
+  margin-bottom: 30px;
 }
 
-/* === MENU ITEM CARD === */
+/* ===== MENU ITEM CARD ===== */
 .menu-item {
   border-radius: 12px;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
@@ -80,6 +56,7 @@ header p {
   text-align: center;
   padding: 15px;
   transition: transform 0.25s ease, box-shadow 0.25s ease;
+  background: white;
 }
 
 .menu-item:hover {
@@ -97,11 +74,14 @@ header p {
 .menu-item h3 {
   margin: 10px 0 5px;
   font-weight: 700;
+  font-size: 1.1em;
 }
 
 .price {
   font-weight: bold;
   margin-bottom: 10px;
+  color: #e65100;
+  font-size: 1.1em;
 }
 
 /* === COLOR THEMES FOR EACH ITEM === */
@@ -162,6 +142,7 @@ header p {
   padding: 8px 12px;
   cursor: pointer;
   transition: background 0.3s ease, transform 0.2s ease;
+  font-weight: bold;
 }
 
 .add-to-cart-btn:hover {
@@ -184,6 +165,7 @@ header p {
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
   z-index: 999;
   transition: transform 0.3s ease;
+  font-weight: bold;
 }
 
 #cart-trigger:hover {
@@ -222,10 +204,12 @@ header p {
   border-radius: 10px 10px 0 0;
   padding: 10px;
   color: #fff;
+  margin: -15px -15px 15px -15px;
 }
 
 .cart-header h3 {
   margin: 0;
+  font-family: 'Shrikhand', cursive;
 }
 
 .close-btn {
@@ -234,11 +218,13 @@ header p {
   color: #fff;
   font-weight: bold;
   cursor: pointer;
+  font-size: 1.2em;
 }
 
 #cart-items {
   list-style: none;
-  padding: 10px 0;
+  padding: 0;
+  margin: 0;
   max-height: 250px;
   overflow-y: auto;
 }
@@ -247,32 +233,46 @@ header p {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: 6px 0;
+  margin: 8px 0;
   font-size: 0.95em;
+  padding: 5px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.quantity-controls {
+  display: flex;
+  align-items: center;
+  gap: 5px;
 }
 
 .quantity-controls button {
   background: #ffb74d;
   border: none;
   border-radius: 5px;
-  padding: 2px 6px;
+  padding: 2px 8px;
   cursor: pointer;
   color: #fff;
   font-weight: bold;
 }
 
+.quantity-controls button:hover {
+  background: #ff9800;
+}
+
 #cart-total {
   font-weight: bold;
   color: #e65100;
+  font-size: 1.1em;
 }
 
 .order-details input,
 .payment-options select {
   width: 100%;
-  padding: 6px;
+  padding: 8px;
   margin: 5px 0;
   border: 1px solid #ccc;
   border-radius: 6px;
+  box-sizing: border-box;
 }
 
 #checkout-btn {
@@ -280,54 +280,72 @@ header p {
   color: white;
   border: none;
   border-radius: 10px;
-  padding: 10px;
+  padding: 12px;
   width: 100%;
   font-size: 1em;
   cursor: pointer;
   transition: background 0.3s ease;
   margin-top: 10px;
+  font-weight: bold;
 }
 
-#checkout-btn:hover {
+#checkout-btn:hover:not(:disabled) {
   background: linear-gradient(135deg, #ffb74d, #ef6c00);
 }
 
-/* === RESPONSIVE === */
-@media (max-width: 600px) {
+#checkout-btn:disabled {
+  background: #cccccc;
+  cursor: not-allowed;
+}
+
+/* === AI FOODIES SPECIAL STYLES === */
+#ai-foodies .menu-item {
+  transition: transform 0.3s, box-shadow 0.3s;
+  border: 2px solid #ff6600;
+}
+
+#ai-foodies .menu-item:hover {
+  transform: translateY(-10px) scale(1.05);
+  box-shadow: 0 10px 20px rgba(255, 102, 0, 0.5);
+  border-color: #ff4500;
+}
+
+#ai-foodies .menu-item h3 {
+  color: #ff6600;
+}
+
+#ai-foodies .menu-item p.price {
+  font-weight: bold;
+  color: #ff3300;
+}
+
+/* === RESPONSIVE DESIGN === */
+@media (max-width: 768px) {
   .menu-grid {
-    flex-wrap: wrap;
-    justify-content: center;
+    gap: 15px;
   }
+  
   .menu-item {
-    width: 45%;
+    width: calc(50% - 15px);
   }
+  
   #cart-popup {
     width: 90%;
     right: 5%;
     bottom: 80px;
   }
+  
+  .container {
+    padding: 10px;
+  }
 }
 
-/* Hover effect for AI FOODIES items */
-#ai-foodies .menu-item {
-    transition: transform 0.3s, box-shadow 0.3s;
-    border-color: #ff6600; /* optional: orange border */
+@media (max-width: 480px) {
+  .menu-item {
+    width: 100%;
+  }
+  
+  header h1 {
+    font-size: 1.8em;
+  }
 }
-
-#ai-foodies .menu-item:hover {
-    transform: translateY(-10px) scale(1.05);
-    box-shadow: 0 10px 20px rgba(255, 102, 0, 0.5);
-    border-color: #ff4500;
-}
-
-#ai-foodies .menu-item h3 {
-    color: #ff6600;
-}
-
-#ai-foodies .menu-item p.price {
-    font-weight: bold;
-    color: #ff3300;
-}
-
-
-
