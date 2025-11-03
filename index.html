@@ -90,19 +90,18 @@ h1, h2 { font-family: 'Shrikhand', cursive; color:#333; }
     <section id="ai-foodies">
         <h2>AI FOODIES</h2>
         <div class="menu-grid">
-            <div class="menu-item" data-name="mango" data-price="150">
-                <img src="image/mango.gif" alt="mango">
-                <h3>mango</h3>
+            <div class="menu-item" data-name="Mango" data-price="150">
+                <img src="image/mango.gif" alt="Mango">
+                <h3>Mango</h3>
                 <p class="price">₱150</p>
                 <button class="add-to-cart-btn" onclick="addToCart(this)">Add to Cart</button>
             </div>
-            <div class="menu-item" data-name="oreo and bisscof " data-price="90">
-                <img src="image/oreo and bisscoff.png" alt="oreo and bisscoff">
-                <h3>oreo and bisscof</h3>
+            <div class="menu-item" data-name="Oreo and Biscoff" data-price="90">
+                <img src="image/oreo and bisscoff.png" alt="Oreo and Biscoff">
+                <h3>Oreo and Biscoff</h3>
                 <p class="price">₱90</p>
                 <button class="add-to-cart-btn" onclick="addToCart(this)">Add to Cart</button>
             </div>
-            
         </div>
     </section>
 </div>
@@ -137,7 +136,6 @@ h1, h2 { font-family: 'Shrikhand', cursive; color:#333; }
 <script>
 let cart = [];
 const currencySymbol = '₱';
-const messengerUserId = '8941907542595225'; // Replace with your Messenger ID
 
 function addToCart(btn){
     const menuItem = btn.closest('.menu-item');
@@ -230,20 +228,45 @@ function flyToCart(img){
     setTimeout(()=>document.body.removeChild(clone),800);
 }
 
-function checkout(){
-    if(cart.length===0){ alert('Cart is empty!'); return; }
+// ✅ Final checkout with Messenger pre-written message
+function checkout() {
+    if (cart.length === 0) { 
+        alert('Cart is empty!'); 
+        return; 
+    }
+
     const name = document.getElementById('customer-name').value || 'Customer';
     const time = document.getElementById('pickup-time').value || 'Not specified';
     const payment = document.getElementById('payment-method').value;
-    let orderMessage=`Hello! I would like to place an order:%0A`;
-    cart.forEach(item=>{
-        orderMessage += `${item.quantity} x ${item.name} = ${currencySymbol}${(item.quantity*item.price).toFixed(0)}%0A`;
-    });
-    const total = cart.reduce((a,b)=>a+b.price*b.quantity,0);
-    orderMessage += `Total: ${currencySymbol}${total.toFixed(0)}%0AName: ${name}%0APick-up Time: ${time}%0APayment: ${payment}`;
 
-    const url = `https://m.me/${messengerUserId}?ref=${encodeURIComponent(orderMessage)}`;
-    window.open(url,'_blank');
+    let orderMessage = `Hello! I would like to place an order:%0A%0A`;
+    cart.forEach(item => {
+        orderMessage += `${item.quantity} x ${item.name} = ₱${(item.quantity * item.price).toFixed(0)}%0A`;
+    });
+
+    const total = cart.reduce((a, b) => a + b.price * b.quantity, 0);
+    orderMessage += `%0A--------------------%0ATotal: ₱${total.toFixed(0)}%0AName: ${name}%0APick-up Time: ${time}%0APayment: ${payment}%0A%0AThank you for ordering from Ai-Maize-ing Nachos!`;
+
+    const messengerUserId = '8941907542595225'; // your Page ID
+    const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+
+    let messengerUrl;
+    if (isMobile) {
+        messengerUrl = `fb-messenger://user-thread/${messengerUserId}?text=${orderMessage}`;
+    } else {
+        messengerUrl = `https://www.messenger.com/t/${messengerUserId}?text=${orderMessage}`;
+    }
+
+    window.open(messengerUrl, '_blank');
+
+    // ✅ Clear cart & reset UI
+    cart = [];
+    updateCartDisplay();
+    document.getElementById('customer-name').value = '';
+    document.getElementById('pickup-time').value = '';
+    document.getElementById('payment-method').selectedIndex = 0;
+    document.getElementById('cart-popup').style.display = 'none';
+    alert('Your order message is ready in Messenger! Please send it to complete your order.');
 }
 </script>
 
