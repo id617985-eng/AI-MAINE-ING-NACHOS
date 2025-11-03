@@ -6,34 +6,6 @@
 <title>Ai-Maize-ing Nachos - Order Online</title>
 <link rel="stylesheet" href="style.css">
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Shrikhand&display=swap" rel="stylesheet">
-<style>
-body { font-family: 'Roboto', sans-serif; margin: 0; padding: 0; background:#fff; }
-.container { max-width: 1200px; margin: auto; padding: 20px; }
-h1, h2 { font-family: 'Shrikhand', cursive; color:#333; }
-.menu-grid { display: flex; flex-wrap: wrap; gap: 20px; }
-.menu-item { border: 1px solid #ccc; padding: 10px; width: 220px; text-align: center; transition: transform 0.3s, box-shadow 0.3s; }
-.menu-item img { width: 200px; height: 150px; object-fit: cover; }
-.add-to-cart-btn { margin-top: 10px; padding: 5px 10px; cursor: pointer; }
-#cart-trigger { position: fixed; bottom: 20px; right: 20px; padding: 10px 15px; cursor: pointer; z-index: 1001; }
-#cart-popup { position: fixed; top: 50px; right: 50px; width: 300px; background: #fff; border: 1px solid #ccc; padding: 15px; display: none; z-index: 1000; }
-#cart-popup ul { list-style: none; padding: 0; max-height: 300px; overflow-y: auto; }
-#cart-popup li { display: flex; justify-content: space-between; margin-bottom: 8px; }
-#cart-popup li .quantity-controls button { margin: 0 3px; }
-.bouncing { animation: bounce 0.5s; }
-@keyframes bounce { 0%,100%{transform:scale(1)}50%{transform:scale(1.2)} }
-
-/* AI FOODIES hover effect */
-#ai-foodies .menu-item {
-    border-color: #ff6600;
-}
-#ai-foodies .menu-item:hover {
-    transform: translateY(-10px) scale(1.05);
-    box-shadow: 0 10px 20px rgba(255,102,0,0.5);
-    border-color: #ff4500;
-}
-#ai-foodies .menu-item h3 { color: #ff6600; }
-#ai-foodies .menu-item p.price { font-weight:bold; color:#ff3300; }
-</style>
 </head>
 <body>
 
@@ -51,37 +23,37 @@ h1, h2 { font-family: 'Shrikhand', cursive; color:#333; }
                 <img src="image/566525427_2187368088422232_3281536944644291040_n.jpg" alt="Regular Nachos">
                 <h3>Regular Nachos</h3>
                 <p class="price">₱35</p>
-                <button class="add-to-cart-btn" onclick="addToCart(this)">Add to Cart</button>
+                <button class="add-to-cart-btn">Add to Cart</button>
             </div>
             <div class="menu-item" data-name="Veggie Nachos" data-price="65">
                 <img src="image/veggie nachos.jpg" alt="Veggie Nachos">
                 <h3>Veggie Nachos</h3>
                 <p class="price">₱65</p>
-                <button class="add-to-cart-btn" onclick="addToCart(this)">Add to Cart</button>
+                <button class="add-to-cart-btn">Add to Cart</button>
             </div>
             <div class="menu-item" data-name="Overload Cheesy Nachos" data-price="95">
                 <img src="image/overload chees nachos.jpg" alt="Overload Cheesy Nachos">
                 <h3>Overload Cheesy Nachos</h3>
                 <p class="price">₱95</p>
-                <button class="add-to-cart-btn" onclick="addToCart(this)">Add to Cart</button>
+                <button class="add-to-cart-btn">Add to Cart</button>
             </div>
             <div class="menu-item" data-name="Nacho Combo" data-price="75">
                 <img src="image/combo.jpg" alt="Nacho Combo">
                 <h3>Nacho Combo</h3>
                 <p class="price">₱75</p>
-                <button class="add-to-cart-btn" onclick="addToCart(this)">Add to Cart</button>
+                <button class="add-to-cart-btn">Add to Cart</button>
             </div>
             <div class="menu-item" data-name="Nacho Fries" data-price="85">
                 <img src="image/nacho fries.jpg" alt="Nacho Fries">
                 <h3>Nacho Fries</h3>
                 <p class="price">₱85</p>
-                <button class="add-to-cart-btn" onclick="addToCart(this)">Add to Cart</button>
+                <button class="add-to-cart-btn">Add to Cart</button>
             </div>
             <div class="menu-item" data-name="Supreme Nachos" data-price="180">
                 <img src="image/Supreme Nachos.png" alt="Supreme Nachos">
                 <h3>Supreme Nachos</h3>
                 <p class="price">₱180</p>
-                <button class="add-to-cart-btn" onclick="addToCart(this)">Add to Cart</button>
+                <button class="add-to-cart-btn">Add to Cart</button>
             </div>
         </div>
     </section>
@@ -94,37 +66,37 @@ h1, h2 { font-family: 'Shrikhand', cursive; color:#333; }
                 <img src="image/mango.gif" alt="Mango Graham">
                 <h3>Mango Graham</h3>
                 <p class="price">₱40</p>
-                <button class="add-to-cart-btn" onclick="addToCart(this)">Add to Cart</button>
+                <button class="add-to-cart-btn">Add to Cart</button>
             </div>
             <div class="menu-item" data-name="Mango tiramisu on tube" data-price="100">
                 <img src="image/mango tiramisu on tub-price 100.jpeg" alt="Mango tiramisu on tube">
                 <h3>Mango tiramisu on tube</h3>
                 <p class="price">₱100</p>
-                <button class="add-to-cart-btn" onclick="addToCart(this)">Add to Cart</button>
+                <button class="add-to-cart-btn">Add to Cart</button>
             </div>
             <div class="menu-item" data-name="Biscoff" data-price="159">
                 <img src="image/biscoff.jpeg" alt="Biscoff">
                 <h3>Biscoff</h3>
                 <p class="price">₱159</p>
-                <button class="add-to-cart-btn" onclick="addToCart(this)">Add to Cart</button>
+                <button class="add-to-cart-btn">Add to Cart</button>
             </div>
              <div class="menu-item" data-name="Oreo" data-price="149">
                 <img src="image/oreo and bisscoff.png" alt="Oreo">
                 <h3>Oreo</h3>
                 <p class="price">₱149</p>
-                <button class="add-to-cart-btn" onclick="addToCart(this)">Add to Cart</button>
+                <button class="add-to-cart-btn">Add to Cart</button>
             </div>
         </div>
     </section>
 </div>
 
 <!-- Cart Button & Popup -->
-<button id="cart-trigger" onclick="toggleCart()">View Cart (<span id="cart-count">0</span>)</button>
+<button id="cart-trigger">View Cart (<span id="cart-count">0</span>)</button>
 
 <div id="cart-popup">
     <div class="cart-header">
         <h3>Your Order</h3>
-        <button class="close-btn" onclick="toggleCart()">X</button>
+        <button class="close-btn">X</button>
     </div>
     <ul id="cart-items"></ul>
     <p>Total: <span id="cart-total">₱0</span></p>
@@ -142,149 +114,222 @@ h1, h2 { font-family: 'Shrikhand', cursive; color:#333; }
         </select>
     </div>
 
-    <button id="checkout-btn" onclick="checkout()">Send Order & Notify Us</button>
+    <button id="checkout-btn">Send Order & Notify Us</button>
 </div>
 
 <script>
+// Cart functionality
 let cart = [];
 const currencySymbol = '₱';
+const messengerUserId = '8941907542595225';
 
-function addToCart(btn){
-    const menuItem = btn.closest('.menu-item');
-    const name = menuItem.dataset.name;
-    const price = parseFloat(menuItem.dataset.price);
-    const img = menuItem.querySelector('img');
+// Initialize when page loads
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('Page loaded - initializing cart system');
+    
+    // Add event listeners to all Add to Cart buttons
+    const addToCartButtons = document.querySelectorAll('.add-to-cart-btn');
+    console.log('Found ' + addToCartButtons.length + ' add to cart buttons');
+    
+    addToCartButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            console.log('Add to cart clicked');
+            addToCart(this);
+        });
+    });
 
-    const existing = cart.find(item => item.name === name);
-    if(existing) existing.quantity += 1;
-    else cart.push({name, price, quantity:1});
+    // Cart trigger button
+    document.getElementById('cart-trigger').addEventListener('click', toggleCart);
+    
+    // Close cart button
+    document.querySelector('.close-btn').addEventListener('click', toggleCart);
+    
+    // Checkout button
+    document.getElementById('checkout-btn').addEventListener('click', checkout);
+    
+    // Initial cart update
+    updateCartDisplay();
+});
 
-    updateCartDisplay();
-    animateCartButton();
-    flyToCart(img);
+function addToCart(btn) {
+    console.log('addToCart function called');
+    const menuItem = btn.closest('.menu-item');
+    const name = menuItem.dataset.name;
+    const price = parseFloat(menuItem.dataset.price);
+    const img = menuItem.querySelector('img');
+
+    console.log('Adding item:', name, 'Price:', price);
+
+    // Check if item already exists in cart
+    const existingItem = cart.find(item => item.name === name);
+    if(existingItem) { 
+        existingItem.quantity += 1; 
+    } else { 
+        cart.push({name, price, quantity: 1}); 
+    }
+
+    updateCartDisplay();
+    animateCartButton();
+    flyToCart(img);
 }
 
-function updateCartDisplay(){
-    const cartItemsList = document.getElementById('cart-items');
-    const cartTotalElement = document.getElementById('cart-total');
-    const cartCountElement = document.getElementById('cart-count');
+function updateCartDisplay() {
+    const cartItemsList = document.getElementById('cart-items');
+    const cartTotalElement = document.getElementById('cart-total');
+    const cartCountElement = document.getElementById('cart-count');
+    const checkoutBtn = document.getElementById('checkout-btn');
 
-    cartItemsList.innerHTML = '';
-    let total=0, totalItems=0;
+    cartItemsList.innerHTML = '';
+    let total = 0;
+    let totalItems = 0;
 
-    if(cart.length === 0){
-        cartItemsList.innerHTML = '<li>Your cart is empty.</li>';
-        document.getElementById('checkout-btn').disabled = true;
-    } else {
-        cart.forEach((item,index)=>{
-            total += item.price*item.quantity;
-            totalItems += item.quantity;
+    if(cart.length === 0) {
+        cartItemsList.innerHTML = '<li style="text-align: center; color: #666; padding: 20px;">Your cart is empty.</li>';
+        checkoutBtn.disabled = true;
+        checkoutBtn.style.opacity = '0.6';
+    } else {
+        cart.forEach((item, index) => {
+            const itemTotal = item.price * item.quantity;
+            total += itemTotal;
+            totalItems += item.quantity;
 
-            const li = document.createElement('li');
-            li.innerHTML = `<span>${item.name}</span>
-                            <div class="quantity-controls">
-                                <button onclick="changeQuantity(${index},-1)">-</button>
-                                <span>${item.quantity}</span>
-                                <button onclick="changeQuantity(${index},1)">+</button>
-                            </div>
-                            <span>${currencySymbol}${(item.price*item.quantity).toFixed(0)}</span>`;
-            cartItemsList.appendChild(li);
-        });
-        document.getElementById('checkout-btn').disabled = false;
-    }
+            const li = document.createElement('li');
+            li.innerHTML = `
+                <span>${item.name}</span>
+                <div class="quantity-controls">
+                    <button onclick="changeQuantity(${index}, -1)">-</button>
+                    <span>${item.quantity}</span>
+                    <button onclick="changeQuantity(${index}, 1)">+</button>
+                </div>
+                <span>${currencySymbol}${itemTotal.toFixed(0)}</span>
+            `;
+            cartItemsList.appendChild(li);
+        });
+        checkoutBtn.disabled = false;
+        checkoutBtn.style.opacity = '1';
+    }
 
-    cartCountElement.textContent = totalItems;
-    cartTotalElement.textContent = `${currencySymbol}${total.toFixed(0)}`;
+    cartTotalElement.textContent = `${currencySymbol}${total.toFixed(0)}`;
+    cartCountElement.textContent = totalItems;
 }
 
-function changeQuantity(index,delta){
-    cart[index].quantity += delta;
-    if(cart[index].quantity <= 0) cart.splice(index,1);
-    updateCartDisplay();
+function changeQuantity(index, delta) {
+    cart[index].quantity += delta;
+    if(cart[index].quantity <= 0) {
+        cart.splice(index, 1);
+    }
+    updateCartDisplay();
 }
 
-function toggleCart(){
-    const popup = document.getElementById('cart-popup');
-    popup.style.display = (popup.style.display==='block')?'none':'block';
+function toggleCart() {
+    const popup = document.getElementById('cart-popup');
+    popup.style.display = (popup.style.display === 'block') ? 'none' : 'block';
 }
 
-function animateCartButton(){
-    const btn = document.getElementById('cart-trigger');
-    btn.classList.add('bouncing');
-    setTimeout(()=>btn.classList.remove('bouncing'),500);
+function animateCartButton() {
+    const btn = document.getElementById('cart-trigger');
+    btn.classList.add('bouncing');
+    setTimeout(() => btn.classList.remove('bouncing'), 500);
 }
 
-function flyToCart(img){
-    if(!img) return;
-    const clone = img.cloneNode(true);
-    const rect = img.getBoundingClientRect();
-    clone.style.position = 'fixed';
-    clone.style.left = rect.left+'px';
-    clone.style.top = rect.top+'px';
-s   clone.style.width = rect.width+'px';
-    clone.style.height = rect.height+'px';
-    clone.style.transition='all 0.8s ease-in-out';
-    clone.style.zIndex=10000;
-    document.body.appendChild(clone);
+function flyToCart(img) {
+    if(!img) return;
+    
+    const cartBtn = document.getElementById('cart-trigger');
+    const clone = img.cloneNode(true);
+    const rect = img.getBoundingClientRect();
+    const cartRect = cartBtn.getBoundingClientRect();
 
-    const cartBtn = document.getElementById('cart-trigger');
-    const cartRect = cartBtn.getBoundingClientRect();
-    setTimeout(()=>{
-        clone.style.left = cartRect.left+'px';
-        clone.style.top = cartRect.top+'px';
-        clone.style.width = '20px';
-        clone.style.height = '20px';
-        clone.style.opacity = 0.5;
-    },10);
+    clone.style.position = 'fixed';
+    clone.style.left = rect.left + 'px';
+    clone.style.top = rect.top + 'px';
+    clone.style.width = rect.width + 'px';
+    clone.style.height = rect.height + 'px';
+    clone.style.transition = 'all 0.8s ease-in-out';
+    clone.style.zIndex = '10000';
+    clone.style.borderRadius = '8px';
+    document.body.appendChild(clone);
 
-    setTimeout(()=>document.body.removeChild(clone),800);
+    setTimeout(() => {
+        clone.style.left = (cartRect.left + cartRect.width/2 - 10) + 'px';
+        clone.style.top = (cartRect.top + cartRect.height/2 - 10) + 'px';
+        clone.style.width = '20px';
+        clone.style.height = '20px';
+        clone.style.opacity = '0.5';
+    }, 10);
+
+    setTimeout(() => {
+        if (clone.parentNode) {
+            document.body.removeChild(clone);
+        }
+    }, 800);
 }
 
-// ✅ Final checkout with Messenger pre-written message
 function checkout() {
-    if (cart.length === 0) { 
-        alert('Cart is empty!'); 
-        return; 
-    }
+    if(cart.length === 0) {
+        alert('Your cart is empty! Please add some items first.');
+        return;
+    }
 
-    const name = document.getElementById('customer-name').value || 'Customer';
-    const time = document.getElementById('pickup-time').value || 'Not specified';
-    const payment = document.getElementById('payment-method').value;
+    const customerName = document.getElementById('customer-name').value.trim();
+    const pickupTime = document.getElementById('pickup-time').value.trim();
+    const paymentMethod = document.getElementById('payment-method').value;
 
-    let orderMessage = `Hello! I would like to place an order:%0A%0A`;
-    cart.forEach(item => {
-        orderMessage += `${item.quantity} x ${item.name} = ₱${(item.quantity * item.price).toFixed(0)}%0A`;
-    });
+    if(!customerName) {
+        alert('Please enter your name for pickup.');
+        return;
+    }
+    
+    if(!pickupTime) {
+        alert('Please enter your preferred pick-up time.');
+        return;
+    }
 
-    const total = cart.reduce((a, b) => a + b.price * b.quantity, 0);
-    orderMessage += `%0A--------------------%0ATotal: ₱${total.toFixed(0)}%0AName: ${name}%0APick-up Time: ${time}%0APayment: ${payment}%0A%0AThank you for ordering from Ai-Maize-ing Nachos!`;
+    // Build order message
+    let message = `🌽 *Ai-Maize-ing Nachos Order* 🌽\n\n`;
+    message += `👤 Name: ${customerName}\n`;
+    message += `⏰ Pick-up Time: ${pickupTime}\n`;
+    message += `💰 Payment Method: ${paymentMethod}\n\n`;
+    message += `🛒 *Order Details:*\n`;
 
-    const messengerUserId = '8941907542595225'; // your Page ID
-    const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+    let total = 0;
+    cart.forEach(item => {
+        const itemTotal = item.price * item.quantity;
+        message += `• ${item.quantity}x ${item.name} - ${currencySymbol}${itemTotal.toFixed(0)}\n`;
+        total += itemTotal;
+    });
 
-    let messengerUrl;
-    if (isMobile) {
-        // THIS IS THE FIXED LINE:
-        messengerUrl = `https://m.me/${messengerUserId}?text=${orderMessage}`;
-    } else {
-        messengerUrl = `https://www.messenger.com/t/${messengerUserId}?text=${orderMessage}`;
-    }
+    message += `\n💵 *Total Amount: ${currencySymbol}${total.toFixed(0)}*\n\n`;
+    message += `Please prepare my order. Thank you! 🙌`;
 
-    window.open(messengerUrl, '_blank');
+    // Encode message for URL
+    const encodedMessage = encodeURIComponent(message);
+    
+    // Create Messenger links
+    const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+    let messengerUrl;
+    
+    if (isMobile) {
+        messengerUrl = `https://m.me/${messengerUserId}?text=${encodedMessage}`;
+    } else {
+        messengerUrl = `https://www.messenger.com/t/${messengerUserId}?text=${encodedMessage}`;
+    }
 
-    // ✅ Clear cart & reset UI
-    cart = [];
-    updateCartDisplay();
-    document.getElementById('customer-name').value = '';
-    document.getElementById('pickup-time').value = '';
-    document.getElementById('payment-method').selectedIndex = 0;
-    document.getElementById('cart-popup').style.display = 'none';
-    alert('Your order message is ready in Messenger! Please send it to complete your order.');
+    // Open Messenger
+    window.open(messengerUrl, '_blank');
+    
+    // Show confirmation
+    alert('Your order has been prepared! Please send the message in Messenger to complete your order.');
+    
+    // Clear cart and reset form
+    cart = [];
+    updateCartDisplay();
+    document.getElementById('customer-name').value = '';
+    document.getElementById('pickup-time').value = '';
+    document.getElementById('payment-method').selectedIndex = 0;
+    document.getElementById('cart-popup').style.display = 'none';
 }
 </script>
 
 </body>
 </html>
-
-
-
