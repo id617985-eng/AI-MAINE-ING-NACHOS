@@ -102,7 +102,7 @@ function checkout() {
 
 // Open Messenger app on mobile or fallback to web
 function openMessenger(message) {
-    const mobileLink = `fb-messenger://user-thread/${messengerUserId}?text=${encodeURIComponent(message)}`;
+    const mobileLink = ``https://m.me/${messengerUserId}?text=${encodeURIComponent(message)}`;
     const webLink = `https://m.me/${messengerUserId}?ref=${encodeURIComponent(message)}`;
 
     // Try app first
@@ -145,3 +145,4 @@ function flyToCart(img) {
 // Initialize
 updateCartDisplay();
 </script>
+
