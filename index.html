@@ -129,38 +129,22 @@
 // Cart functionality
 let cart = [];
 const currencySymbol = '₱';
-const messengerUserId = '8941907542595225';
+const messengerUserId = '8941907542595225'; // Replace with your Page/User ID
 
-// Initialize when page loads
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('Page loaded - initializing cart system');
-    
-    // Add event listeners to all Add to Cart buttons
     const addToCartButtons = document.querySelectorAll('.add-to-cart-btn');
-    console.log('Found ' + addToCartButtons.length + ' add to cart buttons');
-    
     addToCartButtons.forEach(button => {
         button.addEventListener('click', function() {
-            console.log('Add to cart clicked');
             addToCart(this);
         });
     });
 
-    // Cart trigger button
     document.getElementById('cart-trigger').addEventListener('click', toggleCart);
-    
-    // Close cart button
     document.querySelector('.close-btn').addEventListener('click', toggleCart);
-    
-    // Checkout button
     document.getElementById('checkout-btn').addEventListener('click', checkout);
-
-    // Custom Alert OK Button
     document.getElementById('custom-alert-ok').addEventListener('click', () => {
         document.getElementById('custom-alert').style.display = 'none';
     });
-    
-    // Initial cart update
     updateCartDisplay();
 });
 
@@ -170,21 +154,14 @@ function showCustomAlert(message) {
 }
 
 function addToCart(btn) {
-    console.log('Add to cart function called');
     const menuItem = btn.closest('.menu-item');
     const name = menuItem.dataset.name;
     const price = parseFloat(menuItem.dataset.price);
     const img = menuItem.querySelector('img');
 
-    console.log('Adding item:', name, 'Price:', price);
-
-    // Check if item already exists in cart
     const existingItem = cart.find(item => item.name === name);
-    if(existingItem) { 
-        existingItem.quantity += 1; 
-    } else { 
-        cart.push({name, price, quantity: 1}); 
-    }
+    if(existingItem) { existingItem.quantity += 1; } 
+    else { cart.push({name, price, quantity: 1}); }
 
     updateCartDisplay();
     animateCartButton();
@@ -198,11 +175,10 @@ function updateCartDisplay() {
     const checkoutBtn = document.getElementById('checkout-btn');
 
     cartItemsList.innerHTML = '';
-    let total = 0;
-    let totalItems = 0;
+    let total = 0, totalItems = 0;
 
     if(cart.length === 0) {
-        cartItemsList.innerHTML = '<li style="text-align: center; color: #666; padding: 20px;">Your cart is empty.</li>';
+        cartItemsList.innerHTML = '<li style="text-align:center;color:#666;padding:20px;">Your cart is empty.</li>';
         checkoutBtn.disabled = true;
         checkoutBtn.style.opacity = '0.6';
     } else {
@@ -233,9 +209,7 @@ function updateCartDisplay() {
 
 function changeQuantity(index, delta) {
     cart[index].quantity += delta;
-    if(cart[index].quantity <= 0) {
-        cart.splice(index, 1);
-    }
+    if(cart[index].quantity <= 0) cart.splice(index, 1);
     updateCartDisplay();
 }
 
@@ -252,12 +226,10 @@ function animateCartButton() {
 
 function flyToCart(img) {
     if(!img) return;
-    
     const cartBtn = document.getElementById('cart-trigger');
     const clone = img.cloneNode(true);
     const rect = img.getBoundingClientRect();
     const cartRect = cartBtn.getBoundingClientRect();
-
     clone.style.position = 'fixed';
     clone.style.left = rect.left + 'px';
     clone.style.top = rect.top + 'px';
@@ -277,9 +249,7 @@ function flyToCart(img) {
     }, 10);
 
     setTimeout(() => {
-        if (clone.parentNode) {
-            document.body.removeChild(clone);
-        }
+        if (clone.parentNode) document.body.removeChild(clone);
     }, 800);
 }
 
@@ -293,17 +263,9 @@ function checkout() {
     const pickupTime = document.getElementById('pickup-time').value.trim();
     const paymentMethod = document.getElementById('payment-method').value;
 
-    if(!customerName) {
-        showCustomAlert('Please enter your name for pickup.');
-        return;
-    }
-    
-    if(!pickupTime) {
-        showCustomAlert('Please enter your preferred pick-up time.');
-        return;
-    }
+    if(!customerName) { showCustomAlert('Please enter your name for pickup.'); return; }
+    if(!pickupTime) { showCustomAlert('Please enter your preferred pick-up time.'); return; }
 
-    // Build order message
     let message = `🌽 *Ai-Maize-ing Nachos Order* 🌽\n\n`;
     message += `👤 Name: ${customerName}\n`;
     message += `⏰ Pick-up Time: ${pickupTime}\n`;
@@ -320,28 +282,21 @@ function checkout() {
     message += `\n💵 *Total Amount: ${currencySymbol}${total.toFixed(0)}*\n\n`;
     message += `Please prepare my order. Thank you! 🙌`;
 
-    // COPY TO CLIPBOARD AND OPEN MESSENGER
     copyToClipboard(message).then(() => {
-        // Success - show confirmation and open Messenger
-        showCustomAlert('✅ Order copied to clipboard! Opening Messenger... Please PASTE your order (tap & hold → Paste) and send it to us.');
-        
-        // Open Messenger after a short delay
-        setTimeout(() => {
+        showCustomAlert('✅ Your order has been copied! Tap OK to open Messenger and paste your order.');
+        document.getElementById('custom-alert-ok').onclick = () => {
+            document.getElementById('custom-alert').style.display = 'none';
             openMessengerDirect();
-        }, 2000);
-        
+        };
     }).catch(err => {
-        // Fallback if clipboard fails
         console.error('Clipboard failed:', err);
-        showCustomAlert('📝 Please manually copy your order and send it to us on Messenger:\n\n' + message);
-        
-        // Still open Messenger
-        setTimeout(() => {
+        showCustomAlert('📝 Please manually copy your order. Tap OK to open Messenger.');
+        document.getElementById('custom-alert-ok').onclick = () => {
+            document.getElementById('custom-alert').style.display = 'none';
             openMessengerDirect();
-        }, 3000);
+        };
     });
 
-    // Clear cart and reset form (keep this outside so it happens regardless of clipboard success)
     cart = [];
     updateCartDisplay();
     document.getElementById('customer-name').value = '';
@@ -350,13 +305,11 @@ function checkout() {
     document.getElementById('cart-popup').style.display = 'none';
 }
 
-// COPY TO CLIPBOARD FUNCTION
+// Clipboard Copy
 function copyToClipboard(text) {
-    // Modern approach with Clipboard API
     if (navigator.clipboard && window.isSecureContext) {
         return navigator.clipboard.writeText(text);
     } else {
-        // Fallback for older browsers
         return new Promise((resolve, reject) => {
             const textArea = document.createElement('textarea');
             textArea.value = text;
@@ -366,15 +319,10 @@ function copyToClipboard(text) {
             document.body.appendChild(textArea);
             textArea.focus();
             textArea.select();
-            
             try {
                 const successful = document.execCommand('copy');
                 document.body.removeChild(textArea);
-                if (successful) {
-                    resolve();
-                } else {
-                    reject(new Error('Unable to copy text'));
-                }
+                successful ? resolve() : reject(new Error('Unable to copy text'));
             } catch (err) {
                 document.body.removeChild(textArea);
                 reject(err);
@@ -383,24 +331,21 @@ function copyToClipboard(text) {
     }
 }
 
-// OPEN MESSENGER DIRECTLY (NO PRE-FILLED MESSAGE)
+// Improved Messenger Redirect
 function openMessengerDirect() {
+    const messengerUserId = '8941907542595225'; // Replace with your actual Page/User ID
+    const messengerAppUrl = `fb-messenger://user-thread/${messengerUserId}`;
+    const messengerWebUrl = `https://m.me/${messengerUserId}`;
+    const messengerDesktopUrl = `https://www.messenger.com/t/${messengerUserId}`;
     const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
-    
+
     if (isMobile) {
-        // Try to open Messenger app directly
-        window.location.href = `fb-messenger://user-thread/${messengerUserId}`;
-        
-        // Fallback to mobile web after a short delay if app doesn't open
+        window.location.href = messengerAppUrl;
         setTimeout(() => {
-            // Check if we're still on the same page (app didn't take over)
-            if (!document.hidden) {
-                window.location.href = `https://m.me/${messengerUserId}`;
-            }
-        }, 500);
+            window.location.href = messengerWebUrl;
+        }, 1200);
     } else {
-        // Desktop - open in new tab
-        window.open(`https://www.messenger.com/t/${messengerUserId}`, '_blank');
+        window.open(messengerDesktopUrl, '_blank');
     }
 }
 </script>
