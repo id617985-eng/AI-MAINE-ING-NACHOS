@@ -10,6 +10,7 @@ body {
   max-width: 1200px;
   margin: 0 auto;
   padding: 20px;
+  box-sizing: border-box; /* Added for better padding control */
 }
 
 /* ===== HEADER STYLES ===== */
@@ -57,6 +58,7 @@ h2 {
   padding: 15px;
   transition: transform 0.25s ease, box-shadow 0.25s ease;
   background: white;
+  box-sizing: border-box; /* Added for better padding control */
 }
 
 .menu-item:hover {
@@ -100,6 +102,14 @@ h2 {
 .menu-item[data-name="Veggie Nachos"] h3 {
   color: #388e3c;
 }
+/* Highlight Shawarma Fries card */
+.menu-item[data-name="Shawarma fries"] {
+  background-color: #fff4e0; /* light warm beige */
+  border: 2px solid #ffb347; /* orange border */
+  border-radius: 12px;
+  padding: 10px;
+}
+
 
 .menu-item[data-name="Overload Cheesy Nachos"] {
   background: linear-gradient(135deg, #fff3e0, #ffe0b2);
@@ -131,6 +141,13 @@ h2 {
 }
 .menu-item[data-name="Supreme Nachos"] h3 {
   color: #c62828;
+}
+/* AI FOODIES item cards */
+#ai-foodies .menu-item {
+  background-color: #fffdf5;
+  border: 1px solid #ffd54f;
+  border-radius: 12px;
+  padding: 10px;
 }
 
 /* === ADD TO CART BUTTON === */
@@ -194,6 +211,7 @@ h2 {
   padding: 15px;
   display: none;
   z-index: 1000;
+  box-sizing: border-box; /* Added for better padding control */
 }
 
 .cart-header {
@@ -326,7 +344,8 @@ h2 {
   }
   
   .menu-item {
-    width: calc(50% - 15px);
+    /* Corrected calculation for 2-column layout with 15px gap */
+    width: calc(50% - 8px); 
   }
   
   #cart-popup {
@@ -338,17 +357,57 @@ h2 {
   .container {
     padding: 10px;
   }
+
+  header p {
+    font-size: 1em; /* Slightly smaller text for tablets */
+  }
 }
 
 @media (max-width: 480px) {
+  .container {
+    padding: 10px 5px; /* Less horizontal padding on small phones */
+  }
+
   .menu-item {
-    width: 100%;
+    width: 100%; /* Full width for easy tapping */
+    padding: 10px; /* Slightly less padding */
   }
   
   header h1 {
     font-size: 1.8em;
   }
+
+  header p {
+    font-size: 0.95em; /* Even smaller text for phones */
+  }
+
+  h2 {
+    font-size: 1.5em; /* Reduce section header size */
+  }
+
+  #cart-popup {
+    /* Make cart popup take more width and move up from cart button */
+    width: 95%;
+    right: 2.5%;
+    bottom: 75px;
+  }
+
+  .cart-header h3 {
+    font-size: 1.1em;
+  }
+
+  #cartitems- li {
+  display: flex;
+  flex-direction: column; /* This stacks the items vertically */
+  align-items: flex-start; /* This aligns them to the left */
+  margin: 12px 0; /* Added more space between items */
+  padding-bottom: 8px; /* Added padding before the border */
+  border-bottom: 1px solid #eee; /* Added a light separator */
+  font-size: 0.95em;
+
+  }
 }
+
 
 /* ===== Custom Alert Modal ===== */
 .modal-overlay {
@@ -375,6 +434,7 @@ h2 {
   max-width: 300px;
   width: 100%;
   z-index: 2001;
+  box-sizing: border-box;
 }
 
 .modal-content p {
@@ -398,3 +458,4 @@ h2 {
 .modal-content button:hover {
   background: linear-gradient(135deg, #ffb74d, #ef6c00);
 }
+
