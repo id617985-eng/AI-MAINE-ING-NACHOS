@@ -105,7 +105,7 @@ h2 {
 /* Highlight Shawarma Fries card */
 .menu-item[data-name="Shawarma fries"] {
   background-color: #fff4e0; /* light warm beige */
-  border: 2px solid #ffb347; /* orange border */
+  border: 2px solid #40ff9c; /* orange border */
   border-radius: 12px;
   padding: 10px;
 }
